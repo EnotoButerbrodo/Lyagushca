@@ -1,15 +1,26 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class Frog : GameActor
 {
     [SerializeField] private JumpHandler _jumpHandler;
-    public override void InitialJump()
+    [SerializeField] private GroundCheckHandler _groundChecker;
+
+
+    public override void ChargeJump()
     {
+        if(_groundChecker.IsGrounded() == false)
+        {
+            return;
+        }
         _jumpHandler.InitialJump();
     }
 
-    public override void PerformJump()
+    public override void StopChargeJump()
     {
-        _jumpHandler.PerformJump();
+        _jumpHandler.StopCharge();
     }
+
+
+
 }

@@ -156,7 +156,7 @@ RectTransform:
   m_Children:
   - {fileID: 1469812513}
   m_Father: {fileID: 2124253808}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -280,7 +280,7 @@ GameObject:
   - component: {fileID: 419758582}
   - component: {fileID: 419758585}
   - component: {fileID: 419758584}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Level_player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -295,7 +295,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 419758581}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -1.15, z: 0}
+  m_LocalPosition: {x: 0, y: -2.84, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -391,7 +391,7 @@ GameObject:
   m_Component:
   - component: {fileID: 463489274}
   - component: {fileID: 463489275}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Background_middle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -770,6 +770,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 883785248}
   m_CullTransparentMesh: 1
+--- !u!1 &1029043132
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1029043134}
+  m_Layer: 0
+  m_Name: GroundChecker
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1029043134
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1029043132}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2124253808}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1034568368
 GameObject:
   m_ObjectHideFlags: 0
@@ -781,6 +812,7 @@ GameObject:
   - component: {fileID: 1034568369}
   - component: {fileID: 1034568370}
   - component: {fileID: 1034568371}
+  - component: {fileID: 1034568372}
   m_Layer: 0
   m_Name: Frog_sprite
   m_TagString: Untagged
@@ -801,7 +833,7 @@ Transform:
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 2124253808}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1034568370
 SpriteRenderer:
@@ -875,6 +907,24 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1034568372
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1034568368}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: add10dee2d0d27040acd0d4398fb85f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _animator: {fileID: 1034568371}
+  _jumpHandler: {fileID: 2124253811}
+  _groundChecker: {fileID: 2124253813}
+  _jumpChargeTriggerName: JumpCharge
+  _jumpTriggerName: Jump
+  _landTriggerName: Land
 --- !u!1 &1117255165
 GameObject:
   m_ObjectHideFlags: 0
@@ -885,7 +935,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1117255167}
   - component: {fileID: 1117255166}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Background_far
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -970,7 +1020,7 @@ GameObject:
   - component: {fileID: 1307028454}
   - component: {fileID: 1307028456}
   - component: {fileID: 1307028455}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Level_player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2015,7 +2065,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1369842664}
   - component: {fileID: 1369842665}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Level
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2054,7 +2104,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.46383858, y: -4.9059906}
+  m_Offset: {x: 0.46383858, y: -6.8898945}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -2065,7 +2115,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 19.696285, y: 3.5332751}
+  m_Size: {x: 19.696285, y: 4.211937}
   m_EdgeRadius: 0
 --- !u!1 &1469812512
 GameObject:
@@ -2235,7 +2285,7 @@ GameObject:
   - component: {fileID: 1558755119}
   - component: {fileID: 1558755121}
   - component: {fileID: 1558755120}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Level_forward
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2510,7 +2560,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2107207749}
   - component: {fileID: 2107207750}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Level_forward
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2525,7 +2575,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2107207748}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -1.15, z: -1}
+  m_LocalPosition: {x: 0, y: -2.84, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2558,6 +2608,7 @@ GameObject:
   - component: {fileID: 2124253809}
   - component: {fileID: 2124253812}
   - component: {fileID: 2124253811}
+  - component: {fileID: 2124253813}
   m_Layer: 0
   m_Name: Frog
   m_TagString: Untagged
@@ -2573,10 +2624,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2124253806}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -3.148, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1029043134}
   - {fileID: 1034568369}
   - {fileID: 140044849}
   m_Father: {fileID: 0}
@@ -2595,8 +2647,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 1.0772146, y: 0.0001}
+  m_Offset: {x: 0, y: 0.0591321}
+  m_Size: {x: 1.0772146, y: 1.1278992}
   m_Direction: 0
 --- !u!50 &2124253810
 Rigidbody2D:
@@ -2632,59 +2684,43 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxChargeTimeInSeconds: 0.5
-  _jumpForceKoeff: 1
+  _jumpForceKoeff: 7
+  _jumpMinPercent: 0
   _jumpForceCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: -0.016665649
-      value: 0.0070668347
-      inSlope: 3.5814426
-      outSlope: 3.5814426
-      tangentMode: 0
+      time: 0.000016276725
+      value: 0.5023585
+      inSlope: 2
+      outSlope: -0.0053685545
+      tangentMode: 65
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.1773573
+      value: 0.50140643
+      inSlope: -0.0053685545
+      outSlope: 1.7433639
+      tangentMode: 5
       weightedMode: 0
       inWeight: 0.33333334
-      outWeight: 0.20491754
+      outWeight: 0.33333334
     - serializedVersion: 3
-      time: 0.27216724
-      value: 0.9225971
-      inSlope: 1.046302
-      outSlope: 1.046302
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.41778532
-    - serializedVersion: 3
-      time: 0.5083333
-      value: 1.0023584
+      time: 1
+      value: 1
       inSlope: 0
       outSlope: 0
-      tangentMode: 136
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.669901
-      value: 0.93265355
-      inSlope: -0.5869885
-      outSlope: -0.5869885
-      tangentMode: 136
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.98333335
-      value: 0.0094425995
-      inSlope: -4.7878127
-      outSlope: -4.7878127
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.10098114
-      outWeight: 0.33333334
+      inWeight: 0
+      outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
   _rigidbody: {fileID: 2124253810}
+  _groundChecker: {fileID: 2124253813}
 --- !u!114 &2124253812
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2698,3 +2734,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _jumpHandler: {fileID: 2124253811}
+  _groundChecker: {fileID: 2124253813}
+--- !u!114 &2124253813
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2124253806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9eb69a31ca7dc114187d1efa16c0224b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _ground:
+    serializedVersion: 2
+    m_Bits: 64
+  _distance: 1

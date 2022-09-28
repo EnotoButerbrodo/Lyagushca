@@ -24,12 +24,12 @@ public class ActionManager : MonoBehaviour
 
     private void OnJumpButtonReleased(InputAction.CallbackContext obj)
     {
-        _actor.PerformJump();
+        _actor.StopChargeJump();
     }
 
     private void OnJumpButtonInitial(InputAction.CallbackContext obj)
     {
-        _actor.InitialJump();
+        _actor.ChargeJump();
     }
 
     private void OnDisable()

@@ -5,26 +5,30 @@ using UnityEngine;
 
 public class JumpHandler : MonoBehaviour
 {
-    public Action JumpChargeBegin;
-    public Action<float> JumpPercentChanged; 
-    public Action JumpChargeEnd;
-    public Action<float> Jumping;
+    public event Action JumpChargeBegin;
+    public event Action<float> JumpPercentChanged; 
+    public event Action JumpChargeEnd;
+    public event Action Jump;
+
+    public event Action<float> VertiacalVelocityChanged;
 
     [SerializeField][Range(0, 10f)] private float _maxChargeTimeInSeconds = 1f;
-    [SerializeField][Range(0, 100f)] private float _jumpForceKoeff;
+    [SerializeField][Range(0, 5f)] private float _jumpForceKoeff;
+    [SerializeField][Range(0,1)] private float _jumpMinPercent;
     [SerializeField] private AnimationCurve _jumpForceCurve;
     [SerializeField] private Rigidbody2D _rigidbody;
+    [SerializeField] private GroundCheckHandler _groundChecker;
 
     private bool _jumpChargeCancelRequst;
     private bool _performJumpCancelRequest;
-    private float _jumpPercent;
+    private float _jumpForcePercent;
 
     private float JumpPercent
     {
-        get => _jumpPercent;
+        get => _jumpForcePercent;
         set
         {
-            _jumpPercent = value;
+            _jumpForcePercent = value;
             JumpPercentChanged?.Invoke(value);
         }
     }
@@ -32,19 +36,34 @@ public class JumpHandler : MonoBehaviour
     private bool _jumping;
     private Vector2 _jumpForce;
 
+    private bool _inited;
     public void InitialJump()
     {
+        if (_groundChecker.IsGrounded() == false)
+        {
+            return;
+        }
         StartCoroutine(JumpChargeHadler());
+        _inited = true;
+        
     }
 
-    public void PerformJump()
+    public void StopCharge()
     {
+        if (_groundChecker.IsGrounded() == false || _inited == false)
+        {
+            return;
+        }
         _jumpChargeCancelRequst = true;
-        StartCoroutine(PerformJumpHandler());
+        Jump?.Invoke();
+        _jumpForce = Vector2.up * _jumpForceCurve.Evaluate(_jumpForcePercent) * _jumpForceKoeff;
+        _rigidbody.AddForce(_jumpForce, ForceMode2D.Impulse);
+        _inited = false;
     }
 
     private IEnumerator JumpChargeHadler()
     {
+
         _jumpChargeCancelRequst = false;
         JumpChargeBegin?.Invoke();
 
@@ -64,36 +83,51 @@ public class JumpHandler : MonoBehaviour
         {
             JumpPercent = 1;
         }
+
         JumpChargeEnd?.Invoke();
 
     }
     private IEnumerator PerformJumpHandler()
     {
-        _jumping = true;
-        _performJumpCancelRequest = false;
+         Jump?.Invoke();
         _jumpForce = Vector2.zero;
+        _performJumpCancelRequest = false;
+        _jumping = true;
 
-        for (float i = 0; i < _jumpPercent; i += Time.deltaTime)
+
+        for (float i = 0; i < _jumpForcePercent; i += Time.deltaTime)
         {
             if (_performJumpCancelRequest)
             {
                 break;
             }
 
-            _jumpForce += Vector2.up * _jumpForceCurve.Evaluate(i/_jumpPercent) * _jumpForceKoeff * Time.deltaTime;
+            _jumpForce = Vector2.up * _jumpForceCurve.Evaluate(i/_jumpForcePercent) * _jumpForceKoeff * Time.deltaTime;
             yield return null;
         }
 
         _jumping = false;
     }
 
+    private void OnLanded()
+    {
+        _performJumpCancelRequest = true;
+    }
+
+    private void OnEnable()
+    {
+        _groundChecker.Landed += OnLanded;
+   
+    }
+
+    private void OnDisable()
+    {
+        _groundChecker.Landed -= OnLanded;
+    }
+
     private void FixedUpdate()
     {
-        if (_jumping)
-        {
-            _rigidbody.MovePosition(_rigidbody.position + _jumpForce);
-            Jumping?.Invoke(_rigidbody.velocity.y);
-        }
+        VertiacalVelocityChanged?.Invoke(_rigidbody.velocity.y);
     }
 
 }

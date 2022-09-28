@@ -2,6 +2,6 @@
 {
     public override void Execute(GameActor actor)
     {
-        actor.InitialJump();
+        actor.ChargeJump();
     }
 }
