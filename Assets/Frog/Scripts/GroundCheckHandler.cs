@@ -4,20 +4,28 @@ using UnityEngine;
 public class GroundCheckHandler : MonoBehaviour
 {
     public event Action Landed;
+    [SerializeField] private BoxCollider2D _collider;
     [SerializeField] private LayerMask _ground;
-    [SerializeField][Range(0, 10f)] private float _distance;
+
+    private Collider2D[] _overlapResult = new Collider2D[1];
     public bool IsGrounded()
-    {
-        if (Physics2D.Raycast(transform.position, Vector2.down, _distance, _ground))
+    { 
+        if(Physics2D.OverlapBoxNonAlloc(_collider.bounds.center, _collider.bounds.size, 0, _overlapResult, _ground) == 0)
+        {
+            return false;
+        }
+        else
         {
             return true;
         }
-        return false;
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        Landed?.Invoke();
+        if ((_ground.value & (1 << collision.gameObject.layer)) > 0)
+        {
+            Landed?.Invoke();
+        }
     }
 
 
