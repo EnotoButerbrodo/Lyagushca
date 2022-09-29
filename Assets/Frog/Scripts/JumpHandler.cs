@@ -13,9 +13,11 @@ public class JumpHandler : MonoBehaviour
     public event Action<float> VertiacalVelocityChanged;
 
     [SerializeField][Range(0, 10f)] private float _maxChargeTimeInSeconds = 1f;
-    [SerializeField][Range(0, 5f)] private float _jumpForceKoeff;
-    [SerializeField][Range(0,1)] private float _jumpMinPercent;
-    [SerializeField] private AnimationCurve _jumpForceCurve;
+    [SerializeField][Range(0, 50f)] private float _jumpHeightKoeff;
+    [SerializeField][Range(0, 50f)] private float _jumpRangeKoeff;
+
+    [SerializeField] private AnimationCurve _jumpHeightCurve;
+    [SerializeField] private AnimationCurve _jumpRangeCurve;
     [SerializeField] private Rigidbody2D _rigidbody;
     [SerializeField] private GroundCheckHandler _groundChecker;
 
@@ -56,8 +58,11 @@ public class JumpHandler : MonoBehaviour
         }
         _jumpChargeCancelRequst = true;
         Jump?.Invoke();
-        _jumpForce = Vector2.up * _jumpForceCurve.Evaluate(_jumpForcePercent) * _jumpForceKoeff;
+        _jumpForce = Vector2.up * _jumpHeightCurve.Evaluate(_jumpForcePercent) * _jumpHeightKoeff;
+        _jumpForce += Vector2.right * _jumpRangeCurve.Evaluate(_jumpForcePercent) * _jumpRangeKoeff;
+
         _rigidbody.AddForce(_jumpForce, ForceMode2D.Impulse);
+        
         _inited = false;
     }
 
@@ -86,27 +91,6 @@ public class JumpHandler : MonoBehaviour
 
         JumpChargeEnd?.Invoke();
 
-    }
-    private IEnumerator PerformJumpHandler()
-    {
-         Jump?.Invoke();
-        _jumpForce = Vector2.zero;
-        _performJumpCancelRequest = false;
-        _jumping = true;
-
-
-        for (float i = 0; i < _jumpForcePercent; i += Time.deltaTime)
-        {
-            if (_performJumpCancelRequest)
-            {
-                break;
-            }
-
-            _jumpForce = Vector2.up * _jumpForceCurve.Evaluate(i/_jumpForcePercent) * _jumpForceKoeff * Time.deltaTime;
-            yield return null;
-        }
-
-        _jumping = false;
     }
 
     private void OnLanded()

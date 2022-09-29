@@ -2684,25 +2684,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxChargeTimeInSeconds: 0.5
-  _jumpForceKoeff: 7
-  _jumpMinPercent: 0
-  _jumpForceCurve:
+  _jumpHeightKoeff: 7
+  _jumpHeightCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: 0.000016276725
-      value: 0.5023585
+      time: 0
+      value: 0.5
       inSlope: 2
-      outSlope: -0.0053685545
+      outSlope: 0
       tangentMode: 65
       weightedMode: 0
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
-      time: 0.1773573
-      value: 0.50140643
-      inSlope: -0.0053685545
-      outSlope: 1.7433639
+      time: 0.25
+      value: 0.5
+      inSlope: -0
+      outSlope: 1.4427738
       tangentMode: 5
       weightedMode: 0
       inWeight: 0.33333334
@@ -2713,6 +2712,30 @@ MonoBehaviour:
       inSlope: 0
       outSlope: 0
       tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _jumpRangeCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
       weightedMode: 0
       inWeight: 0
       outWeight: 0
