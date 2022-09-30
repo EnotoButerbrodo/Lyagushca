@@ -3,9 +3,39 @@ using Unity.VisualScripting;
 using UnityEngine;
 public class Frog : GameActor
 {
-    public override event Action Jump;
-    public override event Action Land;
-    public override event Action Die;
+    public override event Action Jump
+    {
+        add
+        {
+            _jumpHandler.Jump += value;
+        }
+        remove
+        {
+            _jumpHandler.Jump -= value;
+        }
+    }
+    public override event Action Land
+    {
+        add
+        {
+            _groundChecker.Landed += value;
+        }
+        remove
+        {
+            _groundChecker.Landed -= value;
+        }
+    }
+    public override event Action Die
+    {
+        add
+        {
+            _dieHandler.Dead += value;
+        }
+        remove
+        {
+            _dieHandler.Dead -= value;
+        }
+    }
 
     [SerializeField] private JumpHandler _jumpHandler;
     [SerializeField] private GroundCheckHandler _groundChecker;
@@ -26,36 +56,5 @@ public class Frog : GameActor
     {
         _jumpHandler.StopCharge();
     }
-
-    private void OnJump()
-    {
-        Jump?.Invoke();
-    }
-
-    private void OnLand()
-    {
-        Land?.Invoke();
-    }
-
-    private void OnDead()
-    {
-        Die?.Invoke();
-        Debug.Log("Frog died");
-    }
-
-    private void OnEnable()
-    {
-        _jumpHandler.Jump += OnJump;
-        _groundChecker.Landed += OnLand;
-        _dieHandler.Dead += OnDead;
-    }
-
-    private void OnDisable()
-    {
-        _jumpHandler.Jump -= OnJump;
-        _groundChecker.Landed -= OnLand;
-        _dieHandler.Dead -= OnDead;
-    }
-
 
 }
