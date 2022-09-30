@@ -18,20 +18,31 @@ public class ScoreCounter : MonoBehaviour
     private int _unconfirmScore;
 
     private bool _scoreCounting;
+
+    public void Reset()
+    {
+        _scoreCounting = false;
+        _startPosition = _target.transform.position;
+        Score = 0;
+        _unconfirmScore = 0;
+        ScoreConfirmed?.Invoke(0);
+    }
+
     private void Awake()
     {
-        _startPosition = _target.transform.position;
+        Reset();
     }
+
     private void OnEnable()
     {
         _target.Jump += OnJump;
-        _target.Land += OnLand;
+        _target.GroundLand += OnLand;
     }
 
     private void OnDisable()
     {
         _target.Jump -= OnJump;
-        _target.Land -= OnLand;
+        _target.GroundLand -= OnLand;
     }
 
     private void OnJump()

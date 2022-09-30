@@ -14,7 +14,7 @@ public class Frog : GameActor
             _jumpHandler.Jump -= value;
         }
     }
-    public override event Action Land
+    public override event Action GroundLand
     {
         add
         {
@@ -25,7 +25,7 @@ public class Frog : GameActor
             _groundChecker.Landed -= value;
         }
     }
-    public override event Action Die
+    public override event Action Dead
     {
         add
         {
@@ -57,4 +57,8 @@ public class Frog : GameActor
         _jumpHandler.StopCharge();
     }
 
+    public override void ResetGameActor()
+    {
+        GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+    }
 }
