@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
 
 public class JumpHandler : MonoBehaviour
@@ -13,6 +14,7 @@ public class JumpHandler : MonoBehaviour
     public event Action<float> VertiacalVelocityChanged;
 
     [SerializeField][Range(0, 10f)] private float _maxChargeTimeInSeconds = 1f;
+    [SerializeField] private int _ticksCount = 20;
     [SerializeField][Range(0, 50f)] private float _jumpHeightKoeff;
     [SerializeField][Range(0, 50f)] private float _jumpRangeKoeff;
 
@@ -70,23 +72,30 @@ public class JumpHandler : MonoBehaviour
 
         _jumpChargeCancelRequst = false;
         JumpChargeBegin?.Invoke();
-
-        for (float i = 0; i < _maxChargeTimeInSeconds; i += Time.deltaTime)
+        Stopwatch stopwatch = new Stopwatch();
+        stopwatch.Start();
+        float time = _maxChargeTimeInSeconds / _ticksCount;
+        WaitForSeconds waiter = new WaitForSeconds(time);
+        for (float i = 0; i < _ticksCount; i += 1f)
         {
             if (_jumpChargeCancelRequst)
             {
                 break;
             }
 
-            JumpPercent = i / _maxChargeTimeInSeconds;
+            JumpPercent = i / _ticksCount;
 
-            yield return null;
+
+            yield return waiter;
         }
 
         if (_jumpChargeCancelRequst == false)
         {
             JumpPercent = 1;
+            
         }
+        stopwatch.Stop();
+        UnityEngine.Debug.Log(stopwatch.ElapsedMilliseconds);
 
         JumpChargeEnd?.Invoke();
 
