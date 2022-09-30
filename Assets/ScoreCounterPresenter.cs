@@ -9,18 +9,17 @@ public class ScoreCounterPresenter : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _unconfirmedScoreText;
     [SerializeField][Range(0, 1f)] private float _scoreAddDelay;
 
-    private void ScoreConfirmed(int oldScore, int additionalScore)
+    private void ScoreConfirmed(int score)
     {
-         
-        _confirmedScoreText.text = (_counter.Score + additionalScore).ToString();
-        _unconfirmedScoreText.text = "+0";
-        
+        _confirmedScoreText.text = score.ToString();
+        _unconfirmedScoreText.text = null;
     }
+
+   
     private void UnconfirmedScoreChanged(int score)
     {
         if(score == 0) 
         {
-            _unconfirmedScoreText.enabled = true;
             return;
         }
         _unconfirmedScoreText.text = "+ " + score.ToString();

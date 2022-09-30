@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class ScoreCounter : MonoBehaviour
 {
-    public delegate void ScoreConfirmedDelegate(int oldScore, int additionalScore);
+    public delegate void ScoreConfirmedDelegate(int score);
 
     public Action<int> UnconfirmScoreChanged;
     public event ScoreConfirmedDelegate ScoreConfirmed;
@@ -42,10 +42,10 @@ public class ScoreCounter : MonoBehaviour
     }
     private void OnLand()
     {
-        Debug.Log("Score Confirmed");
         _scoreCounting = false;
-        ScoreConfirmed?.Invoke(Score, _unconfirmScore);
         Score += _unconfirmScore;
+
+        ScoreConfirmed?.Invoke(Score);
     }
 
     private void FixedUpdate()
