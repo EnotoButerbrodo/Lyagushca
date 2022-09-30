@@ -22,7 +22,6 @@ public class JumpHandler : MonoBehaviour
     [SerializeField] private GroundCheckHandler _groundChecker;
 
     private bool _jumpChargeCancelRequst;
-    private bool _performJumpCancelRequest;
     private float _jumpForcePercent;
 
     private float JumpPercent
@@ -93,21 +92,7 @@ public class JumpHandler : MonoBehaviour
 
     }
 
-    private void OnLanded()
-    {
-        _performJumpCancelRequest = true;
-    }
 
-    private void OnEnable()
-    {
-        _groundChecker.Landed += OnLanded;
-   
-    }
-
-    private void OnDisable()
-    {
-        _groundChecker.Landed -= OnLanded;
-    }
 
     private void FixedUpdate()
     {

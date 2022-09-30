@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3098092553837674761}
   - component: {fileID: 3098092553837674758}
   - component: {fileID: 3098092553837674759}
-  - component: {fileID: 7903059851732967126}
+  - component: {fileID: 3777817306305034430}
   m_Layer: 6
   m_Name: Chunk_4
   m_TagString: Untagged
@@ -368,8 +368,8 @@ TilemapRenderer:
   m_Mode: 0
   m_DetectChunkCullingBounds: 0
   m_MaskInteraction: 0
---- !u!19719996 &7903059851732967126
-TilemapCollider2D:
+--- !u!61 &3777817306305034430
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -381,6 +381,16 @@ TilemapCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_MaximumTileChangeCount: 1000
-  m_ExtrusionFactor: 0.00001
+  m_Offset: {x: 5.459268, y: -4.1615}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 10.861463, y: 0.45914555}
+  m_EdgeRadius: 0

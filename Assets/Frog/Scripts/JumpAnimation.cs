@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-
 public class JumpAnimation : MonoBehaviour
 {
     [SerializeField] private Animator _animator;
