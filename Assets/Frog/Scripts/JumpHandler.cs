@@ -72,10 +72,11 @@ public class JumpHandler : MonoBehaviour
 
         _jumpChargeCancelRequst = false;
         JumpChargeBegin?.Invoke();
-        Stopwatch stopwatch = new Stopwatch();
-        stopwatch.Start();
-        float time = _maxChargeTimeInSeconds / _ticksCount;
-        WaitForSeconds waiter = new WaitForSeconds(time);
+        _rigidbody.drag = 10;
+        float waitTime = _maxChargeTimeInSeconds / _ticksCount;
+
+        WaitForSeconds waiter = new WaitForSeconds(waitTime);
+
         for (float i = 0; i < _ticksCount; i += 1f)
         {
             if (_jumpChargeCancelRequst)
@@ -94,9 +95,7 @@ public class JumpHandler : MonoBehaviour
             JumpPercent = 1;
             
         }
-        stopwatch.Stop();
-        UnityEngine.Debug.Log(stopwatch.ElapsedMilliseconds);
-
+        _rigidbody.drag = 0;
         JumpChargeEnd?.Invoke();
 
     }

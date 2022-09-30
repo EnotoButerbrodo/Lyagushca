@@ -9,7 +9,7 @@ public class JumpSound : MonoBehaviour
 
     private void OnJump()
     {
-        _audioSource.pitch = Random.Range(0.9f, 1.1f);
+        _audioSource.pitch = Random.Range(0.8f, 1.2f);
         _audioSource.PlayOneShot(_sounds[Random.Range(0, _sounds.Count)]);
     }
 

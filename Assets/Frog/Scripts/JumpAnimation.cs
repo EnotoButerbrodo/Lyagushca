@@ -21,6 +21,7 @@ public class JumpAnimation : MonoBehaviour
     private void OnLand()
     {
         _animator.SetTrigger(_landTriggerName);
+        _animator.ResetTrigger(_jumpChargeTriggerName);
     }
 
     private void OnVerticalVelocityChanged(float verticalVelocity)

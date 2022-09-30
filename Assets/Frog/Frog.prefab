@@ -301,7 +301,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ed0f099b5b6d4b4da5dd734eee64cef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxChargeTimeInSeconds: 0.75
+  _maxChargeTimeInSeconds: 0.5
+  _ticksCount: 10
   _jumpHeightKoeff: 7
   _jumpRangeKoeff: 4.25
   _jumpHeightCurve:
@@ -350,8 +351,17 @@ MonoBehaviour:
       inWeight: 0.33333334
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 1
-      value: 1
+      time: 0.72830784
+      value: 0.99533236
+      inSlope: 0.39028132
+      outSlope: 0.011854946
+      tangentMode: 65
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.99139404
+      value: 0.99845123
       inSlope: 0.07206977
       outSlope: 0.07206977
       tangentMode: 0
@@ -375,9 +385,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3ac90a69c86aa04c87f97fa6f359866, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _dieLayer:
-    serializedVersion: 2
-    m_Bits: 128
 --- !u!70 &5148772177827140246
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -391,8 +398,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.0591321}
-  m_Size: {x: 1.0772146, y: 1.1278992}
+  m_Offset: {x: 0, y: 0.0635156}
+  m_Size: {x: 1.0772146, y: 1.1191322}
   m_Direction: 0
 --- !u!50 &5148772177827140245
 Rigidbody2D:
@@ -690,7 +697,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.028872728, y: -0.5305332}
+  m_Offset: {x: 0.0034782887, y: -0.5179103}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -701,7 +708,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.0577455, y: 0.08329654}
+  m_Size: {x: 0.6954522, y: 0.037141234}
   m_EdgeRadius: 0
 --- !u!1 &5148772178954213975
 GameObject:
