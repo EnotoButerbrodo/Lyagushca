@@ -242,10 +242,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5148772177827140247}
-  - component: {fileID: 5148772177827140245}
-  - component: {fileID: 5148772177827140246}
   - component: {fileID: 5148772177827140243}
   - component: {fileID: 5148772177827140244}
+  - component: {fileID: 6118376528676689}
+  - component: {fileID: 5148772177827140246}
+  - component: {fileID: 5148772177827140245}
   - component: {fileID: 2437672648540485056}
   - component: {fileID: 819678787638134575}
   m_Layer: 0
@@ -273,43 +274,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!50 &5148772177827140245
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5148772177827140233}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 6200000, guid: 8345f7520013f18459a1c6668473a040, type: 2}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 4
---- !u!70 &5148772177827140246
-CapsuleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5148772177827140233}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 6200000, guid: 8345f7520013f18459a1c6668473a040, type: 2}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.0591321}
-  m_Size: {x: 1.0772146, y: 1.1278992}
-  m_Direction: 0
 --- !u!114 &5148772177827140243
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -324,6 +288,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _jumpHandler: {fileID: 5148772177827140244}
   _groundChecker: {fileID: 6891003670882146254}
+  _dieHandler: {fileID: 6118376528676689}
 --- !u!114 &5148772177827140244
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -398,6 +363,58 @@ MonoBehaviour:
     m_RotationOrder: 4
   _rigidbody: {fileID: 5148772177827140245}
   _groundChecker: {fileID: 6891003670882146254}
+--- !u!114 &6118376528676689
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5148772177827140233}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3ac90a69c86aa04c87f97fa6f359866, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _dieLayer:
+    serializedVersion: 2
+    m_Bits: 128
+--- !u!70 &5148772177827140246
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5148772177827140233}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 6200000, guid: 8345f7520013f18459a1c6668473a040, type: 2}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0.0591321}
+  m_Size: {x: 1.0772146, y: 1.1278992}
+  m_Direction: 0
+--- !u!50 &5148772177827140245
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5148772177827140233}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 6200000, guid: 8345f7520013f18459a1c6668473a040, type: 2}
+  m_Interpolate: 0
+  m_SleepingMode: 0
+  m_CollisionDetection: 1
+  m_Constraints: 4
 --- !u!82 &2437672648540485056
 AudioSource:
   m_ObjectHideFlags: 0
@@ -410,7 +427,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.3
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -510,7 +527,6 @@ MonoBehaviour:
   _audioSource: {fileID: 2437672648540485056}
   _sounds:
   - {fileID: 8300000, guid: 765828436b456fd45843e3e87ff77ce9, type: 3}
-  - {fileID: 8300000, guid: 5279cb471f11693489abe3cb020086c0, type: 3}
 --- !u!1 &5148772178183353047
 GameObject:
   m_ObjectHideFlags: 0
