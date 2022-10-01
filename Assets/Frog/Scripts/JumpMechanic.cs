@@ -42,7 +42,17 @@ public class JumpMechanic : MonoBehaviour
 
         _actor.GroundLand += OnActorLand;
         _chargeHandler.Charged += OnCharged;
-    } 
+    }
+    
+    private void Jump(float percent)
+    {
+        if (_canJump)
+        {
+            _actor.Jump(percent);
+            _chargeHandler.Reset();
+            _canJump = false;
+        }
+    }
 
     private void OnChargePressed(InputAction.CallbackContext obj)
     {
@@ -63,11 +73,7 @@ public class JumpMechanic : MonoBehaviour
 
         if (_actor.Grounded)
         {
-            if (_canJump)
-            {
-                _actor.Jump(_chargeHandler.ChargePercent);
-                _canJump = false;
-            }
+            Jump(_chargeHandler.ChargePercent);
             _chargeHandler.Reset();
             HasAutoJump = false;
         }
@@ -99,13 +105,8 @@ public class JumpMechanic : MonoBehaviour
     private IEnumerator DelayedJump()
     {
         yield return new WaitForSeconds(_jumpsDelay);
-        if (_canJump)
-        {
-            _actor.Jump(_savedJumpPercent);
-            _canJump = false;
-        }
-        _chargeHandler.StopCharge();
-        _chargeHandler.Reset();
+        Jump(_savedJumpPercent);
+
         HasAutoJump = false;
     }
 
