@@ -1,13 +1,9 @@
 ﻿using System;
 using Unity.VisualScripting;
 using UnityEngine;
+
 public class Frog : GameActor
 {
-    public override event Action JumpChargeBegin
-    {
-        add => _jumpChargeHandler.Charged += value;
-        remove => _jumpChargeHandler.Charged -= value;
-    }
     public override event Action Jumped
     {
         add => _jumpHandler.Jumped += value;
@@ -26,7 +22,6 @@ public class Frog : GameActor
 
     public override bool Grounded => _groundChecker.IsGrounded();
 
-    [SerializeField] private JumpChargeHandler _jumpChargeHandler;
     [SerializeField] private JumpHandler _jumpHandler;
     [SerializeField] private GroundCheckHandler _groundChecker;
     [SerializeField] private DieHandler _dieHandler;
@@ -34,25 +29,14 @@ public class Frog : GameActor
     //Буффер действий
 
     private Rigidbody2D _rigidbody2D => GetComponent<Rigidbody2D>();
-   
 
-    public override void ChargeJump()
+    public override void Jump(float chargePercent)
     {
-        _state = GameActorState.JumpCharging;
-
-        _jumpChargeHandler.StartCharge();
-    }
-
-    public override void Jump()
-    {
-        _jumpChargeHandler.StopCharge();
-
-        if (_groundChecker.IsGrounded() == false || _state != GameActorState.JumpCharging)
+        if (_groundChecker.IsGrounded() == false)
         {
             return;
         }
-        _jumpHandler.Jump(_jumpChargeHandler.ChargePercent);
-        _jumpChargeHandler.Reset();
+        _jumpHandler.Jump(chargePercent);
     }
 
     public override void ResetGameActor()
@@ -63,10 +47,6 @@ public class Frog : GameActor
     private void OnLand()
     {
         _rigidbody2D.velocity = Vector2.zero;
-        if(_jumpChargeHandler.ChargePercent > 0)
-        {
-            Jump();
-        }
     }
 
     private void Awake()

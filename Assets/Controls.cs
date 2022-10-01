@@ -24,11 +24,11 @@ public partial class @Controls : IInputActionCollection2, IDisposable
     ""name"": ""Controls"",
     ""maps"": [
         {
-            ""name"": ""Keyboard"",
+            ""name"": ""Default"",
             ""id"": ""64e5ab96-9692-4612-ae3c-8f6d13492bb0"",
             ""actions"": [
                 {
-                    ""name"": ""InitialJump"",
+                    ""name"": ""ChargePressed"",
                     ""type"": ""Button"",
                     ""id"": ""ed68e69c-4a65-43f2-83b0-074779d04f3b"",
                     ""expectedControlType"": ""Button"",
@@ -37,7 +37,7 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""PerformJump"",
+                    ""name"": ""ChargeReleased"",
                     ""type"": ""Button"",
                     ""id"": ""f6c96b9e-83a5-4ff9-8502-4ac12c39e51d"",
                     ""expectedControlType"": ""Button"",
@@ -54,7 +54,18 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
-                    ""action"": ""InitialJump"",
+                    ""action"": ""ChargePressed"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f7432c3d-36dd-48f2-bc83-3adc683f95d9"",
+                    ""path"": ""<Touchscreen>/Press"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ChargePressed"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -65,7 +76,18 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""PerformJump"",
+                    ""action"": ""ChargeReleased"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""fddb9b56-79f1-4f50-b41a-57411ff7686e"",
+                    ""path"": ""<Touchscreen>/Press"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ChargeReleased"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -80,10 +102,10 @@ public partial class @Controls : IInputActionCollection2, IDisposable
         }
     ]
 }");
-        // Keyboard
-        m_Keyboard = asset.FindActionMap("Keyboard", throwIfNotFound: true);
-        m_Keyboard_InitialJump = m_Keyboard.FindAction("InitialJump", throwIfNotFound: true);
-        m_Keyboard_PerformJump = m_Keyboard.FindAction("PerformJump", throwIfNotFound: true);
+        // Default
+        m_Default = asset.FindActionMap("Default", throwIfNotFound: true);
+        m_Default_ChargePressed = m_Default.FindAction("ChargePressed", throwIfNotFound: true);
+        m_Default_ChargeReleased = m_Default.FindAction("ChargeReleased", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -140,46 +162,46 @@ public partial class @Controls : IInputActionCollection2, IDisposable
         return asset.FindBinding(bindingMask, out action);
     }
 
-    // Keyboard
-    private readonly InputActionMap m_Keyboard;
-    private IKeyboardActions m_KeyboardActionsCallbackInterface;
-    private readonly InputAction m_Keyboard_InitialJump;
-    private readonly InputAction m_Keyboard_PerformJump;
-    public struct KeyboardActions
+    // Default
+    private readonly InputActionMap m_Default;
+    private IDefaultActions m_DefaultActionsCallbackInterface;
+    private readonly InputAction m_Default_ChargePressed;
+    private readonly InputAction m_Default_ChargeReleased;
+    public struct DefaultActions
     {
         private @Controls m_Wrapper;
-        public KeyboardActions(@Controls wrapper) { m_Wrapper = wrapper; }
-        public InputAction @InitialJump => m_Wrapper.m_Keyboard_InitialJump;
-        public InputAction @PerformJump => m_Wrapper.m_Keyboard_PerformJump;
-        public InputActionMap Get() { return m_Wrapper.m_Keyboard; }
+        public DefaultActions(@Controls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @ChargePressed => m_Wrapper.m_Default_ChargePressed;
+        public InputAction @ChargeReleased => m_Wrapper.m_Default_ChargeReleased;
+        public InputActionMap Get() { return m_Wrapper.m_Default; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
         public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(KeyboardActions set) { return set.Get(); }
-        public void SetCallbacks(IKeyboardActions instance)
+        public static implicit operator InputActionMap(DefaultActions set) { return set.Get(); }
+        public void SetCallbacks(IDefaultActions instance)
         {
-            if (m_Wrapper.m_KeyboardActionsCallbackInterface != null)
+            if (m_Wrapper.m_DefaultActionsCallbackInterface != null)
             {
-                @InitialJump.started -= m_Wrapper.m_KeyboardActionsCallbackInterface.OnInitialJump;
-                @InitialJump.performed -= m_Wrapper.m_KeyboardActionsCallbackInterface.OnInitialJump;
-                @InitialJump.canceled -= m_Wrapper.m_KeyboardActionsCallbackInterface.OnInitialJump;
-                @PerformJump.started -= m_Wrapper.m_KeyboardActionsCallbackInterface.OnPerformJump;
-                @PerformJump.performed -= m_Wrapper.m_KeyboardActionsCallbackInterface.OnPerformJump;
-                @PerformJump.canceled -= m_Wrapper.m_KeyboardActionsCallbackInterface.OnPerformJump;
+                @ChargePressed.started -= m_Wrapper.m_DefaultActionsCallbackInterface.OnChargePressed;
+                @ChargePressed.performed -= m_Wrapper.m_DefaultActionsCallbackInterface.OnChargePressed;
+                @ChargePressed.canceled -= m_Wrapper.m_DefaultActionsCallbackInterface.OnChargePressed;
+                @ChargeReleased.started -= m_Wrapper.m_DefaultActionsCallbackInterface.OnChargeReleased;
+                @ChargeReleased.performed -= m_Wrapper.m_DefaultActionsCallbackInterface.OnChargeReleased;
+                @ChargeReleased.canceled -= m_Wrapper.m_DefaultActionsCallbackInterface.OnChargeReleased;
             }
-            m_Wrapper.m_KeyboardActionsCallbackInterface = instance;
+            m_Wrapper.m_DefaultActionsCallbackInterface = instance;
             if (instance != null)
             {
-                @InitialJump.started += instance.OnInitialJump;
-                @InitialJump.performed += instance.OnInitialJump;
-                @InitialJump.canceled += instance.OnInitialJump;
-                @PerformJump.started += instance.OnPerformJump;
-                @PerformJump.performed += instance.OnPerformJump;
-                @PerformJump.canceled += instance.OnPerformJump;
+                @ChargePressed.started += instance.OnChargePressed;
+                @ChargePressed.performed += instance.OnChargePressed;
+                @ChargePressed.canceled += instance.OnChargePressed;
+                @ChargeReleased.started += instance.OnChargeReleased;
+                @ChargeReleased.performed += instance.OnChargeReleased;
+                @ChargeReleased.canceled += instance.OnChargeReleased;
             }
         }
     }
-    public KeyboardActions @Keyboard => new KeyboardActions(this);
+    public DefaultActions @Default => new DefaultActions(this);
     private int m_KeyboardSchemeIndex = -1;
     public InputControlScheme KeyboardScheme
     {
@@ -189,9 +211,9 @@ public partial class @Controls : IInputActionCollection2, IDisposable
             return asset.controlSchemes[m_KeyboardSchemeIndex];
         }
     }
-    public interface IKeyboardActions
+    public interface IDefaultActions
     {
-        void OnInitialJump(InputAction.CallbackContext context);
-        void OnPerformJump(InputAction.CallbackContext context);
+        void OnChargePressed(InputAction.CallbackContext context);
+        void OnChargeReleased(InputAction.CallbackContext context);
     }
 }

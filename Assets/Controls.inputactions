@@ -2,11 +2,11 @@
     "name": "Controls",
     "maps": [
         {
-            "name": "Keyboard",
+            "name": "Default",
             "id": "64e5ab96-9692-4612-ae3c-8f6d13492bb0",
             "actions": [
                 {
-                    "name": "InitialJump",
+                    "name": "ChargePressed",
                     "type": "Button",
                     "id": "ed68e69c-4a65-43f2-83b0-074779d04f3b",
                     "expectedControlType": "Button",
@@ -15,7 +15,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "PerformJump",
+                    "name": "ChargeReleased",
                     "type": "Button",
                     "id": "f6c96b9e-83a5-4ff9-8502-4ac12c39e51d",
                     "expectedControlType": "Button",
@@ -32,7 +32,18 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard",
-                    "action": "InitialJump",
+                    "action": "ChargePressed",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f7432c3d-36dd-48f2-bc83-3adc683f95d9",
+                    "path": "<Touchscreen>/Press",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ChargePressed",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -43,7 +54,18 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "PerformJump",
+                    "action": "ChargeReleased",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "fddb9b56-79f1-4f50-b41a-57411ff7686e",
+                    "path": "<Touchscreen>/Press",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ChargeReleased",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

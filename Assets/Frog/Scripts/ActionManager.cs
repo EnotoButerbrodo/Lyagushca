@@ -8,6 +8,7 @@ public class ActionManager : MonoBehaviour
 {
     [SerializeField] Controls _controls;
     [SerializeField] GameActor _actor;
+    [SerializeField] private JumpChargeHandler _jumpChargeHandler;
     
 
     private void Awake()
@@ -15,21 +16,15 @@ public class ActionManager : MonoBehaviour
         _controls = new Controls();
     }
 
-    private void OnEnable()
-    {
-        _controls.Enable();
-        _controls.Keyboard.InitialJump.performed += OnJumpButtonInitial;
-        _controls.Keyboard.PerformJump.performed += OnJumpButtonReleased;
-    }
 
     private void OnJumpButtonReleased(InputAction.CallbackContext obj)
     {
-        _actor.Jump();
+        //_actor.Jump();
     }
 
     private void OnJumpButtonInitial(InputAction.CallbackContext obj)
     {
-        _actor.ChargeJump();
+        _jumpChargeHandler.StartCharge();
     }
 
     private void OnDisable()
