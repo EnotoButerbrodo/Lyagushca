@@ -10,9 +10,10 @@ public class JumpMechanic : MonoBehaviour
     [SerializeField] private JumpChargeHandler _chargeHandler;
     [SerializeField][Range(0, 1f)] private float _jumpsDelay;
 
-    private JumpCommand _jumpBuffer;
+    private JumpCommandBuffer _jumpsBuffer = new JumpCommandBuffer();
 
     [SerializeField] private int _combo;
+
 
     //Получить запрос на прыжок
     //Если в воздухе - начать зарядку
@@ -31,8 +32,6 @@ public class JumpMechanic : MonoBehaviour
         _controls.Default.ChargeReleased.performed += OnChargeReleased;
 
         _actor.GroundLand += OnActorLand;
-        //_controls.Keyboard.InitialJump.performed += OnJumpButtonInitial;
-        //_controls.Keyboard.PerformJump.performed += OnJumpButtonReleased;
     }
 
     private void OnChargePressed(InputAction.CallbackContext obj)
@@ -42,30 +41,51 @@ public class JumpMechanic : MonoBehaviour
 
     private void OnChargeReleased(InputAction.CallbackContext obj)
     {
-        _jumpBuffer = new JumpCommand(_chargeHandler.ChargePercent);
         _chargeHandler.StopCharge();
-        if(_actor.Grounded)
+        JumpCommand jump = new JumpCommand(_chargeHandler.ChargePercent);
+        if (_actor.Grounded)
         {
-            _jumpBuffer.Execute(_actor);
+            jump.Execute(_actor);
             _chargeHandler.Reset();
-            _jumpBuffer = null;
         }
+        else
+        {
+            _jumpsBuffer.Buffer(jump);
+        }
+    }
+    private IEnumerator JumpCoroutine(JumpCommand jump)
+    {
+        yield return new WaitForSeconds(_jumpsDelay);
+        jump.Execute(_actor);
+        _chargeHandler.Reset();
+        
     }
 
     private void OnActorLand()
     { 
-        if (_jumpBuffer != null)
+        if (_jumpsBuffer.Buffered)
         {
-            StartCoroutine(AutoJumpCoroutine());
+            StartCoroutine(JumpCoroutine(_jumpsBuffer.Get()));
         }
     }
 
-    private IEnumerator AutoJumpCoroutine()
+}
+
+public class JumpCommandBuffer
+{
+    public bool Buffered { get; private set; }
+    private JumpCommand _jumpCommand;
+
+    public void Buffer(JumpCommand jumpCommand)
     {
-        yield return new WaitForSeconds(_jumpsDelay);
-        _jumpBuffer.Execute(_actor);
-        _jumpBuffer = null;
-        _chargeHandler.Reset();
+        _jumpCommand = jumpCommand;
+        Buffered = true;
     }
 
+    public JumpCommand Get()
+    {
+        Buffered = false;
+        return _jumpCommand;
+    }
 }
+
