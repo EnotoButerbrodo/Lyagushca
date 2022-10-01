@@ -239,6 +239,7 @@ GameObject:
   - component: {fileID: 173080736}
   - component: {fileID: 173080737}
   - component: {fileID: 173080738}
+  - component: {fileID: 173080739}
   m_Layer: 0
   m_Name: ====GameLogic====
   m_TagString: Untagged
@@ -324,6 +325,20 @@ MonoBehaviour:
   _chargeHandler: {fileID: 1606963907}
   _jumpsDelay: 0.15
   _combo: 0
+--- !u!114 &173080739
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 173080733}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40d639c2a4bb89c4fa01eb9c1245320d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _jumpMechanic: {fileID: 173080738}
+  _jumpBufferTungle: {fileID: 808520356}
 --- !u!1 &188868808
 GameObject:
   m_ObjectHideFlags: 0
@@ -1380,6 +1395,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3098092553837674756, guid: 655b02a46ece160448835c0c68ea9f96, type: 3}
   m_PrefabInstance: {fileID: 336030448}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &808520356 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4277771774559391254, guid: fa576d85c6e9c5e41884710fece5637b, type: 3}
+  m_PrefabInstance: {fileID: 5148772178322299111}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &828870740
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4360,6 +4386,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4277771774559391254, guid: fa576d85c6e9c5e41884710fece5637b, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5148772177441134533, guid: fa576d85c6e9c5e41884710fece5637b, type: 3}
       propertyPath: _jumpChargeHandler
       value: 
@@ -4416,5 +4446,9 @@ PrefabInstance:
       propertyPath: _jumpChargeHandler
       value: 
       objectReference: {fileID: 1606963907}
+    - target: {fileID: 8180258618602232408, guid: fa576d85c6e9c5e41884710fece5637b, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fa576d85c6e9c5e41884710fece5637b, type: 3}

@@ -5,6 +5,11 @@ using UnityEngine.InputSystem;
 
 public class JumpMechanic : MonoBehaviour
 {
+    public event Action<bool> JumpBufferChaged
+    {
+        add => _jumpsBuffer.BufferChanged += value;
+        remove => _jumpsBuffer.BufferChanged -= value;
+    }
     [SerializeField] private Controls _controls;
     [SerializeField] private GameActor _actor;
     [SerializeField] private JumpChargeHandler _chargeHandler;
@@ -71,7 +76,17 @@ public class JumpMechanic : MonoBehaviour
 
 public class JumpCommandBuffer
 {
-    public bool Buffered { get; private set; }
+    public event Action<bool> BufferChanged;
+    public bool Buffered 
+    { 
+        get => _buffered;
+        private set
+        {
+            _buffered = value;
+            BufferChanged?.Invoke(_buffered);
+        }
+    }
+    private bool _buffered;
     private JumpCommand _jumpCommand;
 
     public void Buffer(JumpCommand jumpCommand)
