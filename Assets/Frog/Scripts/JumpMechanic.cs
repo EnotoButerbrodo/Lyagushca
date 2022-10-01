@@ -14,8 +14,6 @@ public class JumpMechanic : MonoBehaviour
 
     [SerializeField] private int _combo;
 
-    private JumpCommand _jumpBuffer;
-
     private bool _hasAutoJump;
     private bool HasAutoJump
     {
@@ -26,9 +24,10 @@ public class JumpMechanic : MonoBehaviour
             SavedJumpChanged?.Invoke(value);
         }
     }
+    private float _savedJumpPercent;
 
     private bool _jumpInited;
-
+    private bool _canJump = true;
 
     private void Awake()
     {
@@ -41,69 +40,73 @@ public class JumpMechanic : MonoBehaviour
         _controls.Default.ChargePressed.performed += OnChargePressed;
         _controls.Default.ChargeReleased.performed += OnChargeReleased;
 
-        //_actor.GroundLand += OnActorLand;
-        //_chargeHandler.Charged += OnCharged;
+        _actor.GroundLand += OnActorLand;
+        _chargeHandler.Charged += OnCharged;
     } 
 
     private void OnChargePressed(InputAction.CallbackContext obj)
     {
-        if (_actor.Grounded)
-        {
-            _chargeHandler.StartCharge();
-            _jumpInited = true;
-        }
+        _chargeHandler.StartCharge();
+        _jumpInited = true;
     }
 
     private void OnChargeReleased(InputAction.CallbackContext obj)
     {
         //SaveJump();
-
-        if (_actor.Grounded && _jumpInited)
+        if(_jumpInited == false)
         {
-            _actor.Jump(_chargeHandler.ChargePercent);
-            _chargeHandler.Reset();
-            _jumpInited = false;
+            return;
         }
-        
-        
-    }
 
-    private void SaveJump()
-    {
-        _jumpBuffer = new JumpCommand(_chargeHandler.ChargePercent);
         _chargeHandler.StopCharge();
-        HasAutoJump = true;
-    }
+        _jumpInited = false;
 
-    private void Jump()
-    {
-        _jumpBuffer.Execute(_actor);
-        _chargeHandler.Reset();
-        HasAutoJump = false;
-    }
+        if (_actor.Grounded)
+        {
+            if (_canJump)
+            {
+                _actor.Jump(_chargeHandler.ChargePercent);
+                _canJump = false;
+            }
+            _chargeHandler.Reset();
+            HasAutoJump = false;
+        }
+        else
+        {
+            HasAutoJump = true;
+            _savedJumpPercent = _chargeHandler.ChargePercent;
+        }
 
-    private IEnumerator JumpCoroutine(JumpCommand jump, float jumpDelay)
-    {
-        yield return new WaitForSeconds(jumpDelay);
-        jump.Execute(_actor);
-        _chargeHandler.Reset();
-        HasAutoJump = false;
     }
-
     private void OnCharged()
     {
-        if(_actor.Grounded == false)
+        if (_actor.Grounded == false && _chargeHandler.ChargePercent == 1f)
         {
-            SaveJump();
+            _savedJumpPercent = _chargeHandler.ChargePercent;
+            HasAutoJump = true;
         }
     }
 
     private void OnActorLand()
     {
+        _canJump = true;
         if (HasAutoJump)
         {
-            Jump();
+            StartCoroutine(DelayedJump());
         }
+    }
+
+    private IEnumerator DelayedJump()
+    {
+        yield return new WaitForSeconds(_jumpsDelay);
+        if (_canJump)
+        {
+            _actor.Jump(_savedJumpPercent);
+            _canJump = false;
+        }
+        _chargeHandler.StopCharge();
+        _chargeHandler.Reset();
+        HasAutoJump = false;
     }
 
 }
