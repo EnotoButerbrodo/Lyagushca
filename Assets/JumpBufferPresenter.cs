@@ -13,11 +13,11 @@ public class JumpBufferPresenter : MonoBehaviour
 
     private void OnEnable()
     {
-        _jumpMechanic.JumpBufferChaged += OnBufferChanged;
+        _jumpMechanic.SavedJumpChanged += OnBufferChanged;
     }
 
     private void OnDisable()
     {
-        _jumpMechanic.JumpBufferChaged -= OnBufferChanged;
+        _jumpMechanic.SavedJumpChanged -= OnBufferChanged;
     }
 }

@@ -5,26 +5,31 @@ using UnityEngine.InputSystem;
 
 public class JumpMechanic : MonoBehaviour
 {
-    public event Action<bool> JumpBufferChaged
-    {
-        add => _jumpsBuffer.BufferChanged += value;
-        remove => _jumpsBuffer.BufferChanged -= value;
-    }
+    public event Action<bool> SavedJumpChanged;
+
     [SerializeField] private Controls _controls;
     [SerializeField] private GameActor _actor;
     [SerializeField] private JumpChargeHandler _chargeHandler;
     [SerializeField][Range(0, 1f)] private float _jumpsDelay;
 
-    private JumpCommandBuffer _jumpsBuffer = new JumpCommandBuffer();
-
     [SerializeField] private int _combo;
 
+    private JumpCommand _jumpBuffer;
 
-    //Получить запрос на прыжок
-    //Если в воздухе - начать зарядку
-    //После отпуска кнопки - создать команду на прыжок
-    //После приземления подождать время задержки
-    //Выполнить команду
+    private bool _hasAutoJump;
+    private bool HasAutoJump
+    {
+        get => _hasAutoJump;
+        set
+        {
+            _hasAutoJump = value;
+            SavedJumpChanged?.Invoke(value);
+        }
+    }
+
+    private bool _jumpInited;
+
+
     private void Awake()
     {
         _controls = new Controls();
@@ -36,69 +41,70 @@ public class JumpMechanic : MonoBehaviour
         _controls.Default.ChargePressed.performed += OnChargePressed;
         _controls.Default.ChargeReleased.performed += OnChargeReleased;
 
-        _actor.GroundLand += OnActorLand;
-    }
+        //_actor.GroundLand += OnActorLand;
+        //_chargeHandler.Charged += OnCharged;
+    } 
 
     private void OnChargePressed(InputAction.CallbackContext obj)
     {
-        _chargeHandler.StartCharge();
+        if (_actor.Grounded)
+        {
+            _chargeHandler.StartCharge();
+            _jumpInited = true;
+        }
     }
 
     private void OnChargeReleased(InputAction.CallbackContext obj)
     {
-        _chargeHandler.StopCharge();
-        JumpCommand jump = new JumpCommand(_chargeHandler.ChargePercent);
-        _jumpsBuffer.Buffer(jump);
+        //SaveJump();
 
-        if (_actor.Grounded && _jumpsBuffer.Buffered)
+        if (_actor.Grounded && _jumpInited)
         {
-            StartCoroutine(JumpCoroutine(_jumpsBuffer.Get(), 0));
+            _actor.Jump(_chargeHandler.ChargePercent);
+            _chargeHandler.Reset();
+            _jumpInited = false;
         }
+        
+        
     }
+
+    private void SaveJump()
+    {
+        _jumpBuffer = new JumpCommand(_chargeHandler.ChargePercent);
+        _chargeHandler.StopCharge();
+        HasAutoJump = true;
+    }
+
+    private void Jump()
+    {
+        _jumpBuffer.Execute(_actor);
+        _chargeHandler.Reset();
+        HasAutoJump = false;
+    }
+
     private IEnumerator JumpCoroutine(JumpCommand jump, float jumpDelay)
     {
         yield return new WaitForSeconds(jumpDelay);
         jump.Execute(_actor);
         _chargeHandler.Reset();
+        HasAutoJump = false;
+    }
 
-
+    private void OnCharged()
+    {
+        if(_actor.Grounded == false)
+        {
+            SaveJump();
+        }
     }
 
     private void OnActorLand()
-    { 
-        if (_jumpsBuffer.Buffered)
+    {
+        if (HasAutoJump)
         {
-            StartCoroutine(JumpCoroutine(_jumpsBuffer.Get(), _jumpsDelay));
+            Jump();
         }
     }
 
-}
-
-public class JumpCommandBuffer
-{
-    public event Action<bool> BufferChanged;
-    public bool Buffered 
-    { 
-        get => _buffered;
-        private set
-        {
-            _buffered = value;
-            BufferChanged?.Invoke(_buffered);
-        }
-    }
-    private bool _buffered;
-    private JumpCommand _jumpCommand;
-
-    public void Buffer(JumpCommand jumpCommand)
-    {
-        _jumpCommand = jumpCommand;
-        Buffered = true;
-    }
-
-    public JumpCommand Get()
-    {
-        Buffered = false;
-        return _jumpCommand;
-    }
 }
 
