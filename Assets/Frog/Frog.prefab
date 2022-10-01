@@ -207,7 +207,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _reloadBar: {fileID: 5148772177441134531}
-  _jumpHandler: {fileID: 5148772177827140244}
+  _jumpChargeHandler: {fileID: 0}
 --- !u!114 &5148772177441134531
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -243,6 +243,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5148772177827140247}
   - component: {fileID: 5148772177827140243}
+  - component: {fileID: 7477401366594660155}
   - component: {fileID: 5148772177827140244}
   - component: {fileID: 6118376528676689}
   - component: {fileID: 5148772177827140246}
@@ -286,9 +287,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b35ef3a58d0b3e94ca967b08ec4d08b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _jumpChargeHandler: {fileID: 7477401366594660155}
   _jumpHandler: {fileID: 5148772177827140244}
   _groundChecker: {fileID: 6891003670882146254}
   _dieHandler: {fileID: 6118376528676689}
+--- !u!114 &7477401366594660155
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5148772177827140233}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c22c585359b49148a900035e815e368, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _maxChargeTimeInSeconds: 1
+  _ticksCount: 20
 --- !u!114 &5148772177827140244
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -301,8 +317,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ed0f099b5b6d4b4da5dd734eee64cef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxChargeTimeInSeconds: 0.5
-  _ticksCount: 10
   _jumpHeightKoeff: 7
   _jumpRangeKoeff: 4.25
   _jumpHeightCurve:
@@ -372,7 +386,6 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   _rigidbody: {fileID: 5148772177827140245}
-  _groundChecker: {fileID: 6891003670882146254}
 --- !u!114 &6118376528676689
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -829,6 +842,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _animator: {fileID: 5148772178954213972}
+  _jumpChargeHandler: {fileID: 7477401366594660155}
   _jumpHandler: {fileID: 5148772177827140244}
   _groundChecker: {fileID: 6891003670882146254}
   _jumpChargeTriggerName: JumpCharge

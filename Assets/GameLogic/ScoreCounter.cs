@@ -35,13 +35,13 @@ public class ScoreCounter : MonoBehaviour
 
     private void OnEnable()
     {
-        _target.Jump += OnJump;
+        _target.Jumped += OnJump;
         _target.GroundLand += OnLand;
     }
 
     private void OnDisable()
     {
-        _target.Jump -= OnJump;
+        _target.Jumped -= OnJump;
         _target.GroundLand -= OnLand;
     }
 

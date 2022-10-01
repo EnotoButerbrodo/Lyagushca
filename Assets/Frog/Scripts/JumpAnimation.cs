@@ -2,11 +2,15 @@
 public class JumpAnimation : MonoBehaviour
 {
     [SerializeField] private Animator _animator;
+
+    [SerializeField] private JumpChargeHandler _jumpChargeHandler;
     [SerializeField] private JumpHandler _jumpHandler;
     [SerializeField] private GroundCheckHandler _groundChecker;
+
     [SerializeField] private string _jumpChargeTriggerName;
     [SerializeField] private string _jumpTriggerName;
     [SerializeField] private string _landTriggerName;
+    
 
     private void OnJumpInitiated()
     {
@@ -31,8 +35,8 @@ public class JumpAnimation : MonoBehaviour
 
     private void OnEnable()
     {
-        _jumpHandler.JumpChargeBegin += OnJumpInitiated;
-        _jumpHandler.Jump += OnJump;
+        _jumpChargeHandler.Started += OnJumpInitiated; 
+        _jumpHandler.Jumped += OnJump;
         _groundChecker.Landed += OnLand;
         _jumpHandler.VertiacalVelocityChanged += OnVerticalVelocityChanged;
 
@@ -40,8 +44,8 @@ public class JumpAnimation : MonoBehaviour
 
     private void OnDisable()
     {
-        _jumpHandler.JumpChargeBegin -= OnJumpInitiated;
-        _jumpHandler.Jump -= OnJump;
+        _jumpChargeHandler.Started -= OnJumpInitiated;
+        _jumpHandler.Jumped -= OnJump;
         _groundChecker.Landed -= OnLand;
         _jumpHandler.VertiacalVelocityChanged -= OnVerticalVelocityChanged;
     }

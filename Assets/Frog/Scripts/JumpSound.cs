@@ -15,12 +15,12 @@ public class JumpSound : MonoBehaviour
 
     private void OnEnable()
     {
-        _jumpHandler.Jump += OnJump;
+        _jumpHandler.Jumped += OnJump;
     }
 
     private void OnDisable()
     {
-        _jumpHandler.Jump -= OnJump;
+        _jumpHandler.Jumped -= OnJump;
     }
 }
 

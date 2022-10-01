@@ -24,7 +24,7 @@ public class ActionManager : MonoBehaviour
 
     private void OnJumpButtonReleased(InputAction.CallbackContext obj)
     {
-        _actor.StopChargeJump();
+        _actor.Jump();
     }
 
     private void OnJumpButtonInitial(InputAction.CallbackContext obj)
