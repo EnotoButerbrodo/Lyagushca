@@ -43,29 +43,27 @@ public class JumpMechanic : MonoBehaviour
     {
         _chargeHandler.StopCharge();
         JumpCommand jump = new JumpCommand(_chargeHandler.ChargePercent);
-        if (_actor.Grounded)
+        _jumpsBuffer.Buffer(jump);
+
+        if (_actor.Grounded && _jumpsBuffer.Buffered)
         {
-            jump.Execute(_actor);
-            _chargeHandler.Reset();
-        }
-        else
-        {
-            _jumpsBuffer.Buffer(jump);
+            StartCoroutine(JumpCoroutine(_jumpsBuffer.Get(), 0));
         }
     }
-    private IEnumerator JumpCoroutine(JumpCommand jump)
+    private IEnumerator JumpCoroutine(JumpCommand jump, float jumpDelay)
     {
-        yield return new WaitForSeconds(_jumpsDelay);
+        yield return new WaitForSeconds(jumpDelay);
         jump.Execute(_actor);
         _chargeHandler.Reset();
-        
+
+
     }
 
     private void OnActorLand()
     { 
         if (_jumpsBuffer.Buffered)
         {
-            StartCoroutine(JumpCoroutine(_jumpsBuffer.Get()));
+            StartCoroutine(JumpCoroutine(_jumpsBuffer.Get(), _jumpsDelay));
         }
     }
 
