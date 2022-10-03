@@ -49,6 +49,17 @@
                 },
                 {
                     "name": "",
+                    "id": "72e76731-e31c-4e5d-9cd4-aa4abd824eef",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ChargePressed",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "99cb51da-2a7a-4b45-bcf0-548dcf77fc7b",
                     "path": "<Keyboard>/space",
                     "interactions": "",
@@ -62,6 +73,17 @@
                     "name": "",
                     "id": "fddb9b56-79f1-4f50-b41a-57411ff7686e",
                     "path": "<Touchscreen>/Press",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ChargeReleased",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8a97513e-f0d0-4383-8496-506f6cb0cbc1",
+                    "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
