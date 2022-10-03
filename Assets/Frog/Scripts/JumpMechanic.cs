@@ -43,7 +43,7 @@ public class JumpMechanic : MonoBehaviour
         _controls.Default.ChargeReleased.performed += OnChargeReleased;
 
         _actor.GroundLand += OnActorLand;
-  
+
     }
     private void OnDisable()
     {
@@ -59,7 +59,7 @@ public class JumpMechanic : MonoBehaviour
         if (_canJump)
         {
             _canJump = false;
-            
+
             _actor.Jump(_chargeHandler.ChargePercent);
 
             _chargeHandler.StopCharge();
@@ -71,26 +71,19 @@ public class JumpMechanic : MonoBehaviour
     private void OnChargePressed(InputAction.CallbackContext obj)
     {
         _chargeHandler.StartCharge();
-        if(_actor.Grounded == false)
-        {
-            HasDelayedJump = true;
-        }
     }
     private void OnChargeReleased(InputAction.CallbackContext obj)
     {
         _chargeHandler.StopCharge();
         if (_actor.Grounded == false)
-            return;
-       
-       if (HasDelayedJump)
-       {
-           StartCoroutine(DelayedJump());
-       }
-       else
-       {
-           Jump();
-       }
-       
+        {
+            HasDelayedJump = true;
+        }
+        else
+        {
+            Jump();
+        }
+
     }
 
 
