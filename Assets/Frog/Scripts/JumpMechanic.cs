@@ -43,7 +43,7 @@ public class JumpMechanic : MonoBehaviour
         _controls.Default.ChargeReleased.performed += OnChargeReleased;
 
         _actor.GroundLand += OnActorLand;
-        _chargeHandler.Charged += OnCharged;
+  
     }
     private void OnDisable()
     {
@@ -52,62 +52,51 @@ public class JumpMechanic : MonoBehaviour
         _controls.Default.ChargeReleased.performed -= OnChargeReleased;
 
         _actor.GroundLand -= OnActorLand;
-        _chargeHandler.Charged -= OnCharged;
 
     }
-    private void Jump(float percent)
+    private void Jump()
     {
         if (_canJump)
         {
-            _actor.Jump(percent);
-            _chargeHandler.Reset();
             _canJump = false;
+            
+            _actor.Jump(_chargeHandler.ChargePercent);
+
+            _chargeHandler.StopCharge();
+            _chargeHandler.Reset();
+
             HasDelayedJump = false;
         }
     }
-
     private void OnChargePressed(InputAction.CallbackContext obj)
     {
-        if(HasDelayedJump == false)
+        _chargeHandler.StartCharge();
+        if(_actor.Grounded == false)
         {
-            _chargeHandler.StartCharge();
-            _jumpInited = true;
+            HasDelayedJump = true;
         }
     }
-
     private void OnChargeReleased(InputAction.CallbackContext obj)
     {
-        if(_jumpInited == false)
-        {
-            return;
-        }
-
         _chargeHandler.StopCharge();
-        _jumpInited = false;
+        if (_actor.Grounded == false)
+            return;
+       
+       if (HasDelayedJump)
+       {
+           StartCoroutine(DelayedJump());
+       }
+       else
+       {
+           Jump();
+       }
+       
+    }
 
-        if (_actor.Grounded)
-        {
-            Jump(_chargeHandler.ChargePercent);
-        }
-        else
-        {
-            HasDelayedJump = true;
-            _savedJumpPercent = _chargeHandler.ChargePercent;
-        }
-    }
-    private void OnCharged()
-    {
-        if (_actor.Grounded == false && _chargeHandler.ChargePercent == 1f)
-        {
-            _savedJumpPercent = _chargeHandler.ChargePercent;
-            HasDelayedJump = true;
-        }
-    }
 
     private void OnActorLand()
     {
         _canJump = true;
-
         if (HasDelayedJump)
         {
             StartCoroutine(DelayedJump());
@@ -117,7 +106,7 @@ public class JumpMechanic : MonoBehaviour
     private IEnumerator DelayedJump()
     {
         yield return new WaitForSeconds(_jumpsDelay);
-        Jump(_savedJumpPercent);
+        Jump();
     }
 
 }
