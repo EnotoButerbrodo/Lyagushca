@@ -10,9 +10,12 @@ public class JumpMechanic : MonoBehaviour
     [SerializeField] private Controls _controls;
     [SerializeField] private GameActor _actor;
     [SerializeField] private JumpChargeHandler _chargeHandler;
+    [SerializeField][Range(0, 1f)] private float _delayJumpTime;
+    [SerializeField] private Timer _delayJumpTimer;
     [SerializeField][Range(0, 1f)] private float _jumpsDelay;
 
-    [SerializeField] private int _combo;
+    private float _savedPercent;
+
 
     private bool _hasDelayedJump;
     private bool HasDelayedJump
@@ -25,11 +28,20 @@ public class JumpMechanic : MonoBehaviour
         }
     }
 
-    private float _savedJumpPercent;
-
-    private bool _jumpInited;
 
     private bool _canJump = true;
+
+    private void EnableDelayJump()
+    {
+        _delayJumpTimer.StartTimer(_delayJumpTime);
+        HasDelayedJump = true;
+    }
+
+    private void DisableDelayJump()
+    {
+        HasDelayedJump = false;
+        _chargeHandler.Reset();
+    }
 
     private void Awake()
     {
@@ -43,6 +55,7 @@ public class JumpMechanic : MonoBehaviour
         _controls.Default.ChargeReleased.performed += OnChargeReleased;
 
         _actor.GroundLand += OnActorLand;
+        _delayJumpTimer.Finished += () => DisableDelayJump();
 
     }
     private void OnDisable()
@@ -52,36 +65,37 @@ public class JumpMechanic : MonoBehaviour
         _controls.Default.ChargeReleased.performed -= OnChargeReleased;
 
         _actor.GroundLand -= OnActorLand;
-
     }
-    private void Jump()
+
+    private void Jump(float percent)
     {
         if (_canJump)
         {
             _canJump = false;
 
-            _actor.Jump(_chargeHandler.ChargePercent);
+            _actor.Jump(percent);
 
-            _chargeHandler.StopCharge();
             _chargeHandler.Reset();
 
-            HasDelayedJump = false;
+            _delayJumpTimer.Stop();
         }
     }
+
     private void OnChargePressed(InputAction.CallbackContext obj)
     {
         _chargeHandler.StartCharge();
     }
+
     private void OnChargeReleased(InputAction.CallbackContext obj)
     {
         _chargeHandler.StopCharge();
         if (_actor.Grounded == false)
         {
-            HasDelayedJump = true;
+            EnableDelayJump();
         }
         else
         {
-            Jump();
+            Jump(_chargeHandler.ChargePercent);
         }
 
     }
@@ -90,7 +104,7 @@ public class JumpMechanic : MonoBehaviour
     private void OnActorLand()
     {
         _canJump = true;
-        if (HasDelayedJump)
+        if (_delayJumpTimer.IsStarted)
         {
             StartCoroutine(DelayedJump());
         }
@@ -98,9 +112,9 @@ public class JumpMechanic : MonoBehaviour
 
     private IEnumerator DelayedJump()
     {
+        _savedPercent = _chargeHandler.ChargePercent;
         yield return new WaitForSeconds(_jumpsDelay);
-        Jump();
+        Jump(_savedPercent);
     }
-
 }
 
