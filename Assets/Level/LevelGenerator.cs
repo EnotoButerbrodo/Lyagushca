@@ -26,7 +26,7 @@ public class LevelGenerator : MonoBehaviour
                 ? _startPosition.position
                 : _spawnedChunks.Last().EndPoint;
 
-            _placer.PlaceChunk(spawnedChunk, previousPosition);
+            _placer.PlaceChunk(spawnedChunk, previousPosition, _scoreCounter.Score);
             _spawnedChunks.Add(spawnedChunk);
         }
     }

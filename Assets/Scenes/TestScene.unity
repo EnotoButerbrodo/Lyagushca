@@ -3753,7 +3753,9 @@ MonoBehaviour:
   _minYOffset: -1
   _maxYOffset: 1
   _minXOffset: 1.5
-  _maxXOffset: 5
+  _maxXOffset: 3
+  _minChunkY: -2
+  _maxChunkY: 0
 --- !u!114 &2065953787
 MonoBehaviour:
   m_ObjectHideFlags: 0

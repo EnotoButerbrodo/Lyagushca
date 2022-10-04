@@ -16,7 +16,6 @@ public class JumpMechanic : MonoBehaviour
 
     private float _savedPercent;
 
-
     private bool _hasDelayedJump;
     private bool HasDelayedJump
     {
@@ -30,6 +29,7 @@ public class JumpMechanic : MonoBehaviour
 
 
     private bool _canJump = true;
+    private bool _groundJump;
 
     private void EnableDelayJump()
     {
@@ -84,6 +84,8 @@ public class JumpMechanic : MonoBehaviour
     private void OnChargePressed(InputAction.CallbackContext obj)
     {
         _chargeHandler.StartCharge();
+        _groundJump = _actor.Grounded;
+        
     }
 
     private void OnChargeReleased(InputAction.CallbackContext obj)
@@ -95,7 +97,10 @@ public class JumpMechanic : MonoBehaviour
         }
         else
         {
-            Jump(_chargeHandler.ChargePercent);
+            if (_groundJump)
+                Jump(_chargeHandler.ChargePercent);
+            else
+                StartCoroutine(DelayedJump());
         }
 
     }
