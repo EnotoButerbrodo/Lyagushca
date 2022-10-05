@@ -7,30 +7,46 @@ public class JumpAnimation : MonoBehaviour
     [SerializeField] private JumpHandler _jumpHandler;
     [SerializeField] private GroundCheckHandler _groundChecker;
 
-    [SerializeField] private string _jumpChargeTriggerName;
-    [SerializeField] private string _jumpTriggerName;
-    [SerializeField] private string _landTriggerName;
-    
+    [SerializeField] private string _JUMPCHARGE_TRIGGER;
+    [SerializeField] private string _JUMP_TRIGGER;
+    [SerializeField] private string _LAND_TRIGGER;
+    [SerializeField] private string _VERTICALSPEED_TRIGGER;
+
+    private int _jumpChargeHash;
+    private int _jumpHash;
+    private int _landHash;
+    private int _verticalSpeedHash;
+
+    private void Awake()
+    {
+        _jumpChargeHash = Animator.StringToHash(_JUMPCHARGE_TRIGGER);
+        _jumpHash = Animator.StringToHash(_JUMP_TRIGGER);
+        _landHash = Animator.StringToHash(_LAND_TRIGGER);
+        _verticalSpeedHash = Animator.StringToHash(_VERTICALSPEED_TRIGGER);
+    }
+
 
     private void OnJumpInitiated()
     {
-        _animator.SetTrigger(_jumpChargeTriggerName);
-        _animator.SetFloat("VerticalSpeed", 0);
+        _animator.SetTrigger(_jumpChargeHash);
+        _animator.SetFloat(_verticalSpeedHash, 0);
     }
     private void OnJump()
     {
-        _animator.ResetTrigger(_landTriggerName);
+        _animator.ResetTrigger(_landHash);
+        _animator.SetTrigger(_jumpHash);
     }
 
     private void OnLand()
     {
-        _animator.SetTrigger(_landTriggerName);
-        _animator.ResetTrigger(_jumpChargeTriggerName);
+        _animator.SetTrigger(_landHash);
+        _animator.ResetTrigger(_jumpChargeHash);
+        _animator.ResetTrigger(_jumpHash);
     }
 
     private void OnVerticalVelocityChanged(float verticalVelocity)
     {
-        _animator.SetFloat("VerticalSpeed", verticalVelocity);
+        _animator.SetFloat(_verticalSpeedHash, verticalVelocity);
     }
 
     private void OnEnable()

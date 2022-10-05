@@ -830,9 +830,10 @@ MonoBehaviour:
   _jumpChargeHandler: {fileID: 0}
   _jumpHandler: {fileID: 5148772177827140244}
   _groundChecker: {fileID: 6891003670882146254}
-  _jumpChargeTriggerName: JumpCharge
-  _jumpTriggerName: Jump
-  _landTriggerName: Land
+  _JUMPCHARGE_TRIGGER: JumpCharge
+  _JUMP_TRIGGER: Jump
+  _LAND_TRIGGER: Land
+  _VERTICALSPEED_TRIGGER: VerticalSpeed
 --- !u!1 &5148772179071854279
 GameObject:
   m_ObjectHideFlags: 0

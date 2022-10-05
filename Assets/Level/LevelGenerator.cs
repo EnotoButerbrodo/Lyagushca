@@ -15,20 +15,28 @@ public class LevelGenerator : MonoBehaviour
     [SerializeField] private ScoreCounter _scoreCounter;
 
 
+
     private List<Chunk> _spawnedChunks = new List<Chunk>();
 
     private void Start()
     {
-        for (int i = 0; i < 50; i++)
+        for (int i = 0; i < 3; i++)
         {
-            Chunk spawnedChunk = _generator.GetChunk(0);
-            Vector2 previousPosition = _spawnedChunks.Count == 0
+            RegenerateChunks(null);
+        }
+    }
+
+    private void RegenerateChunks(Chunk chunk)
+    {
+        Chunk spawnedChunk = _generator.GetChunk(_scoreCounter.Score);
+        Vector2 previousPosition = _spawnedChunks.Count == 0
                 ? _startPosition.position
                 : _spawnedChunks.Last().EndPoint;
 
-            _placer.PlaceChunk(spawnedChunk, previousPosition, _scoreCounter.Score);
-            _spawnedChunks.Add(spawnedChunk);
-        }
+        _placer.PlaceChunk(spawnedChunk, previousPosition, _scoreCounter.Score);
+        _spawnedChunks.Add(spawnedChunk);
+
+        Destroy(_spawnedChunks.First());
     }
 
 }
