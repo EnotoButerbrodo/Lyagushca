@@ -20,13 +20,13 @@ public class LevelGenerator : MonoBehaviour
 
     private void Start()
     {
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < 100; i++)
         {
-            RegenerateChunks(null);
+            GenerateChunk();
         }
     }
 
-    private void RegenerateChunks(Chunk chunk)
+    private void GenerateChunk()
     {
         Chunk spawnedChunk = _generator.GetChunk(_scoreCounter.Score);
         Vector2 previousPosition = _spawnedChunks.Count == 0
@@ -35,8 +35,6 @@ public class LevelGenerator : MonoBehaviour
 
         _placer.PlaceChunk(spawnedChunk, previousPosition, _scoreCounter.Score);
         _spawnedChunks.Add(spawnedChunk);
-
-        Destroy(_spawnedChunks.First());
     }
 
 }
