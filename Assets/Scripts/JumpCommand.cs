@@ -1,4 +1,7 @@
-﻿public class JumpCommand : Command
+﻿
+using UnityEngine;
+
+public class JumpCommand : Command
 {
     private float _chargePercent;
     public JumpCommand(float chargePercent)

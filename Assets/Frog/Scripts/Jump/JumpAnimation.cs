@@ -3,7 +3,7 @@ public class JumpAnimation : MonoBehaviour
 {
     [SerializeField] private Animator _animator;
 
-    [SerializeField] private JumpChargeHandler _jumpChargeHandler;
+    [SerializeField] private JumpForceCharger _jumpChargeHandler;
     [SerializeField] private JumpHandler _jumpHandler;
     [SerializeField] private GroundCheckHandler _groundChecker;
 
@@ -11,11 +11,13 @@ public class JumpAnimation : MonoBehaviour
     [SerializeField] private string _JUMP_TRIGGER;
     [SerializeField] private string _LAND_TRIGGER;
     [SerializeField] private string _VERTICALSPEED_TRIGGER;
+    [SerializeField] private string _CHARGEPERCENT_TRIGGER;
 
     private int _jumpChargeHash;
     private int _jumpHash;
     private int _landHash;
     private int _verticalSpeedHash;
+    private int _chargePercentHash;
 
     private void Awake()
     {
@@ -23,10 +25,11 @@ public class JumpAnimation : MonoBehaviour
         _jumpHash = Animator.StringToHash(_JUMP_TRIGGER);
         _landHash = Animator.StringToHash(_LAND_TRIGGER);
         _verticalSpeedHash = Animator.StringToHash(_VERTICALSPEED_TRIGGER);
+        _chargePercentHash = Animator.StringToHash(_CHARGEPERCENT_TRIGGER);
     }
 
 
-    private void OnJumpInitiated()
+    private void OnJumpInitiated(float percent)
     {
         _animator.SetTrigger(_jumpChargeHash);
         _animator.SetFloat(_verticalSpeedHash, 0);
@@ -49,9 +52,15 @@ public class JumpAnimation : MonoBehaviour
         _animator.SetFloat(_verticalSpeedHash, verticalVelocity);
     }
 
+    private void OnChargePercentChanged(float chargePercent)
+    {
+        _animator.SetFloat(_chargePercentHash, chargePercent);
+    }
+
     private void OnEnable()
     {
-        _jumpChargeHandler.Started += OnJumpInitiated; 
+        _jumpChargeHandler.ChargeBegin += OnJumpInitiated;
+        _jumpChargeHandler.ChargePercentChanged += OnChargePercentChanged;
         _jumpHandler.Jumped += OnJump;
         _groundChecker.Landed += OnLand;
         _jumpHandler.VertiacalVelocityChanged += OnVerticalVelocityChanged;
@@ -60,7 +69,8 @@ public class JumpAnimation : MonoBehaviour
 
     private void OnDisable()
     {
-        _jumpChargeHandler.Started -= OnJumpInitiated;
+        _jumpChargeHandler.ChargeBegin -= OnJumpInitiated;
+        _jumpChargeHandler.ChargePercentChanged -= OnChargePercentChanged;
         _jumpHandler.Jumped -= OnJump;
         _groundChecker.Landed -= OnLand;
         _jumpHandler.VertiacalVelocityChanged -= OnVerticalVelocityChanged;

@@ -2,92 +2,48 @@
     "name": "Controls",
     "maps": [
         {
-            "name": "Default",
+            "name": "Touch",
             "id": "64e5ab96-9692-4612-ae3c-8f6d13492bb0",
             "actions": [
                 {
-                    "name": "ChargePressed",
+                    "name": "Charge",
                     "type": "Button",
-                    "id": "ed68e69c-4a65-43f2-83b0-074779d04f3b",
+                    "id": "89d4ede7-c70a-46e9-94ec-3f1c82a94bb1",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "Press(pressPoint=1.401298E-45)",
-                    "initialStateCheck": false
+                    "interactions": "Press(behavior=2)",
+                    "initialStateCheck": true
                 },
                 {
-                    "name": "ChargeReleased",
-                    "type": "Button",
-                    "id": "f6c96b9e-83a5-4ff9-8502-4ac12c39e51d",
-                    "expectedControlType": "Button",
+                    "name": "TouchPosition",
+                    "type": "Value",
+                    "id": "8e70c5d6-4405-4a1a-b06d-5f7dc51adb60",
+                    "expectedControlType": "Touch",
                     "processors": "",
-                    "interactions": "Press(pressPoint=1.401298E-45,behavior=1)",
-                    "initialStateCheck": false
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
                 {
                     "name": "",
-                    "id": "4a0076fe-c582-4013-ae66-db66210d487d",
-                    "path": "<Keyboard>/space",
+                    "id": "178e7839-ff27-4ab5-bf83-73e5bcc1bdc0",
+                    "path": "<Touchscreen>/primaryTouch/press",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Keyboard",
-                    "action": "ChargePressed",
+                    "groups": "",
+                    "action": "Charge",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "f7432c3d-36dd-48f2-bc83-3adc683f95d9",
-                    "path": "<Touchscreen>/Press",
+                    "id": "127d012d-52a1-48c5-9800-8a6edd6a5ca1",
+                    "path": "<Touchscreen>/primaryTouch/position",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "ChargePressed",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "72e76731-e31c-4e5d-9cd4-aa4abd824eef",
-                    "path": "<Mouse>/leftButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "ChargePressed",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "99cb51da-2a7a-4b45-bcf0-548dcf77fc7b",
-                    "path": "<Keyboard>/space",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "ChargeReleased",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "fddb9b56-79f1-4f50-b41a-57411ff7686e",
-                    "path": "<Touchscreen>/Press",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "ChargeReleased",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "8a97513e-f0d0-4383-8496-506f6cb0cbc1",
-                    "path": "<Mouse>/leftButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "ChargeReleased",
+                    "action": "TouchPosition",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

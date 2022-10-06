@@ -24,8 +24,9 @@ public class JumpHandler : MonoBehaviour
 
         _rigidbody.AddForce(vericalDirection + horizontalDirection, ForceMode2D.Impulse);
         Jumped?.Invoke();
-        
+
     }
+
 
     private void FixedUpdate()
     {
