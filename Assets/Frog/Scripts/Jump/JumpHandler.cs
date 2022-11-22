@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
 
-public class JumpHandler : MonoBehaviour
+public class JumpHandler : MonoBehaviour, IResetable
 {
     public event Action Jumped;
 
@@ -27,11 +27,16 @@ public class JumpHandler : MonoBehaviour
 
     }
 
-
     private void FixedUpdate()
     {
         VertiacalVelocityChanged?.Invoke(_rigidbody.velocity.y);
     }
 
+    public void Reset()
+    {
+        VertiacalVelocityChanged?.Invoke(0);
+        _rigidbody.velocity = Vector2.zero;
+
+    }
 }
 

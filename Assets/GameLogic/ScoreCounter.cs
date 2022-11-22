@@ -2,8 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
-public class ScoreCounter : MonoBehaviour
+public class ScoreCounter : MonoBehaviour, IResetable
 {
     public delegate void ScoreConfirmedDelegate(int score);
 
@@ -11,7 +12,8 @@ public class ScoreCounter : MonoBehaviour
     public event ScoreConfirmedDelegate ScoreConfirmed;
 
     public int Score { get; private set; }
-    [SerializeField] private GameActor _target;
+
+    [Inject] private GameActor _target;
 
     private Vector2 _startPosition = Vector2.zero;
 
@@ -65,7 +67,7 @@ public class ScoreCounter : MonoBehaviour
         {
             return;
         }
-        _unconfirmScore = Mathf.RoundToInt(_target.transform.position.x - _startPosition.x);
+        _unconfirmScore = Mathf.RoundToInt(Mathf.Floor(_target.transform.position.x - _startPosition.x));
         UnconfirmScoreChanged?.Invoke(_unconfirmScore);
     }
 }

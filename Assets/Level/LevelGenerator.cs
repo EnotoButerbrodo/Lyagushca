@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -20,7 +21,7 @@ public class LevelGenerator : MonoBehaviour
 
     private void Start()
     {
-        for (int i = 0; i < 100; i++)
+        for (int i = 0; i < 10; i++)
         {
             GenerateChunk();
         }
@@ -35,6 +36,24 @@ public class LevelGenerator : MonoBehaviour
 
         _placer.PlaceChunk(spawnedChunk, previousPosition, _scoreCounter.Score);
         _spawnedChunks.Add(spawnedChunk);
+        spawnedChunk.Used += OnChunkUsed;
+
+
     }
 
+    
+    private void OnChunkUsed(Chunk chunk)
+    {
+        var usedChunks = _spawnedChunks.Where(x => x.IsUsed);
+
+        if (usedChunks.Count() > 5)
+        {
+            for (int i = 0; i < 5; i++)
+            {
+                GenerateChunk();
+                Destroy(_spawnedChunks[0].gameObject);
+                _spawnedChunks.RemoveAt(0);
+            }
+        }
+    }
 }

@@ -39,7 +39,7 @@ public class Frog : GameActor
         _jumpHandler.Jump(chargePercent);
     }
 
-    public override void ResetGameActor()
+    public override void Reset()
     {
         GetComponent<Rigidbody2D>().velocity = Vector2.zero;
     }

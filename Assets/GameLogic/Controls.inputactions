@@ -6,12 +6,21 @@
             "id": "64e5ab96-9692-4612-ae3c-8f6d13492bb0",
             "actions": [
                 {
-                    "name": "Charge",
+                    "name": "ChargeBegin",
                     "type": "Button",
                     "id": "89d4ede7-c70a-46e9-94ec-3f1c82a94bb1",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "Press(behavior=2)",
+                    "interactions": "Press",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "ChargeReleased",
+                    "type": "Button",
+                    "id": "a2bf5575-949b-4151-a111-f6e5aa4bf368",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press(behavior=1)",
                     "initialStateCheck": true
                 },
                 {
@@ -32,7 +41,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Charge",
+                    "action": "ChargeBegin",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -44,6 +53,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "TouchPosition",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1c2b5682-10d9-482a-90f3-086e255318c4",
+                    "path": "<Touchscreen>/primaryTouch/press",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ChargeReleased",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-public abstract class GameActor : MonoBehaviour
+public abstract class GameActor : MonoBehaviour, IResetable
 {
     public abstract event Action Jumped;
     public abstract event Action GroundLand;
@@ -12,7 +12,7 @@ public abstract class GameActor : MonoBehaviour
     protected GameActorState _state = GameActorState.Idle;
 
     public abstract void Jump(float chargePercent);
-    public abstract void ResetGameActor();
+    public abstract void Reset();
 }
 
 [Serializable]

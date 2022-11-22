@@ -1,9 +1,12 @@
 ﻿using UnityEngine;
+using Zenject;
+
 public class JumpAnimation : MonoBehaviour
 {
+    private JumpForceCharger _jumpChargeHandler;
+
     [SerializeField] private Animator _animator;
 
-    [SerializeField] private JumpForceCharger _jumpChargeHandler;
     [SerializeField] private JumpHandler _jumpHandler;
     [SerializeField] private GroundCheckHandler _groundChecker;
 
@@ -18,6 +21,12 @@ public class JumpAnimation : MonoBehaviour
     private int _landHash;
     private int _verticalSpeedHash;
     private int _chargePercentHash;
+
+    [Inject]
+    private void Construct(JumpForceCharger charger)
+    {
+        _jumpChargeHandler = charger;
+    }
 
     private void Awake()
     {

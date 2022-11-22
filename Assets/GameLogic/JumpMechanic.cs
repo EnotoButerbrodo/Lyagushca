@@ -2,21 +2,17 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
-
+using Zenject;
 public class JumpMechanic : MonoBehaviour
 {
     public event Action<bool> SavedJumpChanged;
 
-    [SerializeField] private Controls _controls;
-    [SerializeField] private GameActor _actor;
-    [SerializeField] private JumpForceCharger _chargeHandler;
-
-    [SerializeField] private ReloadBar _reloadBar;
-
-    [SerializeField][Range(0, 1f)] private float _delayJumpTime;
+    private Controls _controls;
+    private JumpForceCharger _charger;
+    private GameActor _player;
+    private GameConfig _config;
 
     [SerializeField] private Timer _delayJumpTimer;
-    [SerializeField][Range(0, 1f)] private float _jumpsDelay;
 
     private float _savedPercent;
 
@@ -31,13 +27,28 @@ public class JumpMechanic : MonoBehaviour
         }
     }
 
+    [Inject]
+    private void Construct(Controls controls, JumpForceCharger charger, GameActor player, GameConfig config)
+    {
+        _controls = controls;
+        _charger = charger;
+        _player = player;
+        _config = config;
+
+        _player.GroundLand += OnActorLand;
+        _delayJumpTimer.Finished += () => DisableDelayJump();
+
+        _charger.ChargeBegin += OnChargeBegin;
+        _charger.JumpCharged += OnChargeFinish;
+
+    }
 
     private bool _canJump = true;
     private bool _groundJump;
 
     private void EnableDelayJump()
     {
-        _delayJumpTimer.StartTimer(_delayJumpTime);
+        _delayJumpTimer.StartTimer(_config.DelayJumpTime);
         HasDelayedJump = true;
     }
 
@@ -46,49 +57,24 @@ public class JumpMechanic : MonoBehaviour
         HasDelayedJump = false;
     }
 
-    private void Awake()
-    {
-        _controls = new Controls();
-    }
-
-    private void OnEnable()
-    {
-        _controls.Enable();
-
-        _actor.GroundLand += OnActorLand;
-        _delayJumpTimer.Finished += () => DisableDelayJump();
-
-        _chargeHandler.ChargeBegin += OnChargeBegin;
-        _chargeHandler.JumpCharged += OnChargeFinish;
-    }
-    private void OnDisable()
-    {
-        _controls.Disable();
-
-        _actor.GroundLand -= OnActorLand;
-
-        _chargeHandler.ChargeBegin -= OnChargeBegin;
-        _chargeHandler.JumpCharged -= OnChargeFinish;
-    }
-
     private void Jump(float percent)
     {
         if (_canJump)
         {
             _canJump = false;
 
-            _actor.Jump(percent);
+            _player.Jump(percent);
 
             _delayJumpTimer.Stop();
-            _reloadBar.Hide();
-            _chargeHandler.Reset();
+
+            //_charger.Reset();
         }
     }
 
 
     private void OnChargeBegin(float percent)
     {
-        _groundJump = _actor.Grounded;
+        _groundJump = _player.Grounded;
     }
 
     private void OnChargeFinish(float percent)
@@ -98,7 +84,7 @@ public class JumpMechanic : MonoBehaviour
             return;
         }
 
-        if(_actor.Grounded == false)
+        if(_player.Grounded == false)
         {
             EnableDelayJump();
         }
@@ -106,7 +92,7 @@ public class JumpMechanic : MonoBehaviour
         {
             if (_groundJump)
                 Jump(percent);
-            else
+            else 
                 StartCoroutine(DelayedJump());
         }
     }
@@ -117,13 +103,14 @@ public class JumpMechanic : MonoBehaviour
         if (_delayJumpTimer.IsStarted)
         {
             StartCoroutine(DelayedJump());
+            _charger.Reset();
         }
-    }
+    } 
 
     private IEnumerator DelayedJump()
     {
-        _savedPercent = _chargeHandler.ChargePercent;
-        yield return new WaitForSeconds(_jumpsDelay);
+        _savedPercent = _charger.ChargePercent;
+        yield return new WaitForSeconds(_config.JumpsDelay);
         Jump(_savedPercent);
     }
 }

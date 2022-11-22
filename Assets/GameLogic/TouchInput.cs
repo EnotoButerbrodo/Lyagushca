@@ -15,14 +15,11 @@ public class TouchInput : MonoBehaviour
     public event TouchInputDelegate TouchEnd;
     public event TouchInputDelegate TouchMove;
 
-    private Camera _camera;
 
     private void Awake()
     {
         EnhancedTouchSupport.Enable();
         TouchSimulation.Enable();
-
-        _camera = Camera.main;
     }
 
     private void OnEnable()

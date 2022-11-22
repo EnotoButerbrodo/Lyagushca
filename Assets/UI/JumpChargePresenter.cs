@@ -1,22 +1,24 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
 
 public class JumpChargePresenter : MonoBehaviour
 {
     [SerializeField] private ReloadBar _reloadBar;
-    [SerializeField] private JumpForceCharger _jumpChargeHandler;
 
+    private JumpForceCharger _jumpChargeHandler;
+
+    [Inject]
+    public void Construct(JumpForceCharger jumpChargeHandler)
+    {
+        _jumpChargeHandler = jumpChargeHandler;
+    }
 
     private void OnPercentChanged(float percent)
     {
-        if(percent == 0)
-        {
-            _reloadBar.Hide();
-        }
-        else
-        {
+        if (percent > 0)
             _reloadBar.Show();
-        }
+
         _reloadBar.SetFillPercent(percent);
     }
 
@@ -27,6 +29,10 @@ public class JumpChargePresenter : MonoBehaviour
 
     private void OnChargeEnd(float percent)
     {
+        if(percent == 0)
+        {
+            _reloadBar.Hide();
+        }
         _reloadBar.SetFillPercent(percent);
     }
 

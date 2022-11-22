@@ -28,12 +28,21 @@ public partial class @Controls : IInputActionCollection2, IDisposable
             ""id"": ""64e5ab96-9692-4612-ae3c-8f6d13492bb0"",
             ""actions"": [
                 {
-                    ""name"": ""Charge"",
+                    ""name"": ""ChargeBegin"",
                     ""type"": ""Button"",
                     ""id"": ""89d4ede7-c70a-46e9-94ec-3f1c82a94bb1"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": ""Press(behavior=2)"",
+                    ""interactions"": ""Press"",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""ChargeReleased"",
+                    ""type"": ""Button"",
+                    ""id"": ""a2bf5575-949b-4151-a111-f6e5aa4bf368"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press(behavior=1)"",
                     ""initialStateCheck"": true
                 },
                 {
@@ -54,7 +63,7 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Charge"",
+                    ""action"": ""ChargeBegin"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -66,6 +75,17 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""TouchPosition"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1c2b5682-10d9-482a-90f3-086e255318c4"",
+                    ""path"": ""<Touchscreen>/primaryTouch/press"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ChargeReleased"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -82,7 +102,8 @@ public partial class @Controls : IInputActionCollection2, IDisposable
 }");
         // Touch
         m_Touch = asset.FindActionMap("Touch", throwIfNotFound: true);
-        m_Touch_Charge = m_Touch.FindAction("Charge", throwIfNotFound: true);
+        m_Touch_ChargeBegin = m_Touch.FindAction("ChargeBegin", throwIfNotFound: true);
+        m_Touch_ChargeReleased = m_Touch.FindAction("ChargeReleased", throwIfNotFound: true);
         m_Touch_TouchPosition = m_Touch.FindAction("TouchPosition", throwIfNotFound: true);
     }
 
@@ -143,13 +164,15 @@ public partial class @Controls : IInputActionCollection2, IDisposable
     // Touch
     private readonly InputActionMap m_Touch;
     private ITouchActions m_TouchActionsCallbackInterface;
-    private readonly InputAction m_Touch_Charge;
+    private readonly InputAction m_Touch_ChargeBegin;
+    private readonly InputAction m_Touch_ChargeReleased;
     private readonly InputAction m_Touch_TouchPosition;
     public struct TouchActions
     {
         private @Controls m_Wrapper;
         public TouchActions(@Controls wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Charge => m_Wrapper.m_Touch_Charge;
+        public InputAction @ChargeBegin => m_Wrapper.m_Touch_ChargeBegin;
+        public InputAction @ChargeReleased => m_Wrapper.m_Touch_ChargeReleased;
         public InputAction @TouchPosition => m_Wrapper.m_Touch_TouchPosition;
         public InputActionMap Get() { return m_Wrapper.m_Touch; }
         public void Enable() { Get().Enable(); }
@@ -160,9 +183,12 @@ public partial class @Controls : IInputActionCollection2, IDisposable
         {
             if (m_Wrapper.m_TouchActionsCallbackInterface != null)
             {
-                @Charge.started -= m_Wrapper.m_TouchActionsCallbackInterface.OnCharge;
-                @Charge.performed -= m_Wrapper.m_TouchActionsCallbackInterface.OnCharge;
-                @Charge.canceled -= m_Wrapper.m_TouchActionsCallbackInterface.OnCharge;
+                @ChargeBegin.started -= m_Wrapper.m_TouchActionsCallbackInterface.OnChargeBegin;
+                @ChargeBegin.performed -= m_Wrapper.m_TouchActionsCallbackInterface.OnChargeBegin;
+                @ChargeBegin.canceled -= m_Wrapper.m_TouchActionsCallbackInterface.OnChargeBegin;
+                @ChargeReleased.started -= m_Wrapper.m_TouchActionsCallbackInterface.OnChargeReleased;
+                @ChargeReleased.performed -= m_Wrapper.m_TouchActionsCallbackInterface.OnChargeReleased;
+                @ChargeReleased.canceled -= m_Wrapper.m_TouchActionsCallbackInterface.OnChargeReleased;
                 @TouchPosition.started -= m_Wrapper.m_TouchActionsCallbackInterface.OnTouchPosition;
                 @TouchPosition.performed -= m_Wrapper.m_TouchActionsCallbackInterface.OnTouchPosition;
                 @TouchPosition.canceled -= m_Wrapper.m_TouchActionsCallbackInterface.OnTouchPosition;
@@ -170,9 +196,12 @@ public partial class @Controls : IInputActionCollection2, IDisposable
             m_Wrapper.m_TouchActionsCallbackInterface = instance;
             if (instance != null)
             {
-                @Charge.started += instance.OnCharge;
-                @Charge.performed += instance.OnCharge;
-                @Charge.canceled += instance.OnCharge;
+                @ChargeBegin.started += instance.OnChargeBegin;
+                @ChargeBegin.performed += instance.OnChargeBegin;
+                @ChargeBegin.canceled += instance.OnChargeBegin;
+                @ChargeReleased.started += instance.OnChargeReleased;
+                @ChargeReleased.performed += instance.OnChargeReleased;
+                @ChargeReleased.canceled += instance.OnChargeReleased;
                 @TouchPosition.started += instance.OnTouchPosition;
                 @TouchPosition.performed += instance.OnTouchPosition;
                 @TouchPosition.canceled += instance.OnTouchPosition;
@@ -191,7 +220,8 @@ public partial class @Controls : IInputActionCollection2, IDisposable
     }
     public interface ITouchActions
     {
-        void OnCharge(InputAction.CallbackContext context);
+        void OnChargeBegin(InputAction.CallbackContext context);
+        void OnChargeReleased(InputAction.CallbackContext context);
         void OnTouchPosition(InputAction.CallbackContext context);
     }
 }

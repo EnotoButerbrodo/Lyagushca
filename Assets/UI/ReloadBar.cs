@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(CanvasGroup))]
-public class ReloadBar : MonoBehaviour
+public class ReloadBar : MonoBehaviour, IResetable
 {
     [SerializeField] private Image _reloadFillImage;
     private CanvasGroup _elementCanvasGroup;
@@ -19,6 +19,10 @@ public class ReloadBar : MonoBehaviour
         _elementCanvasGroup.alpha = 1;
     }
 
+    public void ShowHalf()
+    {
+        _elementCanvasGroup.alpha = .5f;
+    }
     public void Hide()
     {
         _elementCanvasGroup.alpha = 0;
