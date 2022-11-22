@@ -1,3 +1,4 @@
+using Cinemachine;
 using Unity.VisualScripting;
 using UnityEngine;
 using Zenject;
@@ -6,6 +7,8 @@ public class GameActorInstaller : MonoInstaller
 {
     [SerializeField] private GameActor _defaultActor;
     [SerializeField] private Transform _startPoint;
+    [SerializeField] private CinemachineVirtualCamera _camera;
+
     public override void InstallBindings()
     {
         JumpForceAutoChargerBind();
@@ -24,6 +27,8 @@ public class GameActorInstaller : MonoInstaller
             .FromInstance(defaultActorInstance)
             .AsSingle()
             .NonLazy();
+
+        _camera.Follow = defaultActorInstance.transform;
     }
 
     private void JumpForceChargerBind()

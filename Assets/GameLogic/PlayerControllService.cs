@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Cinemachine;
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Zenject;
@@ -18,6 +19,7 @@ public class PlayerControllService : MonoBehaviour
 
         _controls.Enable();
         BindEvents();
+          
     }
 
     private void BindEvents()
