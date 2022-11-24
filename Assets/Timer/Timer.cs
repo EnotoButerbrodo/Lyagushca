@@ -1,76 +1,62 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
+using Zenject;
 
-public class Timer : MonoBehaviour
+
+public class Timer : ITickable
 {
-    [SerializeField] private bool _reversed;
     public event Action<TimerEventArgs> Started;
-    public event Action<TimerEventArgs> Tick;
-    public event Action Finished;
-    private bool _stopRequsted;
+    public event Action<TimerEventArgs> Ticked;
+    public event Action<TimerEventArgs> Finished;
 
-    private Func<float, IEnumerator> _timerHandler;
+    public bool IsStarted => _isStarted;
 
-    private void Awake()
+    private float _currentTime;
+    private float _targetTime;
+
+    private bool _isStarted;
+    public void Start(float time)
     {
-        _timerHandler = _reversed ? ReverseTimerHandler : TimerHandler;
-    }
-    public bool IsStarted { get; private set; }
-    public void StartTimer(float time)
-    {
-        IsStarted = true;
-        StartCoroutine(_timerHandler(time));
+        _isStarted = true;
+        _targetTime = time;
+        _currentTime = 0;
 
+        Started?.Invoke(GetArgs());
     }
 
     public void Stop()
     {
-        _stopRequsted = true;
-        Finished?.Invoke();
+        _isStarted = false;
+        Finished?.Invoke(GetArgs());
+        _targetTime = 0;
+
     }
 
-
-    private IEnumerator TimerHandler(float time)
+    void ITickable.Tick()
     {
-        _stopRequsted = false;
-        Started?.Invoke(new TimerEventArgs(0, time));
-
-        for (float currentTime = 0; currentTime < time; currentTime += Time.deltaTime)
+        if (_isStarted)
         {
-            if (_stopRequsted)
-            {
-                _stopRequsted = false;
-                break;
-            }
-            Tick?.Invoke(new TimerEventArgs(currentTime, time));
-            yield return null;
-        }
+            _currentTime += Time.deltaTime;
 
-        IsStarted = false;
-        Finished?.Invoke();
+            Ticked?.Invoke(GetArgs());
+
+            if (Check())
+            {
+                Stop();
+            }
+        }
     }
 
-    private IEnumerator ReverseTimerHandler(float time)
-    {
-        Started?.Invoke(new TimerEventArgs(0, time));
+    private bool Check()
+        => _currentTime >= _targetTime;
 
-        for (float currentTime = time; currentTime > 0; currentTime -= Time.deltaTime)
-        {
-            if (_stopRequsted)
-            {
-                _stopRequsted = false;
-                break;
-            }
+    private TimerEventArgs GetArgs()
+        => new(_currentTime, _targetTime);
 
-            Tick?.Invoke(new TimerEventArgs(currentTime, time));
-            yield return null;
-        }
-
-        IsStarted = false;
-        Finished?.Invoke();
-    }
 }
 
 public class TimerEventArgs

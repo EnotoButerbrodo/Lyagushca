@@ -12,9 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd9746aabd0a00d47bcd6f7a192771bc, type: 3}
   m_Name: GameConfig
   m_EditorClassIdentifier: 
-  _jumpCharge_MinRadius: 0
-  _jumpCharge_MaxRadius: 0
   _autoCharge_MaxChargeTimeInSeconds: 0.5
   _autoCharge_TicksCount: 10
-  _delayJumpTime: 0
-  _jumpsDelay: 0
+  _delayJumpTime: 0.25
+  _kayoteJumpDelay: 0.1

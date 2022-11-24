@@ -1,18 +1,20 @@
 ﻿using System;
 using System.Collections;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Zenject;
+
+
 public class JumpMechanic : MonoBehaviour
 {
     public event Action<bool> SavedJumpChanged;
 
-    private Controls _controls;
     private JumpForceCharger _charger;
     private GameActor _player;
     private GameConfig _config;
+    private Timer _delayJumpTimer;
 
-    [SerializeField] private Timer _delayJumpTimer;
 
     private float _savedPercent;
 
@@ -28,15 +30,15 @@ public class JumpMechanic : MonoBehaviour
     }
 
     [Inject]
-    private void Construct(Controls controls, JumpForceCharger charger, GameActor player, GameConfig config)
+    private void Construct(JumpForceCharger charger, GameActor player, GameConfig config, Timer timer)
     {
-        _controls = controls;
         _charger = charger;
         _player = player;
         _config = config;
+        _delayJumpTimer = timer;
 
         _player.GroundLand += OnActorLand;
-        _delayJumpTimer.Finished += () => DisableDelayJump();
+        _delayJumpTimer.Finished += DisableDelayJump;
 
         _charger.ChargeBegin += OnChargeBegin;
         _charger.JumpCharged += OnChargeFinish;
@@ -48,11 +50,11 @@ public class JumpMechanic : MonoBehaviour
 
     private void EnableDelayJump()
     {
-        _delayJumpTimer.StartTimer(_config.DelayJumpTime);
+        _delayJumpTimer.Start(_config.DelayJumpTime);
         HasDelayedJump = true;
     }
 
-    private void DisableDelayJump()
+    private void DisableDelayJump(TimerEventArgs e)
     {
         HasDelayedJump = false;
     }
@@ -67,7 +69,7 @@ public class JumpMechanic : MonoBehaviour
 
             _delayJumpTimer.Stop();
 
-            //_charger.Reset();
+            _charger.Reset();
         }
     }
 
@@ -110,7 +112,7 @@ public class JumpMechanic : MonoBehaviour
     private IEnumerator DelayedJump()
     {
         _savedPercent = _charger.ChargePercent;
-        yield return new WaitForSeconds(_config.JumpsDelay);
+        yield return new WaitForSeconds(_config.KayoteJumpDelay);
         Jump(_savedPercent);
     }
 }

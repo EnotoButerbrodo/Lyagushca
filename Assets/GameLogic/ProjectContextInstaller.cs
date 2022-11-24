@@ -9,6 +9,16 @@ public class ProjectContextInstaller : MonoInstaller
     {
         GameConfigBind();
         ControlsBind();
+        BindTimer();
+    }
+
+    private void BindTimer()
+    {
+        Container
+            .BindInterfacesAndSelfTo<Timer>()
+            .FromInstance(new Timer())
+            .AsTransient();
+
     }
 
     private void GameConfigBind()

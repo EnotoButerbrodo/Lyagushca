@@ -1,6 +1,4 @@
-﻿using Cinemachine;
-using System;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.InputSystem;
 using Zenject;
 
@@ -9,6 +7,7 @@ public class PlayerControllService : MonoBehaviour
     private GameActor _player;
     private Controls _controls;
     private JumpForceCharger _charger;
+    private JumpMechanic _jumpMechanic;
 
     [Inject]
     private void Construct(GameActor player, Controls controls, JumpForceCharger charger)

@@ -29,7 +29,6 @@ public class GameResetService
 }
 public class Game : MonoBehaviour
 {
-    [Inject] 
     private GameActor _player;
 
     private void Awake()
