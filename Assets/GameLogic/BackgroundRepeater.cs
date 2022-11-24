@@ -82,17 +82,5 @@ public class BackgroundRepeater : MonoBehaviour
             _buffers.Add(new BackgroundBuffer(background));
         }
     }
-    private void Repeat()
-    {
-        //Есть 2 копии. Когда первая копия остается вне камеры, она перемещается вперед.
-    }
-
-    private void OnImageNotOnScreen()
-    {
-        //Переместить первый фрагмент назад
-        //Получить ссылку на его трасфортм
-        //Получить ссылку на трасформ второго фрагмента
-        //Поставить первый фрагмент позади первого
-    }
 }
 
