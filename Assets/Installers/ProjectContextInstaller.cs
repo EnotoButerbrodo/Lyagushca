@@ -1,17 +1,27 @@
-﻿using Lyaguska.Core.Config;
-using Lyaguska.Core;
+﻿using Lyaguska.Core;
 using UnityEngine;
 using Zenject;
+using Lyaguska.LevelGeneration;
 
 public class ProjectContextInstaller : MonoInstaller
 {
-    [SerializeField] private GameConfig _gameConfig; 
+    [SerializeField] private JumpsConfig _gameConfig;
+    [SerializeField] private LevelGenerationConfig _levelGenerationConfig;
 
     public override void InstallBindings()
     {
         GameConfigBind();
+        LevelGenerationConfigBind();
         ControlsBind();
         BindTimer();
+    }
+
+    private void LevelGenerationConfigBind()
+    {
+        Container
+                    .Bind<LevelGenerationConfig>()
+                    .FromInstance(_levelGenerationConfig)
+                    .AsSingle();
     }
 
     private void BindTimer()
@@ -26,7 +36,7 @@ public class ProjectContextInstaller : MonoInstaller
     private void GameConfigBind()
     {
         Container
-                    .Bind<GameConfig>()
+                    .Bind<JumpsConfig>()
                     .FromInstance(_gameConfig)
                     .AsSingle();
     }

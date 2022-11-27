@@ -1,4 +1,4 @@
-﻿using Lyaguska.Core.Config;
+﻿using Lyaguska.Core;
 using System;
 using System.Collections;
 using UnityEngine;
@@ -11,10 +11,10 @@ public class JumpForceAutoCharger : MonoBehaviour, IResetable
     public event Action Charged;
     public event Action Canceled;
 
-    private GameConfig _gameConfig;
+    private JumpsConfig _gameConfig;
 
     [Inject]
-    public void Construct(GameConfig gameConfig)
+    public void Construct(JumpsConfig gameConfig)
     {
         _gameConfig = gameConfig;
     }

@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem.HID;
 
 public class BackgroundRepeater : MonoBehaviour
 {
@@ -9,47 +8,7 @@ public class BackgroundRepeater : MonoBehaviour
 
     private Camera _camera;
     private Vector3 _lastPosition;
-    private class BackgroundBuffer
-    {
-        private SpriteRenderer[] _buffer;
-        public BackgroundBuffer(SpriteRenderer background)
-        {
-            _buffer = new SpriteRenderer[2];
-            for(int i = 0; i< _buffer.Length; i++)
-            {
-                _buffer[i] = GameObject.Instantiate(background);
-                if (i == 0) continue;
-
-                var position = _buffer[i].transform.position;
-                position.x += _buffer[i - 1].bounds.size.x;
-                _buffer[i].transform.position = position;
-            }
-        }
-
-        public void Check(Plane[] cameraPlanes)
-        {
-            if(!GeometryUtility.TestPlanesAABB(cameraPlanes, _buffer[0].bounds))
-            {
-                Move();
-                SwapFirstAndLast();
-            }
-        }
-
-        private void Move()
-        {
-            var hiden = _buffer[0];
-            var transform = hiden.transform.position;
-            transform.x = _buffer[1].transform.position.x + hiden.bounds.size.x;
-            hiden.transform.position = transform;
-        }
-
-        private void SwapFirstAndLast()
-        {
-            var temp = _buffer[0];
-            _buffer[0] = _buffer[1];
-            _buffer[1] = temp;
-        }
-    }
+    
 
     private void Awake()
     {
@@ -72,15 +31,54 @@ public class BackgroundRepeater : MonoBehaviour
         }
     }
 
-
-
     private void CreateBackgroundBuffers()
     {
         _buffers = new List<BackgroundBuffer>();
         foreach(var background in _backgrounds)
         {
-            _buffers.Add(new BackgroundBuffer(background));
+            _buffers.Add(new BackgroundBuffer(background, transform));
         }
     }
 }
 
+public class BackgroundBuffer
+{
+    private SpriteRenderer[] _buffer;
+    public BackgroundBuffer(SpriteRenderer background, Transform parent = null)
+    {
+        _buffer = new SpriteRenderer[2];
+        for (int i = 0; i < _buffer.Length; i++)
+        {
+            _buffer[i] = GameObject.Instantiate(background, parent);
+            if (i == 0) continue;
+
+            var position = _buffer[i].transform.position;
+            position.x += _buffer[i - 1].bounds.size.x;
+            _buffer[i].transform.position = position;
+        }
+    }
+
+    public void Check(Plane[] cameraPlanes)
+    {
+        if (!GeometryUtility.TestPlanesAABB(cameraPlanes, _buffer[0].bounds))
+        {
+            Move();
+            SwapFirstAndLast();
+        }
+    }
+
+    private void Move()
+    {
+        var hiden = _buffer[0];
+        var transform = hiden.transform.position;
+        transform.x = _buffer[1].transform.position.x + hiden.bounds.size.x;
+        hiden.transform.position = transform;
+    }
+
+    private void SwapFirstAndLast()
+    {
+        var temp = _buffer[0];
+        _buffer[0] = _buffer[1];
+        _buffer[1] = temp;
+    }
+}

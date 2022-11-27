@@ -1,32 +1,31 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using Zenject;
 
 namespace Lyaguska.LevelGeneration
 {
     public class ChunkGenerator : MonoBehaviour
     {
-        [Header("Сид")]
-        [SerializeField] private int seed;
-        [SerializeField] private bool _randomSeed;
+        private LevelGenerationConfig _config;
 
-        [Header("Чанки")]
-        [SerializeField] private Transform _chunksParent;
-        [SerializeField] List<Chunk> _chunkPrefabs;
+        private Transform _chunksParent;
 
-        private void Start()
+        [Inject]
+        private void Construct(LevelGenerationConfig config)
         {
-            SetSeed(_randomSeed ? System.DateTime.Now.Millisecond : seed);
-        }
-
-        public void SetSeed(int seed)
-        {
-            Random.InitState(seed);
+            _config = config;
+            SetSeed(_config.UseRandomSeed ? System.DateTime.Now.Millisecond : _config.Seed);
+            _chunksParent = transform;
         }
 
         public Chunk GetChunk(int score)
         {
-            int chunkNumber = Random.Range(0, _chunkPrefabs.Count);
-            return Instantiate(_chunkPrefabs[chunkNumber], _chunksParent);
+            int chunkNumber = Random.Range(0, _config.ChunkPrefabs.Count);
+            return Instantiate(_config.ChunkPrefabs[chunkNumber], _chunksParent);
+        }
+
+        private void SetSeed(int seed)
+        {
+            Random.InitState(seed);
         }
 
     }

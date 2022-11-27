@@ -1,5 +1,4 @@
-﻿using Lyaguska.Core.Config;
-using System;
+﻿using System;
 using System.Collections;
 using UnityEngine;
 using Zenject;
@@ -12,7 +11,7 @@ namespace Lyaguska.Core
 
         private JumpForceCharger _charger;
         private GameActor _player;
-        private GameConfig _config;
+        private JumpsConfig _config;
         private Timer _delayJumpTimer;
 
 
@@ -30,7 +29,7 @@ namespace Lyaguska.Core
         }
 
         [Inject]
-        private void Construct(JumpForceCharger charger, GameActor player, GameConfig config, Timer timer)
+        private void Construct(JumpForceCharger charger, GameActor player, JumpsConfig config, Timer timer)
         {
             _charger = charger;
             _player = player;
