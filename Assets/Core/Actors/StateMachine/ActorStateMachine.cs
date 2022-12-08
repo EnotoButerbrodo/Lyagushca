@@ -1,55 +1,28 @@
-﻿using System.Runtime.InteropServices;
-using UnityEngine;
-using Zenject;
+﻿using UnityEngine;
 
 namespace Lyaguska.Core.Actors.StateMachine
 {
-    public class ActorStateMachine : MonoBehaviour
+    [RequireComponent(typeof(Actor))]
+    public abstract class ActorStateMachine : MonoBehaviour
     {
+        [SerializeField] private Animator _animator;
+
         public Actor Actor { get; private set; }
-        public ActorState IdleState { get; private set; }
-        public ActorState JumpChargeState { get; private set; }
-        public ActorState JumpState { get; private set; }
-        public ActorState AirState { get; private set; }
-        public ActorState BufferedJumpState { get; private set; }
+        public Animator Animator => _animator;
 
         private ActorState _currentState;
-        private IJumpForceCharger _charger;
-        private Timer _timer;
-
-        [Inject]
-        public void Construct(IJumpForceCharger charger, Timer timer)
-        {
-            _charger = charger;
-            _timer = timer;
-        }
-
-
-        public void SetState(ActorState state)
-        {
-            _currentState?.Exit();
-            _currentState = state;
-            _currentState.Enter();
-
-            Debug.Log(_currentState.ToString());
-        }
 
         private void Awake()
         {
             Actor = GetComponent<Actor>();
-
             InitializeStates();
-            SetState(GetInitialState());
+            ChangeState(GetInitialState());
+            OnAwake();
         }
 
-        private void InitializeStates()
-        {
-            IdleState = new IdleState(this, _charger);
-            JumpChargeState = new JumpChargeState(this, _charger);
-            JumpState = new JumpState(this, _charger);
-            AirState = new AirState(this, _charger);
-            BufferedJumpState = new BufferedJumpState(this, _charger,_timer);
-        }
+        protected virtual void OnAwake() { }
+
+        protected abstract void InitializeStates();
 
         public void ButtonPressHandler()
         {
@@ -61,9 +34,15 @@ namespace Lyaguska.Core.Actors.StateMachine
             _currentState.HandleButtonRelease();
         }
 
-        private ActorState GetInitialState() => IdleState;
+        public void ChangeState(ActorState state)
+        {
+            _currentState?.Exit();
+            _currentState = state;
+            _currentState.Enter();
+
+            Debug.Log(_currentState.ToString());
+        }
+
+        protected abstract ActorState GetInitialState();
     }
-
-
-
 }

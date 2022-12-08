@@ -3,10 +3,10 @@ using Zenject;
 
 namespace Lyaguska.Core.Actors.StateMachine
 {
-    public class JumpChargeState : ActorState
+    public class JumpChargeState : FrogState
     {
         private IJumpForceCharger _charger;
-        public JumpChargeState(ActorStateMachine stateMachine, IJumpForceCharger charger) : base(stateMachine)
+        public JumpChargeState(FrogStateMachine stateMachine, IJumpForceCharger charger) : base(stateMachine)
         {
             _charger = charger;
         }
@@ -30,10 +30,10 @@ namespace Lyaguska.Core.Actors.StateMachine
             _charger.StopCharge();
             if (_stateMachine.Actor.Grounded)
             {
-                _stateMachine.SetState(_stateMachine.JumpState);
+                _stateMachine.ChangeState(_stateMachine.JumpState);
             }else
             {
-                _stateMachine.SetState(_stateMachine.BufferedJumpState);
+                _stateMachine.ChangeState(_stateMachine.BufferedJumpState);
             }
         }
     }

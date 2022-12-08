@@ -2,11 +2,11 @@
 
 namespace Lyaguska.Core.Actors.StateMachine
 {
-    public class BufferedJumpState : ActorState
+    public class BufferedJumpState : FrogState
     {
         private IJumpForceCharger _charger;
         private Timer _timer;
-        public BufferedJumpState(ActorStateMachine stateMachine, IJumpForceCharger charger, Timer timer) : base(stateMachine)
+        public BufferedJumpState(FrogStateMachine stateMachine, IJumpForceCharger charger, Timer timer) : base(stateMachine)
         {
             _charger = charger;
             _timer = timer;
@@ -22,7 +22,7 @@ namespace Lyaguska.Core.Actors.StateMachine
         private void OnTimerFinished(TimerEventArgs obj)
         {
             _charger.Reset();
-            _stateMachine.SetState(_stateMachine.AirState);
+            _stateMachine.ChangeState(_stateMachine.AirState);
         }
 
         public override void Exit()
@@ -34,7 +34,7 @@ namespace Lyaguska.Core.Actors.StateMachine
 
         public override void HandleButtonPress()
         {
-            _stateMachine.SetState(_stateMachine.JumpChargeState);
+            _stateMachine.ChangeState(_stateMachine.JumpChargeState);
         }
 
         private void OnGrounded()
@@ -42,7 +42,7 @@ namespace Lyaguska.Core.Actors.StateMachine
             _stateMachine.Actor.GroundLand -= OnGrounded;
             _timer.Finished -= OnTimerFinished;
             _timer.Stop();
-            _stateMachine.SetState(_stateMachine.JumpState);
+            _stateMachine.ChangeState(_stateMachine.JumpState);
         }
         
     }

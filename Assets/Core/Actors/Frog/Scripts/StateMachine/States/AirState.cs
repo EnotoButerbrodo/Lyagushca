@@ -2,10 +2,10 @@
 
 namespace Lyaguska.Core.Actors.StateMachine
 {
-    public class AirState : ActorState
+    public class AirState : FrogState
     {
         IJumpForceCharger _charger;
-        public AirState(ActorStateMachine stateMachine, IJumpForceCharger charger) : base(stateMachine)
+        public AirState(FrogStateMachine stateMachine, IJumpForceCharger charger) : base(stateMachine)
         {
             _charger = charger;
         }
@@ -23,7 +23,7 @@ namespace Lyaguska.Core.Actors.StateMachine
         private void OnGroundLand()
         {
             _stateMachine.Actor.GroundLand -= OnGroundLand;
-            _stateMachine.SetState(_stateMachine.IdleState);
+            _stateMachine.ChangeState(_stateMachine.IdleState);
         }
 
 
@@ -31,7 +31,7 @@ namespace Lyaguska.Core.Actors.StateMachine
         {
             if(_stateMachine.Actor.Grounded == false)
             {
-                _stateMachine.SetState(_stateMachine.JumpChargeState);
+                _stateMachine.ChangeState(_stateMachine.JumpChargeState);
             }
         }
 

@@ -2,11 +2,11 @@
 
 namespace Lyaguska.Core.Actors.StateMachine
 {
-    public class IdleState : ActorState
+    public class IdleState : FrogState
     {
         private IJumpForceCharger _charger;
 
-        public IdleState(ActorStateMachine stateMachine, IJumpForceCharger charger) : base(stateMachine)
+        public IdleState(FrogStateMachine stateMachine, IJumpForceCharger charger) : base(stateMachine)
         {
             _charger = charger;
         }
@@ -20,13 +20,13 @@ namespace Lyaguska.Core.Actors.StateMachine
         {
             if (_charger.ChargePercent > 0 && _stateMachine.Actor.Grounded)
             {
-                _stateMachine.SetState(_stateMachine.JumpState);
+                _stateMachine.ChangeState(_stateMachine.JumpState);
             }
         }
 
         public override void HandleButtonPress()
         {
-            _stateMachine.SetState(_stateMachine.JumpChargeState);
+            _stateMachine.ChangeState(_stateMachine.JumpChargeState);
         }
 
         public override void HandleButtonRelease()

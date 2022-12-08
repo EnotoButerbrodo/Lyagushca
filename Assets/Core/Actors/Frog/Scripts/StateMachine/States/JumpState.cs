@@ -1,9 +1,9 @@
 ﻿namespace Lyaguska.Core.Actors.StateMachine
 {
-    public class JumpState : ActorState
+    public class JumpState : FrogState
     {
         private IJumpForceCharger _charger;
-        public JumpState(ActorStateMachine stateMachine, IJumpForceCharger charger) : base(stateMachine)
+        public JumpState(FrogStateMachine stateMachine, IJumpForceCharger charger) : base(stateMachine)
         {
             _charger = charger;
         }
@@ -12,7 +12,7 @@
         {
             _stateMachine.Actor.Jump(_charger.ChargePercent);
             _charger.Reset();
-            _stateMachine.SetState(_stateMachine.AirState);
+            _stateMachine.ChangeState(_stateMachine.AirState);
         }
     }
 

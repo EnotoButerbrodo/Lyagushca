@@ -32,11 +32,11 @@ namespace Lyaguska.Core
 
         private Rigidbody2D _rigidbody2D => GetComponent<Rigidbody2D>();
 
-        private ActorStateMachine _stateMachine;
+        private FrogStateMachine _stateMachine;
 
         private void Awake()
         {
-            _stateMachine = GetComponent<ActorStateMachine>();
+            _stateMachine = GetComponent<FrogStateMachine>();
             _groundChecker.Landed += OnLand;
         }
 
