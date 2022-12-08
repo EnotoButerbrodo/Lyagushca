@@ -6,7 +6,7 @@ public class RunSettingsInstaller : MonoInstaller
     public override void InstallBindings()
     {
         Container
-            .Bind<GameActor>()
+            .Bind<Actor>()
             .FromFactory<PlayerGameActorFactory>()
             .AsSingle();
     }

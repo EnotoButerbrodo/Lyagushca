@@ -1,17 +1,27 @@
 using Lyaguska.Core;
+using System;
 using UnityEngine;
 using Zenject;
 
 public class DistanceCounter : MonoBehaviour, IResetable
 {
-    public float Distance => _distance;
+    public Action<float> DistanceChanged;
+    public float Distance
+    {
+        get => _distance;
+        set
+        {
+            _distance = value;
+            DistanceChanged?.Invoke(value);
+        }
+    }
     private float _distance;
 
     private Vector3 _startPosition;
     private Transform _target;
 
     [Inject]
-    private void Construct(GameActor player)
+    private void Construct(Actor player)
     {
         _target = player.transform;
         _startPosition = _target.position;
@@ -19,11 +29,11 @@ public class DistanceCounter : MonoBehaviour, IResetable
 
     private void Update()
     {
-        _distance = _target.position.x - _startPosition.x;
+        Distance = _target.position.x - _startPosition.x;
     }
 
     void IResetable.Reset()
     {
-        _distance = 0;
+        Distance = 0;
     }
 }

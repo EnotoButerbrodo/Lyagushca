@@ -7,10 +7,10 @@ public class JumpChargePresenter : MonoBehaviour
 {
     [SerializeField] private ReloadBar _reloadBar;
 
-    private JumpForceCharger _jumpChargeHandler;
+    private IJumpForceCharger _jumpChargeHandler;
 
     [Inject]
-    public void Construct(JumpForceCharger jumpChargeHandler)
+    public void Construct(IJumpForceCharger jumpChargeHandler)
     {
         _jumpChargeHandler = jumpChargeHandler;
     }

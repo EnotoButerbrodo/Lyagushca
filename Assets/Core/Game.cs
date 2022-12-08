@@ -4,13 +4,13 @@ namespace Lyaguska.Core
 {
     public class Game : MonoBehaviour
     {
-        private GameActor _player;
+        private Actor _player;
 
         private void Awake()
         {
             StartNewGame();
         }
-        public void StartNewGame()
+        public void StartNewGame() 
         {
 
         }

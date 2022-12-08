@@ -12,7 +12,7 @@ public class ScoreCounter : MonoBehaviour, IResetable
 
     public int Score { get; private set; }
 
-    [Inject] private GameActor _target;
+    [Inject] private Actor _target;
 
     private Vector2 _startPosition = Vector2.zero;
 

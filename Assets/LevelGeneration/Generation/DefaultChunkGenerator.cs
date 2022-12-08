@@ -1,9 +1,12 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using Zenject;
 
 namespace Lyaguska.LevelGeneration
 {
-    public class ChunkGenerator : MonoBehaviour
+
+
+    public class DefaultChunkGenerator : MonoBehaviour, IChunkGenerator
     {
         private LevelGenerationConfig _config;
 

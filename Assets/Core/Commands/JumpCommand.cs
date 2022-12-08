@@ -7,7 +7,7 @@
         {
             _chargePercent = chargePercent;
         }
-        public override void Execute(GameActor actor)
+        public override void Execute(Actor actor)
         {
             actor.Jump(_chargePercent);
         }

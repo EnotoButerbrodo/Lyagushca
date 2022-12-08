@@ -2,10 +2,10 @@
 using UnityEngine;
 using Zenject;
 
-public class PlayerGameActorFactory : MonoBehaviour, IFactory<GameActor>
+public class PlayerGameActorFactory : MonoBehaviour, IFactory<Actor>
 {
-    [SerializeField] private GameActor _defaultGameActor;
-    public GameActor Create()
+    [SerializeField] private Actor _defaultGameActor;
+    public Actor Create()
     {
         return Instantiate(_defaultGameActor);
     }

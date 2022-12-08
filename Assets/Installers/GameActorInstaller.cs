@@ -6,13 +6,12 @@ using Zenject;
 
 public class GameActorInstaller : MonoInstaller
 {
-    [SerializeField] private GameActor _defaultActor;
+    [SerializeField] private Actor _defaultActor;
     [SerializeField] private Transform _startPoint;
     [SerializeField] private CinemachineVirtualCamera _camera;
 
     public override void InstallBindings()
     {
-        BindJumpForceAutoCharger();
         BindJumpForceCharger();
         var player = BindGameActor();
         var camera = BindCamera();
@@ -31,14 +30,14 @@ public class GameActorInstaller : MonoInstaller
             .AsSingle();
     }
 
-    private GameActor BindGameActor()
+    private Actor BindGameActor()
     {
-        var defaultActorInstance = Container.InstantiatePrefabForComponent<GameActor>(_defaultActor
+        var defaultActorInstance = Container.InstantiatePrefabForComponent<Actor>(_defaultActor
                                                                   , _startPoint.position
                                                                   , Quaternion.identity,
                                                                   null);
         Container
-            .Bind<GameActor>()
+            .Bind<Actor>()
             .FromInstance(defaultActorInstance)
             .AsSingle()
             .NonLazy();
@@ -62,7 +61,8 @@ public class GameActorInstaller : MonoInstaller
                 .InstantiateComponentOnNewGameObject<JumpForceCharger>();
 
         Container
-            .Bind<JumpForceCharger>()
+            .Bind<IJumpForceCharger>()
+            .To<JumpForceCharger>()
             .FromInstance(jumpForceChargerInstance)
             .AsSingle();
     }

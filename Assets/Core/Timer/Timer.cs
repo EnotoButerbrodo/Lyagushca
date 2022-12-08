@@ -16,10 +16,10 @@ namespace Lyaguska.Core
         private float _targetTime;
 
         private bool _isStarted;
-        public void Start(float time)
+        public void Start(float timeInSeconds)
         {
             _isStarted = true;
-            _targetTime = time;
+            _targetTime = timeInSeconds;
             _currentTime = 0;
 
             Started?.Invoke(GetArgs());

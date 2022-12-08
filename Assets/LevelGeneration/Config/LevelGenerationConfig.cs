@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Lyaguska.LevelGeneration
 {
-    [CreateAssetMenu(menuName = "Config/LevelGenerationConfig")]
+    [CreateAssetMenu(menuName = "Config/LevelGeneration/LevelGenerationConfig")]
     public class LevelGenerationConfig : ScriptableObject
     {
         [Header("Сид")]
@@ -17,5 +17,32 @@ namespace Lyaguska.LevelGeneration
         [SerializeField] List<Chunk> _chunkPrefabs;
 
         public IReadOnlyList<Chunk> ChunkPrefabs => _chunkPrefabs;
+
+        [Header("Параметры расстановки")]
+
+        [Header("Отступы Y")]
+        [SerializeField] private float _minYOffset;
+        [SerializeField] private float _maxYOffset;
+
+        [Space]
+        [Header("Отступы X")]
+        [SerializeField] private float _minXOffset;
+        [SerializeField] private float _maxXOffset;
+
+        [Space]
+        [Header("Ограничение позиции Y")]
+        [SerializeField] private float _minChunkY;
+        [SerializeField] private float _maxChunkY;
+
+        public float MinYOffset => _minYOffset;
+        public float MaxYOffset => _maxYOffset;
+
+        public float MinXOffset => _minXOffset;
+        public float MaxXOffset => _maxXOffset;
+
+        public float MinChunkY => _minChunkY;
+        public float MaxChunkY => _maxChunkY;
+
+
     }
 }

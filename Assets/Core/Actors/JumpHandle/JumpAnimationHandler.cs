@@ -5,7 +5,7 @@ namespace Lyaguska.Core
 {
     public class JumpAnimationHandler : MonoBehaviour
     {
-        private JumpForceCharger _jumpChargeHandler;
+        private IJumpForceCharger _jumpChargeHandler;
 
         [SerializeField] private Animator _animator;
 
@@ -25,7 +25,7 @@ namespace Lyaguska.Core
         private int _chargePercentHash;
 
         [Inject]
-        private void Construct(JumpForceCharger charger)
+        private void Construct(IJumpForceCharger charger)
         {
             _jumpChargeHandler = charger;
         }

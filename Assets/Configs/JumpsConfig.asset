@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _autoCharge_MaxChargeTimeInSeconds: 0.5
   _autoCharge_TicksCount: 10
-  _delayJumpTime: 0
-  _kayoteJumpDelay: 0
+  _delayJumpTime: 0.3
+  _kayoteJumpDelay: 0.1

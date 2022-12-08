@@ -3,7 +3,7 @@
 namespace Lyaguska.Core
 {
     [Serializable]
-    public enum GameActorState
+    public enum GameActorStateEnum
     {
         JumpCharging,
         Jumping,

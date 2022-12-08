@@ -5,7 +5,7 @@ using Zenject;
 
 namespace Lyaguska.Core
 {
-    public class JumpForceCharger : MonoBehaviour, IResetable
+    public class JumpForceCharger : MonoBehaviour, IJumpForceCharger, IResetable
     {
         public event Action<float> ChargeBegin;
         public event Action<float> ChargePercentChanged;
@@ -58,8 +58,6 @@ namespace Lyaguska.Core
             float waitTime = _gameConfig.AutoCharge_MaxChargeTimeInSeconds / _gameConfig.AutoCharge_TickCount;
             WaitForSeconds waiter = new WaitForSeconds(waitTime);
 
-            var timer = new System.Diagnostics.Stopwatch();
-            timer.Start();
             for (int currentTime = 1; currentTime < _gameConfig.AutoCharge_TickCount; currentTime++)
             {
                 if (_chargeCancelRequst)
@@ -77,8 +75,6 @@ namespace Lyaguska.Core
             }
 
             JumpCharged?.Invoke(ChargePercent);
-            timer.Stop();
-            Debug.Log(timer.ElapsedMilliseconds);
             _chargeStarted = false;
         }
 

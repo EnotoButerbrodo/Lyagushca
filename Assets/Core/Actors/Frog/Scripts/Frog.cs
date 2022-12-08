@@ -1,9 +1,10 @@
-﻿using System;
+﻿using Lyaguska.Core.Actors.StateMachine;
+using System;
 using UnityEngine;
 
 namespace Lyaguska.Core
 {
-    public class Frog : GameActor
+    public class Frog : Actor
     {
         public override event Action Jumped
         {
@@ -31,6 +32,24 @@ namespace Lyaguska.Core
 
         private Rigidbody2D _rigidbody2D => GetComponent<Rigidbody2D>();
 
+        private ActorStateMachine _stateMachine;
+
+        private void Awake()
+        {
+            _stateMachine = GetComponent<ActorStateMachine>();
+            _groundChecker.Landed += OnLand;
+        }
+
+        public override void HandleButtonPress()
+        {
+            _stateMachine.ButtonPressHandler();
+        }
+
+        public override void HandleButtonRelease()
+        {
+            _stateMachine.ButtonReleaseHandler();
+        }
+
         public override void Jump(float chargePercent)
         {
             if (_groundChecker.IsGrounded() == false)
@@ -50,9 +69,8 @@ namespace Lyaguska.Core
             _rigidbody2D.velocity = Vector2.zero;
         }
 
-        private void Awake()
-        {
-            _groundChecker.Landed += OnLand;
-        }
+  
+
+
     }
 }

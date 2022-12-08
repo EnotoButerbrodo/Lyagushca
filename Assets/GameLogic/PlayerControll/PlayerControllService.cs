@@ -1,42 +1,41 @@
 ﻿using Lyaguska.Core;
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Zenject;
 
 public class PlayerControllService : MonoBehaviour
 {
-    private GameActor _player;
+    private Actor _player;
     private Controls _controls;
-    private JumpForceCharger _charger;
-    private JumpMechanic _jumpMechanic;
+
+    private Action<InputAction.CallbackContext> OnChargeBegin, OnChargeRelesed;
 
     [Inject]
-    private void Construct(GameActor player, Controls controls, JumpForceCharger charger)
+    private void Construct(Actor player, Controls controls)
     {
         _player = player;
         _controls = controls;
-        _charger = charger;
 
         _controls.Enable();
+        OnChargeBegin = (c) => _player.HandleButtonPress();
+        OnChargeRelesed = (c) => _player.HandleButtonRelease();
         BindEvents();
-          
     }
 
-    private void BindEvents()
+    private void OnDestroy()
     {
-        _controls.Touch.ChargeBegin.performed += OnJumpPressed;
-        _controls.Touch.ChargeReleased.performed += OnJumpReleased;
+        _controls.Touch.ChargeBegin.performed -= OnChargeBegin;
+        _controls.Touch.ChargeReleased.performed -= OnChargeRelesed;
     }
 
-    private void OnJumpPressed(InputAction.CallbackContext c)
+    private void BindEvents() 
     {
-        _charger.StartCharge();
+        
+        _controls.Touch.ChargeBegin.performed += OnChargeBegin;
+        _controls.Touch.ChargeReleased.performed += OnChargeRelesed;
     }
 
-    private void OnJumpReleased(InputAction.CallbackContext c)
-    {
-        _charger.StopCharge(); 
-    }
 
 }
 
