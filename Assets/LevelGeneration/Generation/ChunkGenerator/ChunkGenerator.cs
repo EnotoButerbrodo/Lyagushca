@@ -4,26 +4,20 @@ using Zenject;
 
 namespace Lyaguska.LevelGeneration
 {
-
-
-    public class DefaultChunkGenerator : MonoBehaviour, IChunkGenerator
+    internal class ChunkGenerator : IChunkGenerator
     {
         private LevelGenerationConfig _config;
 
-        private Transform _chunksParent;
-
-        [Inject]
-        private void Construct(LevelGenerationConfig config)
+        public ChunkGenerator(LevelGenerationConfig config)
         {
             _config = config;
             SetSeed(_config.UseRandomSeed ? System.DateTime.Now.Millisecond : _config.Seed);
-            _chunksParent = transform;
         }
 
-        public Chunk GetChunk(int score)
+        public Chunk GetChunk(float distance)
         {
             int chunkNumber = Random.Range(0, _config.ChunkPrefabs.Count);
-            return Instantiate(_config.ChunkPrefabs[chunkNumber], _chunksParent);
+            return GameObject.Instantiate(_config.ChunkPrefabs[chunkNumber]);
         }
 
         private void SetSeed(int seed)

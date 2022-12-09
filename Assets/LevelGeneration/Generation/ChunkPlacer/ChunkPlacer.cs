@@ -3,9 +3,14 @@ using Zenject;
 
 namespace Lyaguska.LevelGeneration
 {
-    public class ChunkPlacer : MonoBehaviour
+    internal class ChunkPlacer : IChunkPlacer
     {
-        [Inject] private LevelGenerationConfig _config;
+        private LevelGenerationConfig _config;
+
+        public ChunkPlacer(LevelGenerationConfig config)
+        {
+            _config = config;
+        }
 
         public void PlaceChunk(Chunk chunk, Vector2 previousPoint, float distance)
         {

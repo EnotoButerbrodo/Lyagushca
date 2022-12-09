@@ -1,10 +1,11 @@
 using Cinemachine;
 using Lyaguska.Core;
+using Lyaguska.LevelGeneration;
 using Unity.VisualScripting;
 using UnityEngine;
 using Zenject;
 
-public class GameActorInstaller : MonoInstaller
+public class ActorInstaller : MonoInstaller
 {
     [SerializeField] private Actor _defaultActor;
     [SerializeField] private Transform _startPoint;
@@ -16,7 +17,6 @@ public class GameActorInstaller : MonoInstaller
         var player = BindGameActor();
         var camera = BindCamera();
         camera.Follow = player.transform;
-        BindDistanceCounter();
     }
 
     private void BindDistanceCounter()

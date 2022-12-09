@@ -3,9 +3,9 @@ using System;
 using UnityEngine;
 using Zenject;
 
-public class DistanceCounter : MonoBehaviour, IResetable
+public class DistanceCounter : MonoBehaviour, IDistanceCounter, IResetable
 {
-    public Action<float> DistanceChanged;
+    public event Action<float> DistanceChanged;
     public float Distance
     {
         get => _distance;

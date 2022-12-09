@@ -5,17 +5,19 @@ using Zenject;
 public class LevelGenerationInstaller : MonoInstaller
 {
     [SerializeField] private LevelGenerationConfig _levelGenerationConfig;
+
     public override void InstallBindings()
     {
-        BindChunkGenerator();
+        BindDistanceCounter();
     }
 
-    private void BindChunkGenerator()
+   
+    private void BindDistanceCounter()
     {
-        var chunkGenerator = Container.InstantiateComponentOnNewGameObject <DefaultChunkGenerator>();
         Container
-            .Bind<IChunkGenerator>()
-            .FromInstance(chunkGenerator)
+            .Bind<IDistanceCounter>()
+            .To<DistanceCounter>()
+            .FromNewComponentOnNewGameObject()
             .AsSingle();
     }
 }

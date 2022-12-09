@@ -1,18 +1,37 @@
+using Lyaguska.LevelGeneration;
+using System;
 using UnityEngine;
+using Zenject;
 
 namespace Lyaguska.Core
 {
     public class Game : MonoBehaviour
     {
-        private Actor _player;
+        [Inject] private LevelGenerationConfig _generationConfig;
+        [Inject] private IDistanceCounter _distanceCounter;
+
+        [SerializeField] private Transform _startPosition;
+        private ILevelGenerator _levelGenerator;
 
         private void Awake()
         {
+            _levelGenerator = new LevelGenerator(_generationConfig, _startPosition.position);
+
+            _distanceCounter.DistanceChanged += OnDistanceChanged;
             StartNewGame();
         }
+
+        private void OnDistanceChanged(float distance)
+        {
+            if(distance % 10 == 0)
+            {
+                _levelGenerator.PlaceNewChunk(distance);
+            }
+        }
+
         public void StartNewGame() 
         {
-
+            _levelGenerator.SpawnStart();
         }
 
         /*
