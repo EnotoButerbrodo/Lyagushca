@@ -15,7 +15,6 @@ public class GameActorInstaller : MonoInstaller
         BindJumpForceCharger();
         var player = BindGameActor();
         var camera = BindCamera();
-
         camera.Follow = player.transform;
         BindDistanceCounter();
     }

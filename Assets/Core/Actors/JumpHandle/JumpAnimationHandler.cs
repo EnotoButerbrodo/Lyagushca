@@ -58,6 +58,7 @@ namespace Lyaguska.Core
             _animator.SetTrigger(_landHash);
             _animator.ResetTrigger(_jumpChargeHash);
             _animator.ResetTrigger(_jumpHash);
+            _animator.SetFloat(_verticalSpeedHash, 0);
         }
 
         private void OnVelocityChanged(Vector2 velocity)
