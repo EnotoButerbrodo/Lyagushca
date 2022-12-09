@@ -1,16 +1,18 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using Zenject;
 
 namespace Lyaguska.Core
 {
+
+
     public class JumpAnimationHandler : MonoBehaviour
     {
         private IJumpForceCharger _jumpChargeHandler;
 
         [SerializeField] private Animator _animator;
 
-        [SerializeField] private JumpHandler _jumpHandler;
-        [SerializeField] private GroundCheckHandler _groundChecker;
+        [SerializeField] Actor _actor;
 
         [SerializeField] private string _JUMPCHARGE_TRIGGER;
         [SerializeField] private string _JUMP_TRIGGER;
@@ -58,9 +60,9 @@ namespace Lyaguska.Core
             _animator.ResetTrigger(_jumpHash);
         }
 
-        private void OnVerticalVelocityChanged(float verticalVelocity)
+        private void OnVelocityChanged(Vector2 velocity)
         {
-            _animator.SetFloat(_verticalSpeedHash, verticalVelocity);
+            _animator.SetFloat(_verticalSpeedHash, velocity.y);
         }
 
         private void OnChargePercentChanged(float chargePercent)
@@ -72,9 +74,9 @@ namespace Lyaguska.Core
         {
             _jumpChargeHandler.ChargeBegin += OnJumpInitiated;
             _jumpChargeHandler.ChargePercentChanged += OnChargePercentChanged;
-            _jumpHandler.Jumped += OnJump;
-            _groundChecker.Landed += OnLand;
-            _jumpHandler.VertiacalVelocityChanged += OnVerticalVelocityChanged;
+            _actor.Jumped += OnJump;
+            _actor.GroundLand += OnLand;
+            _actor.VelocityChanged += OnVelocityChanged;
 
         }
 
@@ -82,9 +84,9 @@ namespace Lyaguska.Core
         {
             _jumpChargeHandler.ChargeBegin -= OnJumpInitiated;
             _jumpChargeHandler.ChargePercentChanged -= OnChargePercentChanged;
-            _jumpHandler.Jumped -= OnJump;
-            _groundChecker.Landed -= OnLand;
-            _jumpHandler.VertiacalVelocityChanged -= OnVerticalVelocityChanged;
+            _actor.Jumped -= OnJump;
+            _actor.GroundLand -= OnLand;
+            _actor.VelocityChanged -= OnVelocityChanged;
         }
     }
 }

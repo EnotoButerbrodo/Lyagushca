@@ -13,8 +13,13 @@ namespace Lyaguska.Core
         }
         public override event Action GroundLand
         {
-            add => _groundChecker.Landed += value;
-            remove => _groundChecker.Landed -= value;
+            add => _groundChecker.Grounded += value;
+            remove => _groundChecker.Grounded -= value;
+        }
+        public override event Action<Vector2> VelocityChanged
+        {
+            add => _jumpHandler.VelocityChanged += value;
+            remove => _jumpHandler.VelocityChanged -= value;
         }
         public override event Action Dead
         {
@@ -28,16 +33,15 @@ namespace Lyaguska.Core
         [SerializeField] private GroundCheckHandler _groundChecker;
         [SerializeField] private DieHandler _dieHandler;
 
-        //Буффер действий
-
-        private Rigidbody2D _rigidbody2D => GetComponent<Rigidbody2D>();
+        private Rigidbody2D _rigidbody2D;
 
         private FrogStateMachine _stateMachine;
 
         private void Awake()
         {
             _stateMachine = GetComponent<FrogStateMachine>();
-            _groundChecker.Landed += OnLand;
+            _groundChecker.Grounded += OnLand;
+            _rigidbody2D = GetComponent<Rigidbody2D>();
         }
 
         public override void HandleButtonPress()

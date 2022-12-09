@@ -5,7 +5,7 @@ namespace Lyaguska.Core
 {
     public class GroundCheckHandler : MonoBehaviour
     {
-        public event Action Landed;
+        public event Action Grounded;
         [SerializeField] private BoxCollider2D _collider;
         [SerializeField] private LayerMask _ground;
 
@@ -26,7 +26,7 @@ namespace Lyaguska.Core
         {
             if ((_ground.value & 1 << collision.gameObject.layer) > 0)
             {
-                Landed?.Invoke();
+                Grounded?.Invoke();
             }
         }
 

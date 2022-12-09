@@ -7,6 +7,7 @@ namespace Lyaguska.Core
     {
         public abstract event Action Jumped;
         public abstract event Action GroundLand;
+        public abstract event Action<Vector2> VelocityChanged;
         public abstract event Action Dead;
 
         public abstract bool Grounded { get; }

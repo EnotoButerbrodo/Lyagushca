@@ -7,7 +7,7 @@ namespace Lyaguska.Core
     {
         public event Action Jumped;
 
-        public event Action<float> VertiacalVelocityChanged;
+        public event Action<Vector2> VelocityChanged;
 
         [SerializeField][Range(0, 50f)] private float _jumpHeightKoeff;
         [SerializeField][Range(0, 50f)] private float _jumpRangeKoeff;
@@ -29,13 +29,13 @@ namespace Lyaguska.Core
 
         private void FixedUpdate()
         {
-            VertiacalVelocityChanged?.Invoke(_rigidbody.velocity.y);
+            VelocityChanged?.Invoke(_rigidbody.velocity);
         }
 
         public void Reset()
         {
-            VertiacalVelocityChanged?.Invoke(0);
             _rigidbody.velocity = Vector2.zero;
+            VelocityChanged?.Invoke(_rigidbody.velocity);
 
         }
     }

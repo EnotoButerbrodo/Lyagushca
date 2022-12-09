@@ -66,16 +66,6 @@ public class GameActorInstaller : MonoInstaller
             .FromInstance(jumpForceChargerInstance)
             .AsSingle();
     }
-
-    private void BindJumpForceAutoCharger()
-    {
-        var jumpForceAutoCharger =
-            Container
-                .InstantiateComponentOnNewGameObject<JumpForceAutoCharger>();
-
-        Container
-            .Bind<JumpForceAutoCharger>() 
-            .FromInstance(jumpForceAutoCharger);
-    }
+   
 }
 
