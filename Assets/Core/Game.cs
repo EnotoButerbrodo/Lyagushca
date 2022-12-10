@@ -16,9 +16,10 @@ namespace Lyaguska.Core
         private void Awake()
         {
             _levelGenerator = new LevelGenerator(_generationConfig, _startPosition.position);
-
+            /*
             _distanceCounter.DistanceChanged += OnDistanceChanged;
             StartNewGame();
+            */
         }
 
         private void OnDistanceChanged(float distance)

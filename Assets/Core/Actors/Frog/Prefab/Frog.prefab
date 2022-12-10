@@ -321,13 +321,13 @@ MonoBehaviour:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0.51416016
-      inSlope: 0.13530867
-      outSlope: 0.13530867
+      value: 0.50613403
+      inSlope: 0
+      outSlope: 0
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0.19166666
+      outWeight: 0.24166666
     - serializedVersion: 3
       time: 1
       value: 1
@@ -761,6 +761,8 @@ MonoBehaviour:
   _LAND_TRIGGER: Land
   _VERTICALSPEED_TRIGGER: VerticalSpeed
   _CHARGEPERCENT_TRIGGER: ChargePercent
+  _hopLevel: 0.2
+  _HOP_TRIGGER: Hop
 --- !u!95 &5148772178954213972
 Animator:
   serializedVersion: 4

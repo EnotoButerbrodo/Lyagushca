@@ -20,8 +20,13 @@ namespace Lyaguska.Core
         [SerializeField] private string _VERTICALSPEED_TRIGGER;
         [SerializeField] private string _CHARGEPERCENT_TRIGGER;
 
+        [Header("Hop")]
+        [SerializeField][Range(0, 1f)] private float _hopLevel = 0.25f;
+        [SerializeField] private string _HOP_TRIGGER;
+
         private int _jumpChargeHash;
         private int _jumpHash;
+        private int _hopHash;
         private int _landHash;
         private int _verticalSpeedHash;
         private int _chargePercentHash;
@@ -36,6 +41,7 @@ namespace Lyaguska.Core
         {
             _jumpChargeHash = Animator.StringToHash(_JUMPCHARGE_TRIGGER);
             _jumpHash = Animator.StringToHash(_JUMP_TRIGGER);
+            _hopHash = Animator.StringToHash(_HOP_TRIGGER);
             _landHash = Animator.StringToHash(_LAND_TRIGGER);
             _verticalSpeedHash = Animator.StringToHash(_VERTICALSPEED_TRIGGER);
             _chargePercentHash = Animator.StringToHash(_CHARGEPERCENT_TRIGGER);
@@ -51,6 +57,11 @@ namespace Lyaguska.Core
         {
             _animator.ResetTrigger(_landHash);
             _animator.SetTrigger(_jumpHash);
+            
+            if(_jumpChargeHandler.ChargePercent <= _hopLevel)
+            {
+                _animator.SetTrigger(_hopHash);
+            }
         }
 
         private void OnLand()

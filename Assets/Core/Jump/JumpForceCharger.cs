@@ -47,6 +47,12 @@ namespace Lyaguska.Core
             _chargeCancelRequst = true;
         }
 
+        public void Reset()
+        {
+            StopCharge();
+            ChargePercent = 0;
+        }
+
         private IEnumerator ChargeCoroutine()
         {
             Reset();
@@ -78,10 +84,7 @@ namespace Lyaguska.Core
             _chargeStarted = false;
         }
 
-        public void Reset()
-        {
-            StopCharge();
-            ChargePercent = 0;
-        }
+      
+
     }
 }

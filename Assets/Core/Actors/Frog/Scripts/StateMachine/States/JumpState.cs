@@ -12,6 +12,7 @@
         {
             _stateMachine.Actor.Jump(_charger.ChargePercent);
             _charger.Reset();
+
             _stateMachine.ChangeState(_stateMachine.AirState);
         }
     }
