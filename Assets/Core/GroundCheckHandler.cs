@@ -12,14 +12,7 @@ namespace Lyaguska.Core
         private Collider2D[] _overlapResult = new Collider2D[1];
         public bool IsGrounded()
         {
-            if (Physics2D.OverlapBoxNonAlloc(_collider.bounds.center, _collider.bounds.size, 0, _overlapResult, _ground) == 0)
-            {
-                return false;
-            }
-            else
-            {
-                return true;
-            }
+            return Physics2D.OverlapBoxNonAlloc(_collider.bounds.center, _collider.bounds.size, 0, _overlapResult, _ground) != 0;
         }
 
         private void OnTriggerEnter2D(Collider2D collision)

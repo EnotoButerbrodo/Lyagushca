@@ -761,7 +761,7 @@ MonoBehaviour:
   _LAND_TRIGGER: Land
   _VERTICALSPEED_TRIGGER: VerticalSpeed
   _CHARGEPERCENT_TRIGGER: ChargePercent
-  _hopLevel: 0.2
+  _hopLevel: 0.15
   _HOP_TRIGGER: Hop
 --- !u!95 &5148772178954213972
 Animator:

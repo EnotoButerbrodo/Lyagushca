@@ -1,4 +1,6 @@
-﻿using Zenject;
+﻿using System;
+using UnityEngine;
+using Zenject;
 
 namespace Lyaguska.Core.Actors.StateMachine
 {
@@ -14,6 +16,7 @@ namespace Lyaguska.Core.Actors.StateMachine
         public override void Enter()
         {
             HandleDelayedJump();
+            _stateMachine.Actor.VelocityChanged += OnVelocityChanged;
         }
 
         private void HandleDelayedJump()
@@ -23,6 +26,20 @@ namespace Lyaguska.Core.Actors.StateMachine
                 _stateMachine.ChangeState(_stateMachine.JumpState);
             }
         }
+
+        private void OnVelocityChanged(Vector2 velocity)
+        {
+            if (_stateMachine.Actor.Grounded == false)
+            {
+                _stateMachine.ChangeState(_stateMachine.AirState);
+            }
+        }
+
+        public override void Exit()
+        {
+            _stateMachine.Actor.VelocityChanged -= OnVelocityChanged;
+        }
+
 
         public override void HandleButtonPress()
         {

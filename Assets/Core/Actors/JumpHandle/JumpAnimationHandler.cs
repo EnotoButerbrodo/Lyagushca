@@ -17,6 +17,7 @@ namespace Lyaguska.Core
         [SerializeField] private string _JUMPCHARGE_TRIGGER;
         [SerializeField] private string _JUMP_TRIGGER;
         [SerializeField] private string _LAND_TRIGGER;
+        [SerializeField] private string _GROUNDED = "Grounded";
         [SerializeField] private string _VERTICALSPEED_TRIGGER;
         [SerializeField] private string _CHARGEPERCENT_TRIGGER;
 
@@ -27,7 +28,7 @@ namespace Lyaguska.Core
         private int _jumpChargeHash;
         private int _jumpHash;
         private int _hopHash;
-        private int _landHash;
+        private int _groundedHash;
         private int _verticalSpeedHash;
         private int _chargePercentHash;
 
@@ -42,11 +43,10 @@ namespace Lyaguska.Core
             _jumpChargeHash = Animator.StringToHash(_JUMPCHARGE_TRIGGER);
             _jumpHash = Animator.StringToHash(_JUMP_TRIGGER);
             _hopHash = Animator.StringToHash(_HOP_TRIGGER);
-            _landHash = Animator.StringToHash(_LAND_TRIGGER);
+            _groundedHash = Animator.StringToHash(_GROUNDED);
             _verticalSpeedHash = Animator.StringToHash(_VERTICALSPEED_TRIGGER);
             _chargePercentHash = Animator.StringToHash(_CHARGEPERCENT_TRIGGER);
         }
-
 
         private void OnJumpInitiated(float percent)
         {
@@ -55,7 +55,7 @@ namespace Lyaguska.Core
         }
         private void OnJump()
         {
-            _animator.ResetTrigger(_landHash);
+            _animator.SetBool(_groundedHash, false);
             _animator.SetTrigger(_jumpHash);
             
             if(_jumpChargeHandler.ChargePercent <= _hopLevel)
@@ -66,10 +66,10 @@ namespace Lyaguska.Core
 
         private void OnLand()
         {
-            _animator.SetTrigger(_landHash);
+            _animator.SetFloat(_verticalSpeedHash, 0);
+            _animator.SetBool(_groundedHash, true);
             _animator.ResetTrigger(_jumpChargeHash);
             _animator.ResetTrigger(_jumpHash);
-            _animator.SetFloat(_verticalSpeedHash, 0);
         }
 
         private void OnVelocityChanged(Vector2 velocity)
