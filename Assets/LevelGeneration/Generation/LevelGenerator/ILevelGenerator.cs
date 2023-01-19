@@ -2,7 +2,7 @@
 {
     public interface ILevelGenerator
     {
-        void SpawnStart();
+        void SpawnStartChunk();
         void PlaceNewChunk(float distance);
     }
 }

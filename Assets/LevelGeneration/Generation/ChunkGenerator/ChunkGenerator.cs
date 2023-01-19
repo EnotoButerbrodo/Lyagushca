@@ -14,10 +14,16 @@ namespace Lyaguska.LevelGeneration
             SetSeed(_config.UseRandomSeed ? System.DateTime.Now.Millisecond : _config.Seed);
         }
 
+        public Chunk GetStartChunk()
+        {
+            var startChunkIndex = Random.Range(0, _config.StartChunks.Count - 1);
+            return GameObject.Instantiate(_config.StartChunks[startChunkIndex]);
+        }
+        
         public Chunk GetChunk(float distance)
         {
-            int chunkNumber = Random.Range(0, _config.ChunkPrefabs.Count);
-            return GameObject.Instantiate(_config.ChunkPrefabs[chunkNumber]);
+            int chunkNumber = Random.Range(0, _config.Chunks.Count);
+            return GameObject.Instantiate(_config.Chunks[chunkNumber]);
         }
 
         private void SetSeed(int seed)

@@ -39,8 +39,6 @@ namespace Lyaguska.Core.Actors.StateMachine
             _currentState?.Exit();
             _currentState = state;
             _currentState.Enter();
-
-            Debug.Log(_currentState.ToString());
         }
 
         protected abstract ActorState GetInitialState();

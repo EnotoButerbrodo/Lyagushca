@@ -27,7 +27,7 @@ public class DistanceCounter : MonoBehaviour, IDistanceCounter, IResetable
         _startPosition = _target.position;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         Distance = _target.position.x - _startPosition.x;
     }

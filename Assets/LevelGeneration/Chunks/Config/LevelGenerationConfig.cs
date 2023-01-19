@@ -14,9 +14,11 @@ namespace Lyaguska.LevelGeneration
         public bool UseRandomSeed => _useRandomSeed;
 
         [Header("Чанки")]
-        [SerializeField] List<Chunk> _chunkPrefabs;
+        [SerializeField] private ChunksCollection _chunksCollection;
 
-        public IReadOnlyList<Chunk> ChunkPrefabs => _chunkPrefabs;
+        public IReadOnlyList<Chunk> Chunks => _chunksCollection.Chunks;
+        public IReadOnlyList<Chunk> StartChunks => _chunksCollection.StartChunks;
+
 
         [Header("Параметры расстановки")]
 

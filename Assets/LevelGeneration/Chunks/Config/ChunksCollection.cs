@@ -7,6 +7,8 @@ namespace Lyaguska.LevelGeneration
     public class ChunksCollection : ScriptableObject
     {
         [SerializeField] private List<Chunk> _chunks;
-        public IEnumerable<Chunk> Chunks => _chunks;
+        [SerializeField] private List<Chunk> _startChunks;
+        public List<Chunk> Chunks => _chunks;
+        public List<Chunk> StartChunks => _startChunks;
     }
 }

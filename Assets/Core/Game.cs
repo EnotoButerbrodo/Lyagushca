@@ -11,20 +11,20 @@ namespace Lyaguska.Core
         [Inject] private IDistanceCounter _distanceCounter;
 
         [SerializeField] private Transform _startPosition;
+        [SerializeField] private Transform _generationStartPosition;
         private ILevelGenerator _levelGenerator;
 
         private void Awake()
         {
-            _levelGenerator = new LevelGenerator(_generationConfig, _startPosition.position);
-            /*
+            _levelGenerator = new LevelGenerator(_generationConfig, _generationStartPosition.position);
             _distanceCounter.DistanceChanged += OnDistanceChanged;
+
             StartNewGame();
-            */
         }
 
         private void OnDistanceChanged(float distance)
         {
-            if(distance % 10 == 0)
+            if(distance > 1 && distance % 10 == 0)
             {
                 _levelGenerator.PlaceNewChunk(distance);
             }
@@ -32,7 +32,7 @@ namespace Lyaguska.Core
 
         public void StartNewGame() 
         {
-            _levelGenerator.SpawnStart();
+            _levelGenerator.SpawnStartChunk();
         }
 
         /*
@@ -67,7 +67,7 @@ namespace Lyaguska.Core
 
         private void OnPlayerDead()
         {
-            //Показать экран смерти
+            //РџРѕРєР°Р·Р°С‚СЊ СЌРєСЂР°РЅ СЃРјРµСЂС‚Рё
             _gameOverScreen.Show(_scoreCounter.Score);
             Time.timeScale = 0;
         }
