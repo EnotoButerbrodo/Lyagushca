@@ -33,6 +33,10 @@ namespace Lyaguska.Core
         public void StartNewGame() 
         {
             _levelGenerator.SpawnStartChunk();
+            for (int i = 0; i < 10; i++)
+            {
+                _levelGenerator.PlaceNewChunk(0);
+            }
         }
 
         /*

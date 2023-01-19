@@ -46,8 +46,8 @@ namespace Lyaguska.LevelGeneration
 
         private void PlaceChunk(Chunk chunk, Vector2 previousPosition, Vector2 offset)
         {
-            var chunkPosition = ClampPosition(previousPosition + offset);
-            chunk.Link(previousPosition);
+            var newChunkPosition = ClampPosition(previousPosition + offset);
+            chunk.Link(newChunkPosition);
             _spawnedChunks.Add(chunk);
         }
 

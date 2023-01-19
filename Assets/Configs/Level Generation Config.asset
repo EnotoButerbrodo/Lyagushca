@@ -17,7 +17,7 @@ MonoBehaviour:
   _chunksCollection: {fileID: 11400000, guid: e94d5ee6e8d9b094bafc6abe1b29ce1e, type: 2}
   _minYOffset: 1
   _maxYOffset: 1
-  _minXOffset: 1
-  _maxXOffset: 1
+  _minXOffset: 3
+  _maxXOffset: 5
   _minChunkY: -3
   _maxChunkY: 3
