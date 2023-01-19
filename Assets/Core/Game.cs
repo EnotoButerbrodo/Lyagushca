@@ -12,11 +12,14 @@ namespace Lyaguska.Core
 
         [SerializeField] private Transform _startPosition;
         [SerializeField] private Transform _generationStartPosition;
+        [SerializeField] private Transform _chunksParent;
+        
         private ILevelGenerator _levelGenerator;
+        private float _lastDistance;
 
         private void Awake()
         {
-            _levelGenerator = new LevelGenerator(_generationConfig, _generationStartPosition.position);
+            _levelGenerator = new LevelGenerator(_generationConfig, _generationStartPosition.position, _chunksParent);
             _distanceCounter.DistanceChanged += OnDistanceChanged;
 
             StartNewGame();
@@ -24,20 +27,21 @@ namespace Lyaguska.Core
 
         private void OnDistanceChanged(float distance)
         {
-            if(distance > 1 && distance % 10 == 0)
+            if(distance > 1 && distance - _lastDistance > 10)
             {
                 _levelGenerator.PlaceNewChunk(distance);
+                _lastDistance = distance;
             }
         }
 
         public void StartNewGame() 
         {
             _levelGenerator.SpawnStartChunk();
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 5; i++)
             {
                 _levelGenerator.PlaceNewChunk(0);
             }
-        }
+        } 
 
         /*
         [SerializeField] private GameOverScreen _gameOverScreen;

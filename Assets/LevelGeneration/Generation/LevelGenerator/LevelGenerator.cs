@@ -18,14 +18,13 @@ namespace Lyaguska.LevelGeneration
         private IReadOnlyList<Chunk> _startChunks;
         private readonly LevelGenerationConfig _config;
 
-        public LevelGenerator(LevelGenerationConfig config, Vector3 startPosition)
+        public LevelGenerator(LevelGenerationConfig config, Vector3 startPosition, Transform chunksParent)
         {
             _startPosition = startPosition;
             _startChunks = config.StartChunks;
 
             _config = config;
-            //_placer = new ChunkPlacer(config);
-            _generator = new ChunkGenerator(config);
+            _generator = new ChunkGenerator(config, chunksParent);
         }
 
         public void SpawnStartChunk()
