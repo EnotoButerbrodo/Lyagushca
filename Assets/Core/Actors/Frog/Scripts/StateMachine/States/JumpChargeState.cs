@@ -18,12 +18,7 @@ namespace Lyaguska.Core.Actors.StateMachine
                 _charger.StartCharge();
             }
         }
-
-        //public override void HandleButtonPress()
-        //{
-        //    _charger.StartCharge();
-
-        //}
+        
 
         public override void HandleButtonRelease()
         {

@@ -6,7 +6,7 @@ namespace Lyaguska.Core
 {
 
 
-    public class JumpAnimationHandler : MonoBehaviour
+    public class FrogAnimationHandler : MonoBehaviour
     {
         private IJumpForceCharger _jumpChargeHandler;
 

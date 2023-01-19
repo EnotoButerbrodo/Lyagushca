@@ -344,32 +344,14 @@ MonoBehaviour:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: -0.032349642
-      value: 0.34434077
+      time: 0
+      value: 0.3
       inSlope: 1.0405071
-      outSlope: 0
-      tangentMode: 65
+      outSlope: 2.335719
+      tangentMode: 1
       weightedMode: 0
       inWeight: 0
-      outWeight: 0.10000005
-    - serializedVersion: 3
-      time: 0.06725261
-      value: 0.34434077
-      inSlope: -0
-      outSlope: 1.097063
-      tangentMode: 5
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.72830784
-      value: 0.99533236
-      inSlope: 0.39028132
-      outSlope: 0.011854946
-      tangentMode: 65
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
+      outWeight: 0.039702523
     - serializedVersion: 3
       time: 0.99139404
       value: 0.99845123
@@ -416,7 +398,7 @@ Rigidbody2D:
   m_AngularDrag: 0.05
   m_GravityScale: 1
   m_Material: {fileID: 6200000, guid: 8345f7520013f18459a1c6668473a040, type: 2}
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
@@ -759,6 +741,7 @@ MonoBehaviour:
   _JUMPCHARGE_TRIGGER: JumpCharge
   _JUMP_TRIGGER: Jump
   _LAND_TRIGGER: Land
+  _GROUNDED: Grounded
   _VERTICALSPEED_TRIGGER: VerticalSpeed
   _CHARGEPERCENT_TRIGGER: ChargePercent
   _hopLevel: 0.15
