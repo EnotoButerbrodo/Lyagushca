@@ -1,7 +1,9 @@
 {
     "name": "LevelGeneration",
     "rootNamespace": "",
-    "references": [],
+    "references": [
+        "GUID:31a411321e16a4343bb9633ab263c70a"
+    ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

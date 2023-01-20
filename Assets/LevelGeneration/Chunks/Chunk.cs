@@ -32,10 +32,5 @@ namespace Lyaguska.LevelGeneration
         {
             _returnAction?.Invoke(this);
         }
-
-        private void OnDisable()
-        {
-            ReturnToPool();
-        }
     }
 }

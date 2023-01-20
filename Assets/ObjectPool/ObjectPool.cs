@@ -50,7 +50,10 @@ namespace Lyaguska.ObjectPool
             
         }
 
-        private void ReturnAction(T poolObject) 
-            => _pooledObjects.Push(poolObject);
+        private void ReturnAction(T poolObject)
+        {
+            poolObject.gameObject.SetActive(false);
+            _pooledObjects.Push(poolObject);
+        }
     }
 }
