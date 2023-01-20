@@ -31,7 +31,7 @@ namespace Lyaguska.ObjectPool
             {
                 PoolNewObject();    
             }
-
+            
             var poolObject = _pooledObjects.Pop();
             poolObject.gameObject.SetActive(true);
             
@@ -44,7 +44,7 @@ namespace Lyaguska.ObjectPool
                 ,Quaternion.identity
                 ,_parent);
             
-            
+            newObject.gameObject.SetActive(false);
             newObject.Initialize(ReturnAction);
             _pooledObjects.Push(newObject);
             
