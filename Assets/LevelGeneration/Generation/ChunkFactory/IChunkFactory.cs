@@ -1,6 +1,6 @@
 ﻿namespace Lyaguska.LevelGeneration
 {
-    internal interface IChunkGenerator
+    internal interface IChunkFactory
     {
         Chunk GetStartChunk();
         Chunk GetChunk(float distance);

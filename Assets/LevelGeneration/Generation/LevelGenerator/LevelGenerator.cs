@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using Zenject;
 using Random = UnityEngine.Random;
 
 namespace Lyaguska.LevelGeneration
@@ -11,7 +9,7 @@ namespace Lyaguska.LevelGeneration
     {
         private readonly Vector3 _startPosition;
         
-        private readonly IChunkGenerator _generator;
+        private readonly IChunkFactory _factory;
 
         private List<Chunk> _spawnedChunks = new List<Chunk>();
 
@@ -24,19 +22,19 @@ namespace Lyaguska.LevelGeneration
             _startChunks = config.StartChunks;
 
             _config = config;
-            _generator = new ChunkGenerator(config, chunksParent);
+            _factory = new ChunkFactory(config, chunksParent);
         }
 
         public void SpawnStartChunk()
         {
-            var startChunk = _generator.GetStartChunk();
+            var startChunk = _factory.GetStartChunk();
             
             PlaceChunk(startChunk, _startPosition, Vector2.zero);
         }
 
         public void PlaceNewChunk(float distance)
         {
-            Chunk newChunk = _generator.GetChunk(distance);
+            Chunk newChunk = _factory.GetChunk(distance);
             Vector2 previousPosition = _spawnedChunks.Last().EndPoint;
             var offset = GetRandomOffset(distance);
             
@@ -64,6 +62,7 @@ namespace Lyaguska.LevelGeneration
             return new Vector2(position.x,
                 Mathf.Clamp(position.y, _config.MinChunkY, _config.MaxChunkY));
         }
+
 
     }
 }
