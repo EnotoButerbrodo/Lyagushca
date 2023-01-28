@@ -17,3 +17,5 @@ MonoBehaviour:
   - {fileID: 1063999413125283440, guid: b3828c3262894d14dbb63833f59b3e35, type: 3}
   _startChunks:
   - {fileID: 6136937242389094107, guid: a530a06bfba69c047a8a79db6eb3999c, type: 3}
+  _backgrounds:
+  - {fileID: 8371882531681052764, guid: 1b8bbb09f54216b45a0b14f6a436db7f, type: 3}

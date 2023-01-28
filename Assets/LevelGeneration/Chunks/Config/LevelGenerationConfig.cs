@@ -18,6 +18,7 @@ namespace Lyaguska.LevelGeneration
 
         public IReadOnlyList<Chunk> Chunks => _chunksCollection.Chunks;
         public IReadOnlyList<Chunk> StartChunks => _chunksCollection.StartChunks;
+        public IReadOnlyList<Chunk> BackgroundChunks => _chunksCollection.Backgrounds;
 
 
         [Header("Параметры расстановки")]

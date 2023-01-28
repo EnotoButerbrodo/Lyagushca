@@ -76,7 +76,7 @@ namespace LevelGeneration.Generation.LevelGenerationService
 
         private void PlaceStartChunk()
         {
-            Chunk startChunk = _factory.GetStartChunk();
+            Chunk startChunk = _factory.GetChunk(ChunkType.Start, 0);
             
             _activeChunks.Add(startChunk);
             _placer.PlaceStartChunk(startChunk, _generationStartPoint.position);
@@ -84,7 +84,7 @@ namespace LevelGeneration.Generation.LevelGenerationService
         
         private void SpawnChunk()
         {
-            Chunk newChunk = _factory.GetChunk(_distanceCounter.Distance);
+            Chunk newChunk = _factory.GetChunk(ChunkType.Default, _distanceCounter.Distance);
             _activeChunks.Add(newChunk);
                 
             _placer.PlaceChunk(newChunk, _distanceCounter.Distance);

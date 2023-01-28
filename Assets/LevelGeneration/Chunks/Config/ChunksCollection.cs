@@ -8,7 +8,10 @@ namespace Lyaguska.LevelGeneration
     {
         [SerializeField] private List<Chunk> _chunks;
         [SerializeField] private List<Chunk> _startChunks;
+        [SerializeField] private List<Chunk> _backgrounds;
         public List<Chunk> Chunks => _chunks;
         public List<Chunk> StartChunks => _startChunks;
+        public List<Chunk> Backgrounds => _backgrounds;
+
     }
 }

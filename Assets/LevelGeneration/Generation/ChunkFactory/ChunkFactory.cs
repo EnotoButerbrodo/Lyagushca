@@ -7,49 +7,55 @@ namespace Lyaguska.LevelGeneration
     public class ChunkFactory : IChunkFactory 
     {
         private LevelGenerationConfig _config;
-        
-        private List<ChunkPool> _chunks;
-        private List<ChunkPool> _startChunks;
+
+        private Dictionary<ChunkType, List<ChunkPool>> _chunks;
 
         public ChunkFactory(LevelGenerationConfig config, Transform parent)
         {
             _config = config;
-
-            CreatePoolForChunks(parent);
-            CreatePoolForStartChunks(parent);
-        }
-
-        private void CreatePoolForChunks(Transform parent)
-        {
-            _chunks = new List<ChunkPool>(_config.Chunks.Count);
-            foreach (Chunk chunk in _config.Chunks)
-            {
-                _chunks.Add(new ChunkPool(chunk, 4, parent));
-            }
-        }
-
-        private void CreatePoolForStartChunks(Transform parent)
-        {
-            _startChunks = new List<ChunkPool>(_config.StartChunks.Count);
-            foreach (Chunk startChunk in _config.StartChunks)
-            {
-                _startChunks.Add(new ChunkPool(startChunk, 4,  parent));
-            }
-        }
-
-        public Chunk GetStartChunk()
-        {
-            int startChunkIndex = Random.Range(0, _startChunks.Count);
-
-            return _startChunks[startChunkIndex].Get();
+            _chunks = new Dictionary<ChunkType, List<ChunkPool>>();
+            
+            CreatePool(poolType: ChunkType.Start
+                ,poolCollection: _config.StartChunks
+                ,objectsParent: parent);
+            
+            CreatePool(poolType: ChunkType.Default
+                ,poolCollection: _config.Chunks
+                ,objectsParent: parent);
+            
+            CreatePool(poolType: ChunkType.Background
+                ,poolCollection: _config.BackgroundChunks
+                ,objectsParent: parent);
         }
         
-        public Chunk GetChunk(float distance)
+          
+        public Chunk GetChunk(ChunkType type, float distance)
         {
-            int chunkIndex = Random.Range(0, _chunks.Count);
+            var chunksPool = _chunks[type];
+            int chunkIndex = Random.Range(0, chunksPool.Count);
 
-            return _chunks[chunkIndex].Get();
+            return chunksPool[chunkIndex].Get();
         }
 
+        private void CreatePool(ChunkType poolType, IReadOnlyList<Chunk> poolCollection, Transform objectsParent)
+        {
+            List<ChunkPool> poolList = new List<ChunkPool>(poolCollection.Count);
+            foreach (Chunk chunk in poolCollection)
+            {
+                poolList.Add(new ChunkPool(chunk, 4, objectsParent));
+            }
+            _chunks.Add(poolType, poolList);
+        }
+
+
+
+      
+    }
+
+    public enum ChunkType
+    {
+        Start,
+        Default,
+        Background
     }
 }

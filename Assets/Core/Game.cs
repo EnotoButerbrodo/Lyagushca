@@ -8,12 +8,8 @@ namespace Lyaguska.Core
     public class Game : MonoBehaviour
     {
         [SerializeField] private Transform _startPosition;
-        [SerializeField] private Transform _generationStartPosition;
-        [SerializeField] private Transform _chunksParent;
 
         [SerializeField] private LevelGenerationService _generationService;
-        private float _lastDistance;
-
         private void Awake()
         {
             StartNewGame();
