@@ -1,3 +1,4 @@
+using LevelGeneration.Generation.LevelGenerationService;
 using Lyaguska.LevelGeneration;
 using UnityEngine;
 using Zenject;
@@ -6,40 +7,21 @@ namespace Lyaguska.Core
 {
     public class Game : MonoBehaviour
     {
-        [Inject] private LevelGenerationConfig _generationConfig;
-        [Inject] private IDistanceCounter _distanceCounter;
-
         [SerializeField] private Transform _startPosition;
         [SerializeField] private Transform _generationStartPosition;
         [SerializeField] private Transform _chunksParent;
-        
-        private ILevelGenerator _levelGenerator;
+
+        [SerializeField] private LevelGenerationService _generationService;
         private float _lastDistance;
 
         private void Awake()
         {
-            _levelGenerator = new LevelGenerator(_generationConfig, _generationStartPosition.position, _chunksParent);
-            _distanceCounter.DistanceChanged += OnDistanceChanged;
-
             StartNewGame();
-        }
-
-        private void OnDistanceChanged(float distance)
-        {
-            if(distance > 1 && distance - _lastDistance > 10)
-            {
-                _levelGenerator.PlaceNewChunk(distance);
-                _lastDistance = distance;
-            }
         }
 
         public void StartNewGame() 
         {
-            _levelGenerator.SpawnStartChunk();
-            for (int i = 0; i < 5; i++)
-            {
-                _levelGenerator.PlaceNewChunk(0);
-            }
+            _generationService.BeginGeneration(5);
         } 
 
         /*

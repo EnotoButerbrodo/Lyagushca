@@ -6,6 +6,7 @@ namespace Lyaguska.ObjectPool
 {
     public class ObjectPool<T> where T : MonoBehaviour, IPoolable<T>
     {
+        public event Action<T> ObjectReturned;
         public int Count => _pooledObjects.Count;
         public Type ObjectType => typeof(T);
         
@@ -47,7 +48,6 @@ namespace Lyaguska.ObjectPool
             newObject.gameObject.SetActive(false);
             newObject.Initialize(ReturnAction);
             _pooledObjects.Push(newObject);
-            
         }
 
         private void ReturnAction(T poolObject)

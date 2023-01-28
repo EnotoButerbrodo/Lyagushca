@@ -4,9 +4,10 @@ using Random = UnityEngine.Random;
 
 namespace Lyaguska.LevelGeneration
 {
-    internal class ChunkFactory : IChunkFactory
+    public class ChunkFactory : IChunkFactory 
     {
         private LevelGenerationConfig _config;
+        
         private List<ChunkPool> _chunks;
         private List<ChunkPool> _startChunks;
 
@@ -38,13 +39,15 @@ namespace Lyaguska.LevelGeneration
 
         public Chunk GetStartChunk()
         {
-            var startChunkIndex = Random.Range(0, _startChunks.Count);
+            int startChunkIndex = Random.Range(0, _startChunks.Count);
+
             return _startChunks[startChunkIndex].Get();
         }
         
         public Chunk GetChunk(float distance)
         {
-            var chunkIndex = Random.Range(0, _chunks.Count);
+            int chunkIndex = Random.Range(0, _chunks.Count);
+
             return _chunks[chunkIndex].Get();
         }
 

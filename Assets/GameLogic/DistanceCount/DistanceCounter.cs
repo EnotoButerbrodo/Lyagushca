@@ -15,6 +15,9 @@ public class DistanceCounter : MonoBehaviour, IDistanceCounter, IResetable
             DistanceChanged?.Invoke(value);
         }
     }
+
+    public Vector2 Position => _target.position;
+    
     [SerializeField] private float _distance;
 
     private Vector3 _startPosition;

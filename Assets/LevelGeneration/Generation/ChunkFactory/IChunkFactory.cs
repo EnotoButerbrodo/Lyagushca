@@ -1,6 +1,8 @@
-﻿namespace Lyaguska.LevelGeneration
+﻿using System.Collections.Generic;
+
+namespace Lyaguska.LevelGeneration
 {
-    internal interface IChunkFactory
+    public interface IChunkFactory
     {
         Chunk GetStartChunk();
         Chunk GetChunk(float distance);
