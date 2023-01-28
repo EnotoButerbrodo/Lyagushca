@@ -54,15 +54,15 @@ namespace LevelGeneration.Generation.LevelGenerationService
         private void CheckChunksDistance()
         {
             float currentDisableDistance = _distanceCounter.Distance + ChunkDisableDistance;
-            foreach (var activeChunk in _activeChunks.ToList())
+            for (int i = _activeChunks.Count - 1; i >= 0; i--)
             {
-                Vector2 chunkPosition = activeChunk.EndPoint;
+                Vector2 chunkPosition = _activeChunks[i].EndPoint;
                 Vector2 currentActorPosition = _distanceCounter.Position;
-
+                
                 bool chunkNotOnScreen = currentActorPosition.x - chunkPosition.x > ChunkDisableDistance;
                 if (chunkNotOnScreen)
                 {
-                    DespawnChunk(activeChunk);
+                    DespawnChunk(_activeChunks[i]);
                     SpawnChunk();
                 }
             }
