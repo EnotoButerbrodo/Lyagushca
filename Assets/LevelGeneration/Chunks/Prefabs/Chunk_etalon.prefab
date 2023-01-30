@@ -144,7 +144,7 @@ GameObject:
   - component: {fileID: 8920823993015827315}
   - component: {fileID: 1469308743083551536}
   - component: {fileID: 8776807276181014865}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: EndPoint
   m_TagString: Untagged
   m_Icon: {fileID: 2488908585195742037, guid: 0000000000000000d000000000000000, type: 0}
@@ -273,6 +273,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1465cc9bce9a70a48a1452ed97122d77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _type: 0
   _startPosition: {fileID: 1673616347179647010}
   _endPosition: {fileID: 8920823993015827315}
   _distanceLevel: 0
