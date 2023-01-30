@@ -48,8 +48,6 @@ namespace Lyaguska.LevelGeneration
         }
 
 
-
-      
     }
 
     public enum ChunkType
