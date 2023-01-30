@@ -1,24 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using Lyaguska.LevelGeneration;
 using UnityEngine;
 using Zenject;
 
 namespace LevelGeneration.Generation.LevelGenerationService
 {
-    public class LevelGenerationService : MonoBehaviour
+    public class LevelGenerationService: MonoBehaviour
     {
         [Range(0f, 10f)] public float ChunkDisableDistance;
-
+        
+        public int StartChunksCount = 5;
+        public int StartBackgroundsAmount = 3;
+        
         [SerializeField] private Transform _generationStartPoint;
 
         private LevelGenerationConfig _config;
         private IDistanceCounter _distanceCounter;
-        
+
         private IChunkFactory _factory;
-        private Dictionary<ChunkType, IChunkPlacer> _placers;
-        private Dictionary<ChunkType, List<Chunk>> _activeChunks;
+
+        private ILevelLayerRepeater _levelRepeater;
+        private List<ILevelLayerRepeater> _backgroundsRepeaters;
 
         private bool _enabled;
 
@@ -28,113 +31,56 @@ namespace LevelGeneration.Generation.LevelGenerationService
             _config = config;
             _distanceCounter = distanceCounter;
             _factory = new ChunkFactory(_config, transform);
+            _backgroundsRepeaters = new List<ILevelLayerRepeater>(4);
+            
+            _levelRepeater = new LevelLayerRepeater(_factory
+                , new ChunkPlacer(config)
+                , ChunkType.Start
+                , ChunkType.Default);
 
-            InitializePlacers(config);
-            InitialChunksDictionary();
+            var backgroudFarRepeater = new LevelLayerRepeater(_factory
+                , new BackgroundPlacer()
+                , ChunkType.Background_Far
+                , ChunkType.Background_Far);
+            _backgroundsRepeaters.Add(backgroudFarRepeater);
+            
         }
-
         public void BeginGeneration(int startChunkCount)
         {
-            PlaceStartChunk();
-            PlaceDefaultChunks(startChunkCount);
-            PlaceBackground();
+            BeginGeneration();
+            BeginBackgroundGeneration();
             _enabled = true;
         }
 
-        private void InitializePlacers(LevelGenerationConfig config)
+        private void BeginGeneration()
         {
-            var placer = new ChunkPlacer(config);
-            var backgroundPlacer = new BackgroundPlacer();
-
-            _placers = new Dictionary<ChunkType, IChunkPlacer>()
-            {
-                [ChunkType.Start] = placer,
-                [ChunkType.Default] = placer,
-                [ChunkType.Background] = backgroundPlacer
-            };
+            _levelRepeater.SpawnStartChunks(_generationStartPoint.position, StartChunksCount);
         }
 
-        private void InitialChunksDictionary()
+        private void BeginBackgroundGeneration()
         {
-            List<Chunk> defaultChunks = new List<Chunk>();
-            List<Chunk> backgroundChunks = new List<Chunk>();
-
-            _activeChunks = new Dictionary<ChunkType, List<Chunk>>()
+            foreach (LevelLayerRepeater repeater in _backgroundsRepeaters)
             {
-                [ChunkType.Start] = defaultChunks,
-                [ChunkType.Default] = defaultChunks,
-                [ChunkType.Background] = backgroundChunks
-            };
-        }
-
-        private void PlaceBackground()
-        {
-            SpawnStartChunk(ChunkType.Background);
-            SpawnChunk(ChunkType.Background);
+                repeater.SpawnStartChunks(_generationStartPoint.position, StartBackgroundsAmount);
+            }
         }
 
         private void FixedUpdate()
         {
-            if (!_enabled)
+            if(!enabled)
                 return;
 
-            CheckChunksDistance(ChunkType.Background);
-            CheckChunksDistance(ChunkType.Default);
+            CheckChunksRelevance();
         }
 
-
-        private void PlaceStartChunk()
+        private void CheckChunksRelevance()
         {
-            SpawnStartChunk(ChunkType.Start);
-        }
-
-        private void PlaceDefaultChunks(int startChunkCount)
-        {
-            for (int i = 0; i < startChunkCount; i++)
+            _levelRepeater.CheckChunksRelevance(_distanceCounter.Position, _distanceCounter.Distance);
+            foreach (LevelLayerRepeater repeater in _backgroundsRepeaters)
             {
-                SpawnChunk(ChunkType.Default);
+                repeater.CheckChunksRelevance(_distanceCounter.Position, _distanceCounter.Distance);
             }
-        }
-
-        private void CheckChunksDistance(ChunkType type)
-        {
-            float currentDisableDistance = _distanceCounter.Distance + ChunkDisableDistance;
-            for (int i = _activeChunks[type].Count - 1; i >= 0; i--)
-            {
-                Chunk currentChunk = _activeChunks[type][i];
-                Vector2 chunkPosition = currentChunk.EndPoint;
-                Vector2 currentActorPosition = _distanceCounter.Position;
-
-                bool chunkNotOnScreen = currentActorPosition.x - chunkPosition.x > ChunkDisableDistance;
-                if (chunkNotOnScreen)
-                {
-                    DespawnChunk(type, currentChunk);
-                    SpawnChunk(type);
-                }
-            }
-        }
-
-
-        private void SpawnChunk(ChunkType type)
-        {
-            Chunk newChunk = _factory.GetChunk(type, _distanceCounter.Distance);
-            _activeChunks[type].Add(newChunk);
-
-            _placers[type].PlaceChunk(newChunk, _distanceCounter.Distance);
-        }
-
-        private void SpawnStartChunk(ChunkType type)
-        {
-            Chunk newChunk = _factory.GetChunk(type, _distanceCounter.Distance);
-            _activeChunks[type].Add(newChunk);
-
-            _placers[type].PlaceStartChunk(newChunk, _generationStartPoint.position);
-        }
-
-        private void DespawnChunk(ChunkType type, Chunk activeChunk)
-        {
-            _activeChunks[type].Remove(activeChunk);
-            activeChunk.ReturnToPool();
+            
         }
     }
 }

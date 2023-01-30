@@ -23,7 +23,7 @@ namespace Lyaguska.LevelGeneration
                 ,poolCollection: _config.Chunks
                 ,objectsParent: parent);
             
-            CreatePool(poolType: ChunkType.Background
+            CreatePool(poolType: ChunkType.Background_Far
                 ,poolCollection: _config.BackgroundChunks
                 ,objectsParent: parent);
         }
@@ -54,6 +54,6 @@ namespace Lyaguska.LevelGeneration
     {
         Start,
         Default,
-        Background
+        Background_Far
     }
 }
