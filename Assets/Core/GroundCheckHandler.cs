@@ -17,10 +17,7 @@ namespace Lyaguska.Core
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if ((_ground.value & 1 << collision.gameObject.layer) > 0)
-            {
-                Grounded?.Invoke();
-            }
+            Grounded?.Invoke();
         }
 
 
