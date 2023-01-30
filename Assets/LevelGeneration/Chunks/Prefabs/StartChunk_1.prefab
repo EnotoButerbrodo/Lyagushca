@@ -4033,11 +4033,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7517683679739639892, guid: a7aa42577b581234faff67e05c3d7de9, type: 3}
       propertyPath: m_Layer
-      value: 0
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 8165217373689442590, guid: a7aa42577b581234faff67e05c3d7de9, type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 8179385478291089247, guid: a7aa42577b581234faff67e05c3d7de9, type: 3}
       propertyPath: m_Name
@@ -5714,24 +5714,6 @@ TilemapRenderer:
   m_Mode: 0
   m_DetectChunkCullingBounds: 0
   m_MaskInteraction: 0
---- !u!1 &3919051745912048688 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7517683679739639892, guid: a7aa42577b581234faff67e05c3d7de9, type: 3}
-  m_PrefabInstance: {fileID: 6789011191337825380}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &5040436955096724932
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3919051745912048688}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7825225efeb631f42ad5563e6866a40a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _chunk: {fileID: 6136937242389094107}
 --- !u!114 &6136937242389094107 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 800988024381909695, guid: a7aa42577b581234faff67e05c3d7de9, type: 3}
