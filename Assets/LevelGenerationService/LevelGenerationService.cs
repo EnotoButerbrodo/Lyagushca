@@ -43,7 +43,8 @@ namespace LevelGeneration.Generation.LevelGenerationService
             var middleBackgroundRepeater = new LevelLayerRepeater(_factory
                 , new BackgroundPlacer()
                 , ChunkType.Background_Middle
-                , ChunkType.Background_Middle);
+                , ChunkType.Background_Middle
+                , 10f);
             _backgroundsRepeaters.Add(middleBackgroundRepeater);
         }
 
@@ -52,7 +53,8 @@ namespace LevelGeneration.Generation.LevelGenerationService
             var farBackgroundRepeater = new LevelLayerRepeater(_factory
                 , new BackgroundPlacer()
                 , ChunkType.Background_Far
-                , ChunkType.Background_Far);
+                , ChunkType.Background_Far
+                , 15f);
             _backgroundsRepeaters.Add(farBackgroundRepeater);
         }
 
@@ -78,7 +80,7 @@ namespace LevelGeneration.Generation.LevelGenerationService
         {
             foreach (LevelLayerRepeater repeater in _backgroundsRepeaters)
             {
-                repeater.SpawnStartChunks(_generationStartPoint.position, StartBackgroundsAmount);
+                repeater.SpawnStartChunks(_generationStartPoint.position - Vector3.right * 10, StartBackgroundsAmount);
             }
         }
 

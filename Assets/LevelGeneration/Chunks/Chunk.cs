@@ -21,7 +21,7 @@ namespace Lyaguska.LevelGeneration
 
         public void Link(Vector2 point)
         {
-            transform.position = point - (Vector2)_startPosition.localPosition;
+            transform.localPosition = point - (Vector2)_startPosition.localPosition;
         }
 
         public void Initialize(Action<Chunk> returnAction)

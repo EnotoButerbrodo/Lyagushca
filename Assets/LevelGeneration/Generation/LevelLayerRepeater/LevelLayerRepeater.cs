@@ -12,14 +12,20 @@ namespace LevelGeneration.Generation.LevelGenerationService
         private ChunkType _type;
 
         private List<Chunk> _activeChunks;
-        
-        public LevelLayerRepeater(IChunkFactory factory, IChunkPlacer placer, ChunkType startType, ChunkType type)
+        private float _despawnDistance;
+
+        public LevelLayerRepeater(IChunkFactory factory
+            , IChunkPlacer placer
+            , ChunkType startType
+            , ChunkType type
+            , float despawnDistance = 3f)
         {
             _factory = factory;
             _placer = placer;
             _startType = startType;
             _type = type;
             _activeChunks = new List<Chunk>();
+            _despawnDistance = despawnDistance;
         }
 
         public void SpawnStartChunks(Vector2 startPosition, int amount = 1)
@@ -42,7 +48,7 @@ namespace LevelGeneration.Generation.LevelGenerationService
                 Chunk currentChunk = _activeChunks[i];
                 Vector2 chunkPosition = currentChunk.EndPoint;
 
-                bool chunkNotOnScreen =  currentPosition.x - chunkPosition.x >= 5;
+                bool chunkNotOnScreen =  currentPosition.x - chunkPosition.x >= _despawnDistance;
                 if (chunkNotOnScreen)
                 {
                     DespawnChunk(i);
