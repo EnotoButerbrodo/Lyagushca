@@ -33,24 +33,35 @@ namespace LevelGeneration.Generation.LevelGenerationService
             _factory = new ChunkFactory(chunksCollection, transform);
             _backgroundsRepeaters = new List<ILevelLayerRepeater>(4);
             
-            _levelRepeater = new LevelLayerRepeater(_factory
-                , new ChunkPlacer(config)
-                , ChunkType.Start
-                , ChunkType.Default);
+            _levelRepeater = GetLevelRepeater(config);
+            CreateFarBackgroundRepeater();
+            CreateMiddleBackgroundRepeater();
+        }
 
-            var farBackgroundRepeater = new LevelLayerRepeater(_factory
-                , new BackgroundPlacer()
-                , ChunkType.Background_Far
-                , ChunkType.Background_Far);
-            _backgroundsRepeaters.Add(farBackgroundRepeater);
-
+        private void CreateMiddleBackgroundRepeater()
+        {
             var middleBackgroundRepeater = new LevelLayerRepeater(_factory
                 , new BackgroundPlacer()
                 , ChunkType.Background_Middle
                 , ChunkType.Background_Middle);
             _backgroundsRepeaters.Add(middleBackgroundRepeater);
-
         }
+
+        private void CreateFarBackgroundRepeater()
+        {
+            var farBackgroundRepeater = new LevelLayerRepeater(_factory
+                , new BackgroundPlacer()
+                , ChunkType.Background_Far
+                , ChunkType.Background_Far);
+            _backgroundsRepeaters.Add(farBackgroundRepeater);
+        }
+
+        private LevelLayerRepeater GetLevelRepeater(LevelGenerationConfig config) =>
+            new LevelLayerRepeater(_factory
+                , new ChunkPlacer(config)
+                , ChunkType.Start
+                , ChunkType.Default);
+
         public void BeginGeneration(int startChunkCount)
         {
             BeginGeneration();
