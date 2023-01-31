@@ -38,12 +38,18 @@ namespace LevelGeneration.Generation.LevelGenerationService
                 , ChunkType.Start
                 , ChunkType.Default);
 
-            var backgroudFarRepeater = new LevelLayerRepeater(_factory
+            var farBackgroundRepeater = new LevelLayerRepeater(_factory
                 , new BackgroundPlacer()
                 , ChunkType.Background_Far
                 , ChunkType.Background_Far);
-            _backgroundsRepeaters.Add(backgroudFarRepeater);
-            
+            _backgroundsRepeaters.Add(farBackgroundRepeater);
+
+            var middleBackgroundRepeater = new LevelLayerRepeater(_factory
+                , new BackgroundPlacer()
+                , ChunkType.Background_Middle
+                , ChunkType.Background_Middle);
+            _backgroundsRepeaters.Add(middleBackgroundRepeater);
+
         }
         public void BeginGeneration(int startChunkCount)
         {

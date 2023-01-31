@@ -20,6 +20,14 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5037195620205345728, guid: a7aa42577b581234faff67e05c3d7de9, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5037195620205345728, guid: a7aa42577b581234faff67e05c3d7de9, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5037195620205345728, guid: a7aa42577b581234faff67e05c3d7de9, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -69,7 +77,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6236389326183618162, guid: a7aa42577b581234faff67e05c3d7de9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6236389326183618162, guid: a7aa42577b581234faff67e05c3d7de9, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.24939
       objectReference: {fileID: 0}
     - target: {fileID: 8179385478291089247, guid: a7aa42577b581234faff67e05c3d7de9, type: 3}
       propertyPath: m_Name
@@ -77,7 +89,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8920823993015827315, guid: a7aa42577b581234faff67e05c3d7de9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1622349207794913040, guid: a7aa42577b581234faff67e05c3d7de9, type: 3}
@@ -129,13 +141,13 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1615882971
   m_SortingLayer: -1
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 7b06f6169d7272b4295cca8826516626, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 1
-  m_Size: {x: 4, y: 2.5}
+  m_Size: {x: 6, y: 5}
   m_AdaptiveModeThreshold: 0.08
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
