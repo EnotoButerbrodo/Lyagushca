@@ -5,7 +5,7 @@ using Zenject;
 
 public class JumpChargePresenter : MonoBehaviour
 {
-    [SerializeField] private ReloadBar _reloadBar;
+    [SerializeField] private ChargeBar chargeBar;
 
     private IJumpForceCharger _jumpChargeHandler;
 
@@ -30,22 +30,22 @@ public class JumpChargePresenter : MonoBehaviour
 
     private void OnPercentChanged(float percent)
     {
-        _reloadBar.SetFillPercent(percent);
+        chargeBar.SetFillPercent(percent);
     }
 
     private void OnChargeBegin(float percent)
     {
-        _reloadBar.SetFillPercent(percent);
-        _reloadBar.Show();
+        chargeBar.SetFillPercent(percent);
+        chargeBar.Show();
     }
 
     private void OnChargeEnd(float percent)
     {
         if (percent == 0)
         {
-            _reloadBar.Hide();
+            chargeBar.Hide();
         }
-        _reloadBar.SetFillPercent(percent);
+        chargeBar.SetFillPercent(percent);
     }
 
 

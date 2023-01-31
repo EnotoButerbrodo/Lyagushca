@@ -6,8 +6,8 @@ using Zenject;
 
 public class PlayerControllService : MonoBehaviour
 {
-    private Actor _player;
-    private Controls _controls;
+    private Actor _player; 
+    private Controls _controls; 
 
     private Action<InputAction.CallbackContext> OnChargeBegin, OnChargeRelesed;
 

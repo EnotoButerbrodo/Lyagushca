@@ -4,9 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(CanvasGroup))]
-public class ReloadBar : MonoBehaviour, IResetable
+public class ChargeBar : MonoBehaviour, IResetable
 {
-    [SerializeField] private Image _reloadFillImage;
+    [SerializeField] private Image _chargeFillImage;
     private CanvasGroup _elementCanvasGroup;
 
     private void Awake()
@@ -30,11 +30,11 @@ public class ReloadBar : MonoBehaviour, IResetable
 
     public void SetFillPercent(float percent)
     {
-        _reloadFillImage.fillAmount = percent;
+        _chargeFillImage.fillAmount = percent;
     }
 
     public void Reset()
     {
-        _reloadFillImage.fillAmount = 0;
+        _chargeFillImage.fillAmount = 0;
     }
 }
