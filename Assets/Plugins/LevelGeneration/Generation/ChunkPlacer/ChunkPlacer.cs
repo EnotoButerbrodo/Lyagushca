@@ -5,7 +5,7 @@ namespace Lyaguska.LevelGeneration
     public class ChunkPlacer : IChunkPlacer
     {
         private readonly LevelGenerationConfig _config;
-        private Vector2 _lastChunkPosition;
+        private Vector2 _lastChunkPosition; 
         
         public ChunkPlacer(LevelGenerationConfig config)
         {

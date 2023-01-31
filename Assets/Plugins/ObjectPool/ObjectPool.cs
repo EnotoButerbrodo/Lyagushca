@@ -12,7 +12,7 @@ namespace Lyaguska.ObjectPool
         
         private readonly Stack<T> _pooledObjects;
         private readonly T _pooledObjectReference;
-        private Transform _parent;
+        private Transform _parent;  
         
         public ObjectPool(T objectReference, int startCapacity = 8, Transform parent = null)
         {
