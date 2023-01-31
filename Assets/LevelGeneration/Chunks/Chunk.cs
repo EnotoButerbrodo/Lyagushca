@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Lyaguska.LevelGeneration
 {
-    public class Chunk : MonoBehaviour, IPoolable<Chunk>
+    public class Chunk : MonoBehaviour, IInitializePoolObject<Chunk>
     {
         public ChunkType Type => _type;
         public Vector2 StartPoint => _startPosition.position;

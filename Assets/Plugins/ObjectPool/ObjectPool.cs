@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Lyaguska.ObjectPool
 {
-    public class ObjectPool<T> where T : MonoBehaviour, IPoolable<T>
+    public class ObjectPool<T> where T : MonoBehaviour, IInitializePoolObject<T>
     {
         public event Action<T> ObjectReturned;
         public int Count => _pooledObjects.Count;
