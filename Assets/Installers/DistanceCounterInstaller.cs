@@ -2,10 +2,8 @@ using Lyaguska.LevelGeneration;
 using UnityEngine;
 using Zenject;
 
-public class LevelGenerationInstaller : MonoInstaller
+public class DistanceCounterInstaller : MonoInstaller
 {
-    [SerializeField] private LevelGenerationConfig _levelGenerationConfig;
-
     public override void InstallBindings()
     {
         BindDistanceCounter();

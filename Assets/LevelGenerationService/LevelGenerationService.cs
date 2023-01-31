@@ -26,11 +26,11 @@ namespace LevelGeneration.Generation.LevelGenerationService
         private bool _enabled;
 
         [Inject]
-        private void Construct(LevelGenerationConfig config, IDistanceCounter distanceCounter)
+        private void Construct(LevelGenerationConfig config, ChunksCollection chunksCollection, IDistanceCounter distanceCounter)
         {
             _config = config;
             _distanceCounter = distanceCounter;
-            _factory = new ChunkFactory(_config, transform);
+            _factory = new ChunkFactory(chunksCollection, transform);
             _backgroundsRepeaters = new List<ILevelLayerRepeater>(4);
             
             _levelRepeater = new LevelLayerRepeater(_factory

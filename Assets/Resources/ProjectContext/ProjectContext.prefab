@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7890065842343797438}
   - component: {fileID: 4771703685989082518}
+  - component: {fileID: 2022211096866881235}
   - component: {fileID: 8515155999117936132}
   m_Layer: 0
   m_Name: ProjectContext
@@ -47,6 +48,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _scriptableObjectInstallers: []
   _monoInstallers:
+  - {fileID: 2022211096866881235}
   - {fileID: 8515155999117936132}
   _installerPrefabs: []
   _parentNewObjectsUnderContext: 1
@@ -62,6 +64,18 @@ MonoBehaviour:
       _missingHandlerDefaultResponse: 2
       _requireStrictUnsubscribe: 0
       _defaultAsyncTickPriority: 1
+--- !u!114 &2022211096866881235
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8216647958860881172}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3ed40728cba4be09f22fbf78e378281, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &8515155999117936132
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -76,3 +90,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _gameConfig: {fileID: 11400000, guid: 43559e31ca97cb24bacbe99d81e81c08, type: 2}
   _levelGenerationConfig: {fileID: 11400000, guid: c8f9b2428644ae146843e29285ab72b5, type: 2}
+  _chunksCollection: {fileID: 11400000, guid: e94d5ee6e8d9b094bafc6abe1b29ce1e, type: 2}
