@@ -49,11 +49,4 @@ namespace Lyaguska.LevelGeneration
 
 
     }
-
-    public enum ChunkType
-    {
-        Start,
-        Default,
-        Background_Far
-    }
 }
