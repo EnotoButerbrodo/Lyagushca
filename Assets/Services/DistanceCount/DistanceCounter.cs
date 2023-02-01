@@ -3,40 +3,44 @@ using Lyaguska.Actors;
 using UnityEngine;
 using Zenject;
 
-public class DistanceCounter : MonoBehaviour, IDistanceCounter, IResetable
+namespace Lyaguska.Services
 {
-    public event Action<float> DistanceChanged;
-    public float Distance
+    public class DistanceCounter : MonoBehaviour, IDistanceCounter, IResetable
     {
-        get => _distance;
-        set
+        public event Action<float> DistanceChanged;
+
+        public float Distance
         {
-            _distance = value;
-            DistanceChanged?.Invoke(value);
+            get => _distance;
+            set
+            {
+                _distance = value;
+                DistanceChanged?.Invoke(value);
+            }
         }
-    }
 
-    public Vector2 Position => _target.position;
-    
-    [SerializeField] private float _distance;
+        public Vector2 Position => _target.position;
 
-    private Vector3 _startPosition;
-    private Transform _target;
+        [SerializeField] private float _distance;
 
-    [Inject]
-    private void Construct(Actor player)
-    {
-        _target = player.transform;
-        _startPosition = _target.position;
-    }
+        private Vector3 _startPosition;
+        private Transform _target;
 
-    private void FixedUpdate()
-    {
-        Distance = _target.position.x - _startPosition.x;
-    }
+        [Inject]
+        private void Construct(Actor player)
+        {
+            _target = player.transform;
+            _startPosition = _target.position;
+        }
 
-    void IResetable.Reset()
-    {
-        Distance = 0;
+        private void FixedUpdate()
+        {
+            Distance = _target.position.x - _startPosition.x;
+        }
+
+        void IResetable.Reset()
+        {
+            Distance = 0;
+        }
     }
 }

@@ -1,7 +1,6 @@
-﻿using EnotoButerbrodo.LevelGeneration.Chunks;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace EnotoButerbrodo.LevelGeneration.Placer
+namespace EnotoButerbrodo.LevelGeneration
 {
     public interface IChunkPlacer
     {

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace EnotoButerbrodo.LevelGeneration.Configs
+namespace EnotoButerbrodo.LevelGeneration
 {
     [CreateAssetMenu(menuName = "Config/LevelGeneration/LevelGenerationConfig")]
     public class LevelGenerationConfig : ScriptableObject

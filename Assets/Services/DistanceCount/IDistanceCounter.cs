@@ -1,9 +1,12 @@
 ﻿using System;
 using UnityEngine;
 
-public interface IDistanceCounter
+namespace Lyaguska.Services
 {
-    event Action<float> DistanceChanged;
-    float Distance { get;}
-    Vector2 Position { get; }
+    public interface IDistanceCounter
+    {
+        event Action<float> DistanceChanged;
+        float Distance { get; }
+        Vector2 Position { get; }
+    }
 }

@@ -1,6 +1,4 @@
-﻿using EnotoButerbrodo.LevelGeneration.Chunks;
-
-namespace EnotoButerbrodo.LevelGeneration.Factory
+﻿namespace EnotoButerbrodo.LevelGeneration
 {
     public interface IChunkFactory
     {

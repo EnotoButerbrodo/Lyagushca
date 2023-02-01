@@ -1,7 +1,7 @@
 ﻿using Lyaguska.Core;
 using UnityEngine;
 using Zenject;
-using EnotoButerbrodo.LevelGeneration.Configs;
+using EnotoButerbrodo.LevelGeneration;
 
 namespace Lyaguska.Bootstrap.Installers
 {

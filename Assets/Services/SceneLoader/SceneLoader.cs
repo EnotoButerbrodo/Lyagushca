@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections;
+using Lyaguska.Bootstrap;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Lyaguska.Bootstrap.GameStateMachine
+namespace Lyaguska.Services.SceneLoader
 {
     public class SceneLoader
     {

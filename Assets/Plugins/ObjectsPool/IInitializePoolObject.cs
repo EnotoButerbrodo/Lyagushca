@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace EnotoButerbrodo.ObjectsPool
+namespace EnotoButerbrodo
 {
     public interface IInitializePoolObject<T> : IPoolObject
     {

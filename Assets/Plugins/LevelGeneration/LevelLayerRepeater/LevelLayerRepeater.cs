@@ -1,10 +1,7 @@
 ﻿using System.Collections.Generic;
-using EnotoButerbrodo.LevelGeneration.Chunks;
-using EnotoButerbrodo.LevelGeneration.Factory;
-using EnotoButerbrodo.LevelGeneration.Placer;
 using UnityEngine;
 
-namespace EnotoButerbrodo.LevelGeneration.LevelRepeater
+namespace EnotoButerbrodo.LevelGeneration
 {
     public class LevelLayerRepeater : ILevelLayerRepeater
     {

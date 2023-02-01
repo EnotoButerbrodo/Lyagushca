@@ -1,8 +1,7 @@
 using System;
-using EnotoButerbrodo.ObjectsPool;
 using UnityEngine;
 
-namespace EnotoButerbrodo.LevelGeneration.Chunks
+namespace EnotoButerbrodo.LevelGeneration
 {
     public class Chunk : MonoBehaviour, IInitializePoolObject<Chunk>
     {

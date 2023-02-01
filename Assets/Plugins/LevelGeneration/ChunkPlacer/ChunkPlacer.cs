@@ -1,8 +1,6 @@
-﻿using EnotoButerbrodo.LevelGeneration.Chunks;
-using EnotoButerbrodo.LevelGeneration.Configs;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace EnotoButerbrodo.LevelGeneration.Placer
+namespace EnotoButerbrodo.LevelGeneration
 {
     public class ChunkPlacer : IChunkPlacer
     {

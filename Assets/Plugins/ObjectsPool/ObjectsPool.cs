@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace EnotoButerbrodo.ObjectsPool
+namespace EnotoButerbrodo
 {
     public class ObjectsPool<T> where T : MonoBehaviour, IInitializePoolObject<T>
     {

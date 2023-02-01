@@ -1,4 +1,4 @@
-﻿namespace EnotoButerbrodo.LevelGeneration.Chunks
+﻿namespace EnotoButerbrodo.LevelGeneration
 {
     public enum ChunkType
     {

@@ -1,7 +1,6 @@
-﻿using EnotoButerbrodo.ObjectsPool;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace EnotoButerbrodo.LevelGeneration.Chunks
+namespace EnotoButerbrodo.LevelGeneration
 {
     public class ChunksPool : ObjectsPool<Chunk>
     {

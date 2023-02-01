@@ -1,11 +1,9 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
-using EnotoButerbrodo.LevelGeneration.Chunks;
-using EnotoButerbrodo.LevelGeneration.Configs;
 using Random = UnityEngine.Random;
 
-namespace EnotoButerbrodo.LevelGeneration.Factory
+namespace EnotoButerbrodo.LevelGeneration
 {
     public class ChunkFactory : IChunkFactory 
     {

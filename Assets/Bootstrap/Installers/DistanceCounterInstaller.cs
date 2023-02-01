@@ -1,3 +1,4 @@
+using Lyaguska.Services;
 using Zenject;
 
 namespace Lyaguska.Bootstrap.Installers
@@ -8,7 +9,6 @@ namespace Lyaguska.Bootstrap.Installers
         {
             BindDistanceCounter();
         }
-
 
         private void BindDistanceCounter()
         {

@@ -1,15 +1,10 @@
 ﻿using System.Collections.Generic;
 using EnotoButerbrodo.LevelGeneration;
-using EnotoButerbrodo.LevelGeneration.Chunks;
-using EnotoButerbrodo.LevelGeneration.Configs;
-using EnotoButerbrodo.LevelGeneration.Factory;
-using EnotoButerbrodo.LevelGeneration.LevelRepeater;
-using EnotoButerbrodo.LevelGeneration.Placer;
 using UnityEngine;
 
-namespace LevelGeneration.Generation.LevelGenerationService
+namespace Lyaguska.Services
 {
-    public class LevelGenerationService
+    public class LevelGenerationService : ILevelGenerationService
     {
         public int StartChunksCount = 5;
         public int StartBackgroundsAmount = 3;

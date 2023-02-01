@@ -1,5 +1,3 @@
-using LevelGeneration.Generation.LevelGenerationService;
-
 namespace Lyaguska.Core
 {
     public class Game
