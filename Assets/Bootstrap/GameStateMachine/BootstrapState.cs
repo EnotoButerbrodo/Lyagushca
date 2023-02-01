@@ -1,6 +1,6 @@
-﻿using Zenject;
+﻿using EnotoButerbrodo.StateMachine;
 
-namespace CoonDev.StateMachine
+namespace Lyaguska.Bootstrap.GameStateMachine
 {
     public class StartGameState : IState
     {

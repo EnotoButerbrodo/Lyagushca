@@ -1,4 +1,4 @@
-﻿namespace CoonDev.StateMachine
+﻿namespace EnotoButerbrodo.StateMachine
 {
     public interface IState : IExitableState
     {

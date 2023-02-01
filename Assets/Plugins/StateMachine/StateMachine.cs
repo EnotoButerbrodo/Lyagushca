@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace CoonDev.StateMachine
+namespace EnotoButerbrodo.StateMachine
 {
     public abstract class StateMachine
     {

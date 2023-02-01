@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace CoonDev.StateMachine
+namespace Lyaguska.Bootstrap
 {
     public class GameBootstrap : MonoBehaviour
     {

@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace CoonDev.StateMachine
+namespace Lyaguska.Bootstrap.GameStateMachine
 {
     public class SceneLoader
     {

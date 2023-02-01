@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-namespace CoonDev.StateMachine
+namespace Lyaguska.Bootstrap
 {
     public interface ICoroutineRunner
     {

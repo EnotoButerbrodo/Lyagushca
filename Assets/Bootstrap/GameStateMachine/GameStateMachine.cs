@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using EnotoButerbrodo.StateMachine;
 
-namespace CoonDev.StateMachine
+namespace Lyaguska.Bootstrap.GameStateMachine
 {
     public class GameStateMachine : StateMachine
     {
