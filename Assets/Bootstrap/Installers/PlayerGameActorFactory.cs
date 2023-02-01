@@ -2,11 +2,15 @@
 using UnityEngine;
 using Zenject;
 
-public class PlayerGameActorFactory : MonoBehaviour, IFactory<Actor>
+namespace Lyaguska.Bootstrap.Installers
 {
-    [SerializeField] private Actor _defaultGameActor;
-    public Actor Create()
+    public class PlayerGameActorFactory : MonoBehaviour, IFactory<Actor>
     {
-        return Instantiate(_defaultGameActor);
+        [SerializeField] private Actor _defaultGameActor;
+
+        public Actor Create()
+        {
+            return Instantiate(_defaultGameActor);
+        }
     }
 }

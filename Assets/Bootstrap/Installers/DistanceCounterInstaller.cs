@@ -1,19 +1,22 @@
 using Zenject;
 
-public class DistanceCounterInstaller : MonoInstaller
+namespace Lyaguska.Bootstrap.Installers
 {
-    public override void InstallBindings()
+    public class DistanceCounterInstaller : MonoInstaller
     {
-        BindDistanceCounter();
-    }
+        public override void InstallBindings()
+        {
+            BindDistanceCounter();
+        }
 
-   
-    private void BindDistanceCounter()
-    {
-        Container
-            .Bind<IDistanceCounter>()
-            .To<DistanceCounter>()
-            .FromNewComponentOnNewGameObject()
-            .AsSingle();
+
+        private void BindDistanceCounter()
+        {
+            Container
+                .Bind<IDistanceCounter>()
+                .To<DistanceCounter>()
+                .FromNewComponentOnNewGameObject()
+                .AsSingle();
+        }
     }
 }

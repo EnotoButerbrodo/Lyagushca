@@ -4,66 +4,68 @@ using Unity.VisualScripting;
 using UnityEngine;
 using Zenject;
 
-public class ActorInstaller : MonoInstaller
+namespace Lyaguska.Bootstrap.Installers
 {
-    [SerializeField] private Actor _defaultActor;
-    [SerializeField] private Transform _startPoint;
-    [SerializeField] private CinemachineVirtualCamera _camera;
-
-    public override void InstallBindings()
+    public class ActorInstaller : MonoInstaller
     {
-        BindJumpForceCharger();
-        var player = BindGameActor();
-        var camera = BindCamera();
-        camera.Follow = player.transform;
-    }
+        [SerializeField] private Actor _defaultActor;
+        [SerializeField] private Transform _startPoint;
+        [SerializeField] private CinemachineVirtualCamera _camera;
 
-    private void BindDistanceCounter()
-    {
-        var distanceCounter = Container.InstantiateComponentOnNewGameObject<DistanceCounter>();
+        public override void InstallBindings()
+        {
+            BindJumpForceCharger();
+            var player = BindGameActor();
+            var camera = BindCamera();
+            camera.Follow = player.transform;
+        }
 
-        Container
-            .BindInterfacesAndSelfTo<DistanceCounter>()
-            .FromInstance(distanceCounter)
-            .AsSingle();
-    }
+        private void BindDistanceCounter()
+        {
+            var distanceCounter = Container.InstantiateComponentOnNewGameObject<DistanceCounter>();
 
-    private Actor BindGameActor()
-    {
-        var defaultActorInstance = Container.InstantiatePrefabForComponent<Actor>(_defaultActor
-                                                                  , _startPoint.position
-                                                                  , Quaternion.identity,
-                                                                  null);
-        Container
-            .Bind<Actor>()
-            .FromInstance(defaultActorInstance)
-            .AsSingle()
-            .NonLazy();
-
-        return defaultActorInstance;
-    }
-
-    private CinemachineVirtualCamera BindCamera()
-    {
-        var camera = Container.InstantiatePrefabForComponent<CinemachineVirtualCamera>(_camera);
-        Camera.main.AddComponent<CinemachineBrain>();
-
-        return camera;
-    }
-
-    private void BindJumpForceCharger()
-    {
-        
-        var jumpForceChargerInstance =
             Container
-                .InstantiateComponentOnNewGameObject<JumpForceCharger>();
+                .BindInterfacesAndSelfTo<DistanceCounter>()
+                .FromInstance(distanceCounter)
+                .AsSingle();
+        }
 
-        Container
-            .Bind<IJumpForceCharger>()
-            .To<JumpForceCharger>()
-            .FromInstance(jumpForceChargerInstance)
-            .AsSingle();
+        private Actor BindGameActor()
+        {
+            var defaultActorInstance = Container.InstantiatePrefabForComponent<Actor>(_defaultActor
+                , _startPoint.position
+                , Quaternion.identity,
+                null);
+            Container
+                .Bind<Actor>()
+                .FromInstance(defaultActorInstance)
+                .AsSingle()
+                .NonLazy();
+
+            return defaultActorInstance;
+        }
+
+        private CinemachineVirtualCamera BindCamera()
+        {
+            var camera = Container.InstantiatePrefabForComponent<CinemachineVirtualCamera>(_camera);
+            Camera.main.AddComponent<CinemachineBrain>();
+
+            return camera;
+        }
+
+        private void BindJumpForceCharger()
+        {
+
+            var jumpForceChargerInstance =
+                Container
+                    .InstantiateComponentOnNewGameObject<JumpForceCharger>();
+
+            Container
+                .Bind<IJumpForceCharger>()
+                .To<JumpForceCharger>()
+                .FromInstance(jumpForceChargerInstance)
+                .AsSingle();
+        }
+
     }
-   
 }
-

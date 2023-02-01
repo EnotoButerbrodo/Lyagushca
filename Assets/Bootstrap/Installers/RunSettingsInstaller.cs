@@ -1,13 +1,16 @@
 using Lyaguska.Core;
 using Zenject;
 
-public class RunSettingsInstaller : MonoInstaller
+namespace Lyaguska.Bootstrap.Installers
 {
-    public override void InstallBindings()
+    public class RunSettingsInstaller : MonoInstaller
     {
-        Container
-            .Bind<Actor>()
-            .FromFactory<PlayerGameActorFactory>()
-            .AsSingle();
+        public override void InstallBindings()
+        {
+            Container
+                .Bind<Actor>()
+                .FromFactory<PlayerGameActorFactory>()
+                .AsSingle();
+        }
     }
 }
