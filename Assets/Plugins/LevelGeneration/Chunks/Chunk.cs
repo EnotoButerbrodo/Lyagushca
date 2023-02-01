@@ -2,7 +2,7 @@ using System;
 using Lyaguska.ObjectPool;
 using UnityEngine;
 
-namespace Lyaguska.LevelGeneration
+namespace EnotoButerbrodo.LevelGeneration.Chunks
 {
     public class Chunk : MonoBehaviour, IInitializePoolObject<Chunk>
     {

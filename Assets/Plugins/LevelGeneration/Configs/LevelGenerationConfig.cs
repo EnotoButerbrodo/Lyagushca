@@ -1,7 +1,6 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace Lyaguska.LevelGeneration
+namespace EnotoButerbrodo.LevelGeneration.Configs
 {
     [CreateAssetMenu(menuName = "Config/LevelGeneration/LevelGenerationConfig")]
     public class LevelGenerationConfig : ScriptableObject

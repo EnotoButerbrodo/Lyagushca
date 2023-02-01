@@ -1,7 +1,7 @@
 ﻿using Lyaguska.ObjectPool;
 using UnityEngine;
 
-namespace Lyaguska.LevelGeneration
+namespace EnotoButerbrodo.LevelGeneration.Chunks
 {
     public class ChunkPool : ObjectPool<Chunk>
     {

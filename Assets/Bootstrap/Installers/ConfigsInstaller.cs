@@ -1,7 +1,7 @@
 ﻿using Lyaguska.Core;
 using UnityEngine;
 using Zenject;
-using Lyaguska.LevelGeneration;
+using EnotoButerbrodo.LevelGeneration.Configs;
 
 public class ConfigsInstaller : MonoInstaller
 {

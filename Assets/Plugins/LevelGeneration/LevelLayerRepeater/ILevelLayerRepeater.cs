@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace LevelGeneration.Generation.LevelGenerationService
+namespace EnotoButerbrodo.LevelGeneration.LevelRepeater
 {
     public interface ILevelLayerRepeater
     {

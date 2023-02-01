@@ -1,4 +1,4 @@
-﻿namespace Lyaguska.LevelGeneration
+﻿namespace EnotoButerbrodo.LevelGeneration.Chunks
 {
     public enum ChunkType
     {

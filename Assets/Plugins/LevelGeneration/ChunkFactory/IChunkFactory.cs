@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using EnotoButerbrodo.LevelGeneration.Chunks;
 
-namespace Lyaguska.LevelGeneration
+namespace EnotoButerbrodo.LevelGeneration.Factory
 {
     public interface IChunkFactory
     {

@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using EnotoButerbrodo.LevelGeneration.Chunks;
 
-namespace Lyaguska.LevelGeneration
+namespace EnotoButerbrodo.LevelGeneration.Configs
 {
     [CreateAssetMenu(menuName = "Config/LevelGeneration/ChunksCollection")]
     public class ChunksCollection : ScriptableObject

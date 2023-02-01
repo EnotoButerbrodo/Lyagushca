@@ -1,5 +1,3 @@
-using Lyaguska.LevelGeneration;
-using UnityEngine;
 using Zenject;
 
 public class DistanceCounterInstaller : MonoInstaller
