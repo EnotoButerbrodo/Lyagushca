@@ -11,12 +11,12 @@ namespace EnotoButerbrodo.LevelGeneration.Factory
     {
         private ChunksCollection _chunksCollection;
 
-        private Dictionary<ChunkType, List<ChunkPool>> _chunks;
+        private Dictionary<ChunkType, List<ChunksPool>> _chunks;
 
         public ChunkFactory(ChunksCollection chunksCollection, Transform parent)
         {
             _chunksCollection = chunksCollection;
-            _chunks = new Dictionary<ChunkType, List<ChunkPool>>();
+            _chunks = new Dictionary<ChunkType, List<ChunksPool>>();
 
             CreatePools(parent);
         }
@@ -28,12 +28,12 @@ namespace EnotoButerbrodo.LevelGeneration.Factory
                 if (_chunks.ContainsKey(chunk.Type) == false)
                 {
                     int count = _chunksCollection.Chunks.Count(x => x.Type == chunk.Type);
-                    List<ChunkPool> poolList = new List<ChunkPool>(count);
+                    List<ChunksPool> poolList = new List<ChunksPool>(count);
                     
                     _chunks.Add(key: chunk.Type, value: poolList);
                 }
 
-                _chunks[chunk.Type].Add(new ChunkPool(chunk, 4, parent));
+                _chunks[chunk.Type].Add(new ChunksPool(chunk, 4, parent));
             }
         }
 

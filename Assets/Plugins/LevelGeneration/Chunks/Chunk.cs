@@ -1,5 +1,5 @@
 using System;
-using Lyaguska.ObjectPool;
+using EnotoButerbrodo.ObjectsPool;
 using UnityEngine;
 
 namespace EnotoButerbrodo.LevelGeneration.Chunks

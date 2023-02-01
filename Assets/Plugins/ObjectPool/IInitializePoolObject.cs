@@ -1,7 +1,6 @@
 ﻿using System;
-using UnityEngine;
 
-namespace Lyaguska.ObjectPool
+namespace EnotoButerbrodo.ObjectsPool
 {
     public interface IInitializePoolObject<T> : IPoolObject
     {

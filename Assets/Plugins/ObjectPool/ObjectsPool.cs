@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Lyaguska.ObjectPool
+namespace EnotoButerbrodo.ObjectsPool
 {
-    public class ObjectPool<T> where T : MonoBehaviour, IInitializePoolObject<T>
+    public class ObjectsPool<T> where T : MonoBehaviour, IInitializePoolObject<T>
     {
         public event Action<T> ObjectReturned;
         public int Count => _pooledObjects.Count;
@@ -14,7 +14,7 @@ namespace Lyaguska.ObjectPool
         private readonly T _pooledObjectReference;
         private Transform _parent;  
         
-        public ObjectPool(T objectReference, int startCapacity = 8, Transform parent = null)
+        public ObjectsPool(T objectReference, int startCapacity = 8, Transform parent = null)
         {
             _pooledObjects = new Stack<T>(startCapacity);
             _pooledObjectReference = objectReference;
