@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Lyaguska.Core.Actors.StateMachine
+namespace Lyaguska.Actors.StateMachine
 {
     [RequireComponent(typeof(Actor))]
     public abstract class ActorStateMachine : MonoBehaviour

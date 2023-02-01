@@ -1,8 +1,9 @@
-﻿using Lyaguska.Core.Actors.StateMachine;
-using System;
+﻿using System;
+using Lyaguska.Actors.Frog.StateMachine;
+using Lyaguska.Core;
 using UnityEngine;
 
-namespace Lyaguska.Core
+namespace Lyaguska.Actors.Frog
 {
     public class Frog : Actor
     {

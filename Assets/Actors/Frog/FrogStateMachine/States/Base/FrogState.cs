@@ -1,4 +1,6 @@
-﻿namespace Lyaguska.Core.Actors.StateMachine
+﻿using Lyaguska.Actors.StateMachine;
+
+namespace Lyaguska.Actors.Frog.StateMachine
 {
     public abstract class FrogState : ActorState
     {

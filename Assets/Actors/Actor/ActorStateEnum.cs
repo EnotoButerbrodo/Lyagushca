@@ -1,9 +1,9 @@
 ﻿using System;
 
-namespace Lyaguska.Core
+namespace Lyaguska.Actors
 {
     [Serializable]
-    public enum GameActorStateEnum
+    public enum ActorStateEnum
     {
         JumpCharging,
         Jumping,

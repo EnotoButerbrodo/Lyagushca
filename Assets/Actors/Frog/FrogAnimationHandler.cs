@@ -1,11 +1,9 @@
-﻿using System;
+﻿using Lyaguska.Core;
 using UnityEngine;
 using Zenject;
 
-namespace Lyaguska.Core
+namespace Lyaguska.Actors.Frog
 {
-
-
     public class FrogAnimationHandler : MonoBehaviour
     {
         private IJumpForceCharger _jumpChargeHandler;

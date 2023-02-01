@@ -1,8 +1,8 @@
 ﻿using System;
+using Lyaguska.Core;
 using UnityEngine;
-using Zenject;
 
-namespace Lyaguska.Core.Actors.StateMachine
+namespace Lyaguska.Actors.Frog.StateMachine
 {
     public class IdleState : FrogState
     {

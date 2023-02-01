@@ -1,6 +1,6 @@
-﻿using Zenject;
+﻿using Lyaguska.Core;
 
-namespace Lyaguska.Core.Actors.StateMachine
+namespace Lyaguska.Actors.Frog.StateMachine
 {
     public class AirState : FrogState
     {

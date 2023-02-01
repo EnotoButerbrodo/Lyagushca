@@ -1,7 +1,4 @@
-﻿using System;
-using UnityEngine.InputSystem;
-
-namespace Lyaguska.Core.Actors.StateMachine
+﻿namespace Lyaguska.Actors.StateMachine
 {
     public abstract class ActorState
     {

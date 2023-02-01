@@ -1,8 +1,8 @@
-﻿using System.Runtime.InteropServices;
-using UnityEngine;
+﻿using Lyaguska.Actors.StateMachine;
+using Lyaguska.Core;
 using Zenject;
 
-namespace Lyaguska.Core.Actors.StateMachine
+namespace Lyaguska.Actors.Frog.StateMachine
 {
     public class FrogStateMachine : ActorStateMachine
     {

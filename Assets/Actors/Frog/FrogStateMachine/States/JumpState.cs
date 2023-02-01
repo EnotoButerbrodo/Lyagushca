@@ -1,4 +1,6 @@
-﻿namespace Lyaguska.Core.Actors.StateMachine
+﻿using Lyaguska.Core;
+
+namespace Lyaguska.Actors.Frog.StateMachine
 {
     public class JumpState : FrogState
     {

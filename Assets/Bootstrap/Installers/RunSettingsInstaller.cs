@@ -1,4 +1,4 @@
-using Lyaguska.Core;
+using Lyaguska.Actors;
 using Zenject;
 
 namespace Lyaguska.Bootstrap.Installers

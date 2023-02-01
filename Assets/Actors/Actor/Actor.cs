@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Lyaguska.Core
+namespace Lyaguska.Actors
 {
     public abstract class Actor : MonoBehaviour, IResetable
     {

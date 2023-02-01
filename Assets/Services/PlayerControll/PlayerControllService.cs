@@ -1,5 +1,6 @@
 ﻿using Lyaguska.Core;
 using System;
+using Lyaguska.Actors;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Zenject;
