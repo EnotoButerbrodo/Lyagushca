@@ -6,16 +6,11 @@ using Zenject;
 
 namespace LevelGeneration.Generation.LevelGenerationService
 {
-    public class LevelGenerationService: MonoBehaviour
+    public class LevelGenerationService
     {
-        [Range(0f, 10f)] public float ChunkDisableDistance;
-        
         public int StartChunksCount = 5;
         public int StartBackgroundsAmount = 3;
-        
-        [SerializeField] private Transform _generationStartPoint;
 
-        private LevelGenerationConfig _config;
         private IDistanceCounter _distanceCounter;
 
         private IChunkFactory _factory;
@@ -23,19 +18,32 @@ namespace LevelGeneration.Generation.LevelGenerationService
         private ILevelLayerRepeater _levelRepeater;
         private List<ILevelLayerRepeater> _backgroundsRepeaters;
 
-        private bool _enabled;
-
-        [Inject]
-        private void Construct(LevelGenerationConfig config, ChunksCollection chunksCollection, IDistanceCounter distanceCounter)
+        public LevelGenerationService(ILevelLayerRepeater levelRepeater
+            , IChunkFactory factory
+            , IDistanceCounter distanceCounter)
         {
-            _config = config;
             _distanceCounter = distanceCounter;
-            _factory = new ChunkFactory(chunksCollection, transform);
+            _factory = factory;
+            _levelRepeater = levelRepeater;
             _backgroundsRepeaters = new List<ILevelLayerRepeater>(4);
-            
-            _levelRepeater = GetLevelRepeater(config);
-            CreateFarBackgroundRepeater();
             CreateMiddleBackgroundRepeater();
+            CreateFarBackgroundRepeater();
+        }
+
+        public void SpawnStartChunks(Vector2 startPosition)
+        {
+            SpawnStartDefaultChunks(startPosition);
+            SpawnStartBackground(startPosition);
+        }
+
+        public void CheckChunksRelevance()
+        {
+            _levelRepeater.CheckChunksRelevance(_distanceCounter.Position, _distanceCounter.Distance);
+            foreach (LevelLayerRepeater repeater in _backgroundsRepeaters)
+            {
+                repeater.CheckChunksRelevance(_distanceCounter.Position, _distanceCounter.Distance);
+            }
+            
         }
 
         private void CreateMiddleBackgroundRepeater()
@@ -64,42 +72,17 @@ namespace LevelGeneration.Generation.LevelGenerationService
                 , ChunkType.Start
                 , ChunkType.Default);
 
-        public void BeginGeneration(int startChunkCount)
+        private void SpawnStartDefaultChunks(Vector2 position)
         {
-            BeginGeneration();
-            BeginBackgroundGeneration();
-            _enabled = true;
+            _levelRepeater.SpawnStartChunks(position, StartChunksCount);
         }
 
-        private void BeginGeneration()
-        {
-            _levelRepeater.SpawnStartChunks(_generationStartPoint.position, StartChunksCount);
-        }
-
-        private void BeginBackgroundGeneration()
+        private void SpawnStartBackground(Vector2 position)
         {
             foreach (LevelLayerRepeater repeater in _backgroundsRepeaters)
             {
-                repeater.SpawnStartChunks(_generationStartPoint.position - Vector3.right * 10, StartBackgroundsAmount);
+                repeater.SpawnStartChunks(position - Vector2.right * 10, StartBackgroundsAmount);
             }
-        }
-
-        private void FixedUpdate()
-        {
-            if(!enabled)
-                return;
-
-            CheckChunksRelevance();
-        }
-
-        private void CheckChunksRelevance()
-        {
-            _levelRepeater.CheckChunksRelevance(_distanceCounter.Position, _distanceCounter.Distance);
-            foreach (LevelLayerRepeater repeater in _backgroundsRepeaters)
-            {
-                repeater.CheckChunksRelevance(_distanceCounter.Position, _distanceCounter.Distance);
-            }
-            
         }
     }
 }

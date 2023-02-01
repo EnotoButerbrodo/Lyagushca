@@ -1,25 +1,9 @@
 using LevelGeneration.Generation.LevelGenerationService;
-using Lyaguska.LevelGeneration;
-using UnityEngine;
-using Zenject;
 
 namespace Lyaguska.Core
 {
-    public class Game : MonoBehaviour
+    public class Game
     {
-        [SerializeField] private Transform _startPosition;
-
-        [SerializeField] private LevelGenerationService _generationService;
-        private void Awake()
-        {
-            StartNewGame();
-        }
-
-        public void StartNewGame() 
-        {
-            _generationService.BeginGeneration(5);
-        } 
-
         /*
         [SerializeField] private GameOverScreen _gameOverScreen;
         [SerializeField] private ScoreCounter _scoreCounter;

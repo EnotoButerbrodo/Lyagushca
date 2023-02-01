@@ -7,6 +7,7 @@
     
     public interface IExitableState
     {
+        void UpdateState();
         void Exit();
     }
 

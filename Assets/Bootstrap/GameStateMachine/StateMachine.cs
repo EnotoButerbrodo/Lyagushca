@@ -1,20 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
+using Lyaguska.Core;
+using Zenject;
 
 namespace Bootstrap.GameStateMachine
 {
-    
     public abstract class StateMachine
     {
-        private Dictionary<Type, IExitableState> _states;
+        private readonly Dictionary<Type, IExitableState> _states;
         private IExitableState _currentState;
 
         public StateMachine()
         {
-            _states = GetStates();
+            _states = InitialStates() ?? new Dictionary<Type, IExitableState>();
         }
         
-        protected abstract Dictionary<Type, IExitableState> GetStates();
+        protected abstract Dictionary<Type, IExitableState> InitialStates();
 
         public bool HasState<TState>() where TState : class, IExitableState 
             => _states.ContainsKey(typeof(TState));
@@ -30,6 +31,11 @@ namespace Bootstrap.GameStateMachine
         {
             IPayloadedState<TPayload> state = ChangeState<TState>();
             state.Enter(payload);
+        }
+
+        public void UpdateStates()
+        {
+            _currentState?.UpdateState();
         }
         
         private TState ChangeState<TState>() where TState : class, IExitableState
