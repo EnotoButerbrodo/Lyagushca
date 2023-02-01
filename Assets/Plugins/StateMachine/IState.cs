@@ -1,4 +1,4 @@
-﻿namespace Bootstrap.GameStateMachine
+﻿namespace CoonDev.StateMachine
 {
     public interface IState : IExitableState
     {

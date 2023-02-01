@@ -1,6 +1,6 @@
 ﻿using Zenject;
 
-namespace Bootstrap.GameStateMachine
+namespace CoonDev.StateMachine
 {
     public class StartGameState : IState
     {

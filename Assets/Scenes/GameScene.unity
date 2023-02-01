@@ -409,7 +409,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1340885381}
-  - component: {fileID: 1340885380}
   m_Layer: 0
   m_Name: ------Level-------
   m_TagString: Untagged
@@ -417,22 +416,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1340885380
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1340885379}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2f88d267f1984befb40e67223e3de684, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ChunkDisableDistance: 5
-  StartChunksCount: 5
-  StartBackgroundsAmount: 4
-  _generationStartPoint: {fileID: 174868454}
 --- !u!4 &1340885381
 Transform:
   m_ObjectHideFlags: 0
@@ -458,7 +441,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1408564543}
   - component: {fileID: 1408564546}
-  - component: {fileID: 1408564542}
   m_Layer: 0
   m_Name: Game
   m_TagString: Untagged
@@ -466,20 +448,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1408564542
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1408564541}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 33dc7af4c59790d4ba3ea4cd2ad3d94e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _startPosition: {fileID: 1888026546}
-  _generationService: {fileID: 1340885380}
 --- !u!4 &1408564543
 Transform:
   m_ObjectHideFlags: 0

@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Bootstrap.GameStateMachine
+namespace CoonDev.StateMachine
 {
     public class SceneLoader
     {

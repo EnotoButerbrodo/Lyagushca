@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Bootstrap.GameStateMachine
+namespace CoonDev.StateMachine
 {
     public class GameBootstrap : MonoBehaviour
     {

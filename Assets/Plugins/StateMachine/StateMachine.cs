@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using Lyaguska.Core;
-using Zenject;
 
-namespace Bootstrap.GameStateMachine
+namespace CoonDev.StateMachine
 {
     public abstract class StateMachine
     {

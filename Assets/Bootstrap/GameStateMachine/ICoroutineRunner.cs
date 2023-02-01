@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-namespace Bootstrap.GameStateMachine
+namespace CoonDev.StateMachine
 {
     public interface ICoroutineRunner
     {

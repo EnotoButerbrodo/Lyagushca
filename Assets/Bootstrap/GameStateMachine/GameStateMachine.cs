@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Bootstrap.GameStateMachine
+namespace CoonDev.StateMachine
 {
     public class GameStateMachine : StateMachine
     {
