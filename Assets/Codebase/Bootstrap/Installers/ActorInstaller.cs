@@ -10,8 +10,8 @@ namespace Lyaguska.Bootstrap.Installers
     public class ActorInstaller : MonoInstaller
     {
         [SerializeField] private Actor _defaultActor;
-        [SerializeField] private Transform _startPoint;
         [SerializeField] private CinemachineVirtualCamera _camera;
+        [SerializeField] private Vector2 _startPoint;
 
         public override void InstallBindings()
         {
@@ -34,7 +34,7 @@ namespace Lyaguska.Bootstrap.Installers
         private Actor BindGameActor()
         {
             var defaultActorInstance = Container.InstantiatePrefabForComponent<Actor>(_defaultActor
-                , _startPoint.position
+                , _startPoint
                 , Quaternion.identity,
                 null);
             Container

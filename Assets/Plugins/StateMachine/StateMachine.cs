@@ -5,13 +5,8 @@ namespace EnotoButerbrodo.StateMachine
 {
     public abstract class StateMachine
     {
-        private readonly Dictionary<Type, IExitableState> _states;
+        protected Dictionary<Type, IExitableState> _states;
         private IExitableState _currentState;
-
-        public StateMachine()
-        {
-            _states = InitialStates() ?? new Dictionary<Type, IExitableState>();
-        }
         
         protected abstract Dictionary<Type, IExitableState> InitialStates();
 
