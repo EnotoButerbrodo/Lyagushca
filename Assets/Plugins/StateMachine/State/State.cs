@@ -9,7 +9,10 @@
             _stateMachine = stateMachine;
         }
 
-        public abstract void Enter();
+        public virtual void Enter()
+        {
+            return;
+        }
 
         public virtual  void UpdateState()
         {

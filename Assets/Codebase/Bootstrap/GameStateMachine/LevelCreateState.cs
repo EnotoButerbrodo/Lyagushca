@@ -18,6 +18,7 @@ namespace Lyaguska.Bootstrap
         public override void Enter()
         {
             GenerateStartLevel();
+            _stateMachine.Enter<GameLoopState>();
         }
 
         private void GenerateStartLevel()

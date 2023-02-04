@@ -30,5 +30,10 @@ namespace Lyaguska.Bootstrap
             _stateMachine = new GameStateMachine(generationService);
             _stateMachine.Enter<LevelCreateState>();
         }
+
+        private void Update()
+        {
+            _stateMachine.UpdateStates();
+        }
     }
 }
