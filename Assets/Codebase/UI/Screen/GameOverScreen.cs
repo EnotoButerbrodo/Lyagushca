@@ -1,4 +1,4 @@
-﻿using TMPro;
+﻿
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -13,12 +13,12 @@ namespace Lyaguska.UI
             remove { _reloadButton.onClick.RemoveListener(value); }
         }
 
-        [SerializeField] private TextMeshProUGUI _scoreResultText;
+        //[SerializeField] private TextMeshProUGUI _scoreResultText;
         [SerializeField] private Button _reloadButton;
 
         public void Show(int score)
         {
-            _scoreResultText.text = score.ToString();
+            //_scoreResultText.text = score.ToString();
             _reloadButton.enabled = true;
             Show();
         }
