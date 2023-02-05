@@ -4,18 +4,17 @@ using EnotoButerbrodo.StateMachine;
 using Lyaguska.Actors;
 using Lyaguska.Services;
 using UnityEngine;
+using Zenject;
 
 namespace Lyaguska.Bootstrap
 {
     public class GameStateMachine : StateMachine
     {
-        private ILevelGenerationService _generationService;
-        private Actor _actor;
+        private DiContainer _container;
 
-        public GameStateMachine(ILevelGenerationService generationService, Actor actor)
+        public GameStateMachine(DiContainer container)
         {
-            _generationService = generationService;
-            _actor = actor;
+            _container = container; 
             _states = InitialStates();
         }
 
@@ -23,8 +22,9 @@ namespace Lyaguska.Bootstrap
         {
             return new Dictionary<Type, IExitableState>()
             {
-                [typeof(LevelCreateState)] = new LevelCreateState(this, _generationService, new Vector2(-15, -2)),
-                [typeof(GameLoopState)] = new GameLoopState(this, _generationService, _actor),
+                [typeof(BootstrapState)] = new BootstrapState(this, _container),
+                [typeof(LevelCreateState)] = new LevelCreateState(this, _container.Resolve<ILevelGenerationService>(), new Vector2(-15, -2)),
+                [typeof(GameLoopState)] = new GameLoopState(this, _container.Resolve<ILevelGenerationService>(), _container.Resolve<IActorFactory>()),
                 [typeof(GameResetState)] = new GameResetState(this)
             };
         }

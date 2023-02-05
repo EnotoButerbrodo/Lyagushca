@@ -27,9 +27,9 @@ namespace Lyaguska.Services
         private Transform _target;
 
         [Inject]
-        private void Construct(Actor player)
+        private void Construct(IActorFactory actorFactory)
         {
-            _target = player.transform;
+            _target = actorFactory.CurrentActor.transform;
             _startPosition = _target.position;
         }
 

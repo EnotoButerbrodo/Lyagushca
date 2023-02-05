@@ -6,22 +6,23 @@ using UnityEngine;
 
 namespace Lyaguska.Services
 {
-    public class ActorFactory
+    public class ActorFactory : IActorFactory
     {
         public Actor CurrentActor => _currentActor;
         
         private Actor _currentActor;
         private Dictionary<Type, Actor> _actors;
-        private string _actorsPath = "Actors";
+        
+        private const string ActorsPath = "Actors";
 
         public void SelectActor<TActor>() where TActor : Actor
         {
             _currentActor = _actors[typeof(TActor)];
-        }
+        } 
 
         public void LoadActors()
         {
-            _actors = Resources.LoadAll<Actor>(_actorsPath)
+            _actors = Resources.LoadAll<Actor>(ActorsPath)
                 .ToDictionary(actor => actor.GetType(), actor => actor);
         }
         

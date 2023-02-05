@@ -1,42 +1,22 @@
-﻿using System;
-using EnotoButerbrodo.LevelGeneration;
-using Lyaguska.Actors;
-using Lyaguska.Services;
-using UnityEngine;
+﻿using UnityEngine;
 using Zenject;
 
 namespace Lyaguska.Bootstrap
 {
-    public class GameBootstrap : MonoBehaviour
+    public class GameBootstrap : MonoInstaller
     {
         private GameStateMachine _stateMachine;
-        
-        private LevelGenerationConfig _config;
-        private ChunksCollection _collection;
-        private IDistanceCounter _distanceCounter;
-        private Actor _actor;
+        [Inject] private DiContainer _container;
 
-        [Inject]
-        private void Construct(LevelGenerationConfig config, ChunksCollection collection, IDistanceCounter distanceCounter, Actor actor)
+        public override void InstallBindings()
         {
-            _config = config;
-            _collection = collection;
-            _distanceCounter = distanceCounter;
-            _actor = actor;
-        }
-
-        private void Awake()
-        {
-            var chunkFactory = new ChunkFactory(_collection, this.transform);
-            var generationService = new LevelGenerationService(_config, chunkFactory, _distanceCounter);
-            
-            _stateMachine = new GameStateMachine(generationService, _actor);
-            _stateMachine.Enter<LevelCreateState>();
+            _stateMachine = new GameStateMachine(Container);
+            _stateMachine.Enter<BootstrapState>();
         }
 
         private void Update()
         {
-            _stateMachine.UpdateStates();
+            _stateMachine?.UpdateStates();
         }
     }
 }

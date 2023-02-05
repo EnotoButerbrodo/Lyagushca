@@ -14,9 +14,9 @@ namespace Lyaguska.Services
         private Action<InputAction.CallbackContext> OnChargeBegin, OnChargeRelesed;
 
         [Inject]
-        private void Construct(Actor player, Controls controls)
+        private void Construct(IActorFactory factory, Controls controls)
         {
-            _player = player;
+            _player = factory.CurrentActor;
             _controls = controls;
 
             _controls.Enable();
@@ -25,11 +25,6 @@ namespace Lyaguska.Services
             BindEvents();
         }
 
-        private void OnDestroy()
-        {
-            _controls.Touch.ChargeBegin.performed -= OnChargeBegin;
-            _controls.Touch.ChargeReleased.performed -= OnChargeRelesed;
-        }
 
         private void BindEvents()
         {
