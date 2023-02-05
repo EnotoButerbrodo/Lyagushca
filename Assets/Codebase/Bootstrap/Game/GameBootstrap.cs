@@ -3,15 +3,15 @@ using Zenject;
 
 namespace Lyaguska.Bootstrap
 {
-    public class GameBootstrap : MonoInstaller
+    public class GameBootstrap : MonoBehaviour
     {
         private GameStateMachine _stateMachine;
         [Inject] private DiContainer _container;
 
-        public override void InstallBindings()
+        private void Start()
         {
-            _stateMachine = new GameStateMachine(Container);
-            _stateMachine.Enter<BootstrapState>();
+            _stateMachine = new GameStateMachine(_container);
+            _stateMachine.Enter<LevelCreateState>();
         }
 
         private void Update()

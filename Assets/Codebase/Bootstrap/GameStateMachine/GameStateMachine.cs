@@ -22,7 +22,6 @@ namespace Lyaguska.Bootstrap
         {
             return new Dictionary<Type, IExitableState>()
             {
-                [typeof(BootstrapState)] = new BootstrapState(this, _container),
                 [typeof(LevelCreateState)] = new LevelCreateState(this, _container.Resolve<ILevelGenerationService>(), new Vector2(-15, -2)),
                 [typeof(GameLoopState)] = new GameLoopState(this, _container.Resolve<ILevelGenerationService>(), _container.Resolve<IActorFactory>()),
                 [typeof(GameResetState)] = new GameResetState(this)
