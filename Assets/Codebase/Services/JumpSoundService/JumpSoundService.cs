@@ -2,7 +2,7 @@
 using Lyaguska.Handlers;
 using UnityEngine;
 
-namespace Lyaguska.Service
+namespace Lyaguska.Services
 {
     public class JumpSoundService : MonoBehaviour, IResetable
     {
