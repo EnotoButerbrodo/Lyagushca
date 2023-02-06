@@ -9,8 +9,8 @@ namespace Codebase.Bootstrap.Config
         public Vector2 ActorStartPosition => _actorStartPosition;
         public Vector2 GenerationStartPosition => _generationStartPosition;
         
-        [SerializeField] private Vector2 _actorStartPosition;
-        [SerializeField] private Vector2 _generationStartPosition;
+        [SerializeField] private Vector3 _actorStartPosition;
+        [SerializeField] private Vector3 _generationStartPosition;
 
 #if UNITY_EDITOR
         [ContextMenu("Collect")]

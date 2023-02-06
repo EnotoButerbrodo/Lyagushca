@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65500c2bd92f49f9b1b50fde493e64ba, type: 3}
   m_Name: StartupConfig
   m_EditorClassIdentifier: 
-  _actorStartPosition: {x: -12, y: -2}
-  _generationStartPosition: {x: -20, y: -2}
+  _actorStartPosition: {x: -12, y: 0, z: -1}
+  _generationStartPosition: {x: -20, y: 0, z: 0}
