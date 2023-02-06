@@ -15,13 +15,21 @@ namespace Lyaguska.Services
 
         private ILevelLayerRepeater _levelRepeater;
         private List<ILevelLayerRepeater> _backgroundsRepeaters;
+        private readonly LevelGenerationConfig _config;
 
         public LevelGenerationService(LevelGenerationConfig config, IChunkFactory factory
             , IDistanceCountService distanceCountService)
         {
             _distanceCountService = distanceCountService;
             _factory = factory;
-            _levelRepeater = new LevelLayerRepeater(_factory, new ChunkPlacer(config), ChunkType.Start,
+            _config = config;
+            
+            CreateLevelRepeaters();
+        }
+
+        private void CreateLevelRepeaters()
+        {
+            _levelRepeater = new LevelLayerRepeater(_factory, new ChunkPlacer(_config), ChunkType.Start,
                 ChunkType.Default, 3f);
             _backgroundsRepeaters = new List<ILevelLayerRepeater>(4);
             CreateMiddleBackgroundRepeater();
@@ -81,6 +89,12 @@ namespace Lyaguska.Services
             {
                 repeater.SpawnStartChunks(position - Vector2.right * 10, StartBackgroundsAmount);
             }
+        }
+
+        public void Reset()
+        {
+            _levelRepeater.Reset();
+            _backgroundsRepeaters.ForEach(x => x.Reset());
         }
     }
 }

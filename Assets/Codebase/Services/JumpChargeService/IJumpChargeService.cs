@@ -2,7 +2,7 @@
 
 namespace Lyaguska.Services
 {
-    public interface IJumpChargeService
+    public interface IJumpChargeService : IResetable
     {
         event Action<float> ChargeBegin;
         event Action<float> ChargePercentChanged;
@@ -11,6 +11,5 @@ namespace Lyaguska.Services
         float ChargePercent { get; }
         void StartCharge();
         void StopCharge();
-        void Reset();
     }
 }

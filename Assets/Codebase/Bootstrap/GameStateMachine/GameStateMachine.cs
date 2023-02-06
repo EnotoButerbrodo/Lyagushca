@@ -29,7 +29,7 @@ namespace Lyaguska.Bootstrap
                 [typeof(GameLoopState)] 
                     = new GameLoopState(this, _container.Resolve<ILevelGenerationService>(), _container.Resolve<IDistanceCountService>(), _container.Resolve<IActorControllService>()),
                 [typeof(GameResetState)] 
-                    = new GameResetState(this)
+                    = new GameResetState(this, _container.Resolve<IResetService>())
             };
         }
     }

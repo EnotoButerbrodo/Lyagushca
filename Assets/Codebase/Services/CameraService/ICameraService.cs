@@ -2,7 +2,7 @@
 
 namespace Lyaguska.Services
 {
-    public interface ICameraService
+    public interface ICameraService : IResetable
     {
         void SetTarget(Transform transform);
     }

@@ -28,6 +28,10 @@ namespace Lyaguska.Services
         {
             _resetableObjects.Add(resetable);
         }
-        
+
+        public void Unregister(IResetable resetable)
+        {
+            _resetableObjects.Remove(resetable);
+        }
     }
 }

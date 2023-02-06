@@ -21,7 +21,7 @@ namespace Lyaguska.Bootstrap
 
         public override void Enter()
         {
-            var actor = _actorFactory.SelectActor<Frog>((Vector3)_startPosition);
+            var actor = _actorFactory.Get<Frog>((Vector3)_startPosition);
             _cameraService.SetTarget(actor.transform);
             
             _stateMachine.Enter<GameLoopState, Actor>(actor);

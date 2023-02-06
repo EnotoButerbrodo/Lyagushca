@@ -12,8 +12,13 @@ namespace Lyaguska.Bootstrap.Installers
     public class ServiceInstaller : MonoInstaller
     {
         [SerializeField] private CinemachineVirtualCamera _camera;
+        
+        private IResetService _resetService;
+        
         public override void InstallBindings()
         {
+            _resetService = BindResetService();
+            
             BindActorFactory();
             BindPlayerControlService();
             BindDistanceCounter();
@@ -21,6 +26,19 @@ namespace Lyaguska.Bootstrap.Installers
             BindLevelGeneration();
             BindJumpForceCharger();
             BindCameraService();
+            
+        }
+
+        private IResetService BindResetService()
+        {
+            ResetService resetService = new ResetService();
+            Container
+                .Bind<IResetService>()
+                .To<ResetService>()
+                .FromInstance(resetService)
+                .AsSingle();
+
+            return resetService;
         }
 
         private void BindCameraService()
@@ -28,13 +46,15 @@ namespace Lyaguska.Bootstrap.Installers
             var camera = Container.InstantiatePrefabForComponent<CinemachineVirtualCamera>(_camera);
             Camera.main.AddComponent<CinemachineBrain>();
             
-            CameraService service = new CameraService(camera);
+            CameraService cameraService = new CameraService(camera);
 
             Container
                 .Bind<ICameraService>()
                 .To<CameraService>()
-                .FromInstance(service)
+                .FromInstance(cameraService)
                 .AsSingle();
+            
+            _resetService.Register(cameraService);
         }
 
         private void BindActorFactory()
@@ -52,11 +72,15 @@ namespace Lyaguska.Bootstrap.Installers
 
         private void BindDistanceCounter()
         {
+            var distanceCount = new DistanceCountService();
+
             Container
                 .Bind<IDistanceCountService>()
                 .To<DistanceCountService>()
-                .FromNew()
+                .FromInstance(distanceCount)
                 .AsSingle();
+            
+            _resetService.Register(distanceCount);
         }
 
         private void BindTimer()
@@ -70,14 +94,16 @@ namespace Lyaguska.Bootstrap.Installers
         private void BindLevelGeneration()
         {
             var factory = new ChunkFactory(Container.Resolve<ChunksCollection>(), null);
-            LevelGenerationService service = new LevelGenerationService(Container.Resolve<LevelGenerationConfig>(),
+            LevelGenerationService generationService = new LevelGenerationService(Container.Resolve<LevelGenerationConfig>(),
                 factory, Container.Resolve<IDistanceCountService>());
 
             Container
                 .Bind<ILevelGenerationService>()
                 .To<LevelGenerationService>()
-                .FromInstance(service)
+                .FromInstance(generationService)
                 .AsSingle();
+            
+            _resetService.Register(generationService);
         }
         
         private void BindPlayerControlService()
@@ -92,15 +118,16 @@ namespace Lyaguska.Bootstrap.Installers
         private void BindJumpForceCharger()
         {
 
-            var jumpForceChargerInstance =
-                Container
+            var jumpChargeService = Container
                     .InstantiateComponentOnNewGameObject<JumpChargeService>();
 
             Container
                 .Bind<IJumpChargeService>()
                 .To<JumpChargeService>()
-                .FromInstance(jumpForceChargerInstance)
+                .FromInstance(jumpChargeService)
                 .AsSingle();
+            
+            _resetService.Register(jumpChargeService);
         }
     }
 }

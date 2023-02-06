@@ -1,11 +1,9 @@
 using System;
-using Lyaguska.Actors;
 using UnityEngine;
-using Zenject;
 
 namespace Lyaguska.Services
 {
-    public class DistanceCountService : IDistanceCountService, IResetable
+    public class DistanceCountService : IDistanceCountService
     {
         public event Action<float> DistanceChanged;
 

@@ -56,6 +56,16 @@ namespace EnotoButerbrodo.LevelGeneration
             }
         }
 
+        public void Reset()
+        {
+            foreach (Chunk activeChunk in _activeChunks)
+            {
+                activeChunk.ReturnToPool();
+            }
+            
+            _activeChunks.Clear();
+        }
+
         private void SpawnStartChunk(Vector2 position)
         {
             _placer.PlaceStartChunk(GetChunk(_startType), position);

@@ -31,6 +31,12 @@ namespace Lyaguska.Bootstrap
             _actor.Dead += OnActorDeath;
         }
 
+        public override void Exit()
+        {
+           _actor.Dead -= OnActorDeath;
+           _controlls.Disable();
+        }
+
         private void OnActorDeath()
         {
             _stateMachine.Enter<GameResetState>();
@@ -41,12 +47,6 @@ namespace Lyaguska.Bootstrap
         {
             _generationService.CheckChunksRelevance();
             _distanceCount.Update();
-        }
-
-        public override void Exit()
-        {
-           _actor.Dead -= OnActorDeath;
-           _controlls.Disable();
         }
     }
 }

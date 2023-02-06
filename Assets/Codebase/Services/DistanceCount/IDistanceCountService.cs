@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Lyaguska.Services
 {
-    public interface IDistanceCountService
+    public interface IDistanceCountService : IResetable
     {
         event Action<float> DistanceChanged;
         float Distance { get; }

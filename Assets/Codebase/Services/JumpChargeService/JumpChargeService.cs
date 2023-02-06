@@ -5,7 +5,7 @@ using Zenject;
 
 namespace Lyaguska.Services
 {
-    public class JumpChargeService : MonoBehaviour, IJumpChargeService, IResetable
+    public class JumpChargeService : MonoBehaviour, IJumpChargeService
     {
         public event Action<float> ChargeBegin;
         public event Action<float> ChargePercentChanged;
