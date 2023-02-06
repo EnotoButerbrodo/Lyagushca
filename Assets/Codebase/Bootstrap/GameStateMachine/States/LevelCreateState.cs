@@ -1,5 +1,4 @@
 ﻿using EnotoButerbrodo.StateMachine;
-using Lyaguska.Actors;
 using Lyaguska.Services;
 using UnityEngine;
 
@@ -19,7 +18,7 @@ namespace Lyaguska.Bootstrap
         public override void Enter()
         {
             GenerateStartLevel();
-            _stateMachine.Enter<GameLoopState>();
+            _stateMachine.Enter<ActorSpawnState>();
         }
 
         private void GenerateStartLevel()

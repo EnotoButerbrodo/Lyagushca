@@ -5,7 +5,7 @@ using Zenject;
 
 namespace Lyaguska.Services
 {
-    public class DistanceCounter : MonoBehaviour, IDistanceCounter, IResetable
+    public class DistanceCountService : IDistanceCountService, IResetable
     {
         public event Action<float> DistanceChanged;
 
@@ -21,19 +21,18 @@ namespace Lyaguska.Services
 
         public Vector2 Position => _target.position;
 
-        [SerializeField] private float _distance;
+        private float _distance;
 
         private Vector3 _startPosition;
         private Transform _target;
 
-        [Inject]
-        private void Construct(IActorFactory actorFactory)
+        public void SetTarget(Transform targetTransform)
         {
-            _target = actorFactory.CurrentActor.transform;
-            _startPosition = _target.position;
+            _target = targetTransform;
+            _startPosition = targetTransform.position;
         }
 
-        private void FixedUpdate()
+        public void Update()
         {
             Distance = _target.position.x - _startPosition.x;
         }

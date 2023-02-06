@@ -5,9 +5,9 @@ namespace Lyaguska.Actors.StateMachine
 {
     public class IdleState : FrogState
     {
-        private IJumpForceCharger _charger;
+        private IJumpChargeService _charger;
 
-        public IdleState(FrogStateMachine stateMachine, IJumpForceCharger charger) : base(stateMachine)
+        public IdleState(FrogStateMachine stateMachine, IJumpChargeService charger) : base(stateMachine)
         {
             _charger = charger;
         }

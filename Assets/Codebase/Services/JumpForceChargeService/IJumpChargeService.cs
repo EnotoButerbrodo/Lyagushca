@@ -2,7 +2,7 @@
 
 namespace Lyaguska.Services
 {
-    public interface IJumpForceCharger
+    public interface IJumpChargeService
     {
         event Action<float> ChargeBegin;
         event Action<float> ChargePercentChanged;

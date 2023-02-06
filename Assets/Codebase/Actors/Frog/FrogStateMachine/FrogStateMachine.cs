@@ -12,11 +12,11 @@ namespace Lyaguska.Actors.StateMachine
         public ActorState AirState { get; private set; }
         public ActorState BufferedJumpState { get; private set; }
 
-        private IJumpForceCharger _charger;
+        private IJumpChargeService _charger;
         private Timer _timer;
 
         [Inject]
-        public void Construct(IJumpForceCharger charger, Timer timer)
+        public void Construct(IJumpChargeService charger, Timer timer)
         {
             _charger = charger;
             _timer = timer;

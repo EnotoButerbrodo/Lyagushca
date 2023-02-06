@@ -9,7 +9,7 @@ namespace Lyaguska.Services
         public int StartChunksCount = 5;
         public int StartBackgroundsAmount = 3;
 
-        private IDistanceCounter _distanceCounter;
+        private IDistanceCountService _distanceCountService;
 
         private IChunkFactory _factory;
 
@@ -17,9 +17,9 @@ namespace Lyaguska.Services
         private List<ILevelLayerRepeater> _backgroundsRepeaters;
 
         public LevelGenerationService(LevelGenerationConfig config, IChunkFactory factory
-            , IDistanceCounter distanceCounter)
+            , IDistanceCountService distanceCountService)
         {
-            _distanceCounter = distanceCounter;
+            _distanceCountService = distanceCountService;
             _factory = factory;
             _levelRepeater = new LevelLayerRepeater(_factory, new ChunkPlacer(config), ChunkType.Start,
                 ChunkType.Default, 3f);
@@ -36,10 +36,10 @@ namespace Lyaguska.Services
 
         public void CheckChunksRelevance()
         {
-            _levelRepeater.CheckChunksRelevance(_distanceCounter.Position, _distanceCounter.Distance);
+            _levelRepeater.CheckChunksRelevance(_distanceCountService.Position, _distanceCountService.Distance);
             foreach (LevelLayerRepeater repeater in _backgroundsRepeaters)
             {
-                repeater.CheckChunksRelevance(_distanceCounter.Position, _distanceCounter.Distance);
+                repeater.CheckChunksRelevance(_distanceCountService.Position, _distanceCountService.Distance);
             }
             
         }

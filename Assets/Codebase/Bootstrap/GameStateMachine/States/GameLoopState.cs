@@ -1,26 +1,34 @@
 ﻿using EnotoButerbrodo.StateMachine;
 using Lyaguska.Actors;
 using Lyaguska.Services;
-using UnityEngine;
 
 namespace Lyaguska.Bootstrap
 {
-    public class GameLoopState : State
+    public class GameLoopState : PayloadedState<Actor>
     {
         private ILevelGenerationService _generationService;
         private IActorFactory _actorFactory;
-        private Actor _currentActor;
+        private IDistanceCountService _distanceCount;
+        private IActorControllService _controlls;
+        private Actor _actor;
 
-        public GameLoopState(StateMachine stateMachine, ILevelGenerationService generationService, IActorFactory actorFactory) : base(stateMachine)
+        public GameLoopState(StateMachine stateMachine
+            , ILevelGenerationService generationService
+            , IDistanceCountService distanceCount
+            , IActorControllService controlls) : base(stateMachine)
         {
             _generationService = generationService;
-            _actorFactory = actorFactory;
-            _currentActor = _actorFactory.CurrentActor;
+            _distanceCount = distanceCount;
+            _controlls = controlls;
         }
 
-        public override void Enter()
+        public override void Enter(Actor actor)
         {
-            _currentActor.Dead += OnActorDeath;
+            _actor = actor;
+            
+            _controlls.Enable(_actor);
+            _distanceCount.SetTarget(_actor.transform);
+            _actor.Dead += OnActorDeath;
         }
 
         private void OnActorDeath()
@@ -32,11 +40,13 @@ namespace Lyaguska.Bootstrap
         public override void UpdateState()
         {
             _generationService.CheckChunksRelevance();
+            _distanceCount.Update();
         }
 
         public override void Exit()
         {
-            _currentActor.Dead -= OnActorDeath;
+           _actor.Dead -= OnActorDeath;
+           _controlls.Disable();
         }
     }
 }

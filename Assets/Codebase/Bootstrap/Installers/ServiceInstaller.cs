@@ -1,28 +1,46 @@
-﻿using EnotoButebrodo;
+﻿using Cinemachine;
+using EnotoButebrodo;
 using EnotoButerbrodo.LevelGeneration;
-using Lyaguska.Actors;
 using Lyaguska.Services;
+using UnityEngine;
 using Zenject;
+using Unity.VisualScripting;
+using Timer = EnotoButebrodo.Timer;
 
 namespace Lyaguska.Bootstrap.Installers
 {
     public class ServiceInstaller : MonoInstaller
     {
+        [SerializeField] private CinemachineVirtualCamera _camera;
         public override void InstallBindings()
         {
             BindActorFactory();
+            BindPlayerControlService();
             BindDistanceCounter();
-            BindControls();
             BindTimer();
             BindLevelGeneration();
-            BindPlayerControlService();
+            BindJumpForceCharger();
+            BindCameraService();
+        }
+
+        private void BindCameraService()
+        {
+            var camera = Container.InstantiatePrefabForComponent<CinemachineVirtualCamera>(_camera);
+            Camera.main.AddComponent<CinemachineBrain>();
+            
+            CameraService service = new CameraService(camera);
+
+            Container
+                .Bind<ICameraService>()
+                .To<CameraService>()
+                .FromInstance(service)
+                .AsSingle();
         }
 
         private void BindActorFactory()
         {
-            var factory = new ActorFactory();
-            factory.LoadActors();
-            factory.SelectActor<Frog>();
+            var factory = new ActorFactory(Container);
+            factory.Load();
 
             Container
                 .Bind<IActorFactory>()
@@ -35,19 +53,12 @@ namespace Lyaguska.Bootstrap.Installers
         private void BindDistanceCounter()
         {
             Container
-                .Bind<IDistanceCounter>()
-                .To<DistanceCounter>()
-                .FromNewComponentOnNewGameObject()
+                .Bind<IDistanceCountService>()
+                .To<DistanceCountService>()
+                .FromNew()
                 .AsSingle();
         }
-        private void BindControls()
-        {
-            Container
-                .Bind<Controls>()
-                .FromInstance(new Controls())
-                .AsSingle()
-                .NonLazy();
-        }
+
         private void BindTimer()
         {
             Container
@@ -60,7 +71,7 @@ namespace Lyaguska.Bootstrap.Installers
         {
             var factory = new ChunkFactory(Container.Resolve<ChunksCollection>(), null);
             LevelGenerationService service = new LevelGenerationService(Container.Resolve<LevelGenerationConfig>(),
-                factory, Container.Resolve<IDistanceCounter>());
+                factory, Container.Resolve<IDistanceCountService>());
 
             Container
                 .Bind<ILevelGenerationService>()
@@ -71,9 +82,24 @@ namespace Lyaguska.Bootstrap.Installers
         
         private void BindPlayerControlService()
         {
-            var playerControlService = Container
-                .Bind<PlayerControllService>()
-                .FromNewComponentOnNewGameObject()
+            Container
+                .Bind<IActorControllService>()
+                .To<ActorControllService>()
+                .FromNew()
+                .AsSingle();
+        }
+        
+        private void BindJumpForceCharger()
+        {
+
+            var jumpForceChargerInstance =
+                Container
+                    .InstantiateComponentOnNewGameObject<JumpChargeService>();
+
+            Container
+                .Bind<IJumpChargeService>()
+                .To<JumpChargeService>()
+                .FromInstance(jumpForceChargerInstance)
                 .AsSingle();
         }
     }

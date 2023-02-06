@@ -6,7 +6,7 @@ namespace Lyaguska.Actors
 {
     public class FrogAnimationHandler : MonoBehaviour
     {
-        private IJumpForceCharger _jumpChargeHandler;
+        private IJumpChargeService _jumpChargeHandler;
 
         [SerializeField] private Animator _animator;
 
@@ -31,7 +31,7 @@ namespace Lyaguska.Actors
         private int _chargePercentHash;
 
         [Inject]
-        private void Construct(IJumpForceCharger charger)
+        private void Construct(IJumpChargeService charger)
         {
             _jumpChargeHandler = charger;
         }

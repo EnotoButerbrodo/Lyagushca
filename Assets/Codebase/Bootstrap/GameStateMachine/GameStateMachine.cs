@@ -22,9 +22,14 @@ namespace Lyaguska.Bootstrap
         {
             return new Dictionary<Type, IExitableState>()
             {
-                [typeof(LevelCreateState)] = new LevelCreateState(this, _container.Resolve<ILevelGenerationService>(), new Vector2(-15, -2)),
-                [typeof(GameLoopState)] = new GameLoopState(this, _container.Resolve<ILevelGenerationService>(), _container.Resolve<IActorFactory>()),
-                [typeof(GameResetState)] = new GameResetState(this)
+                [typeof(LevelCreateState)] 
+                    = new LevelCreateState(this, _container.Resolve<ILevelGenerationService>(), new Vector2(-15, -2)),
+                [typeof(ActorSpawnState)] 
+                    = new ActorSpawnState(this, _container.Resolve<IActorFactory>(), _container.Resolve<ICameraService>() ,new Vector2(-10, -2)) ,
+                [typeof(GameLoopState)] 
+                    = new GameLoopState(this, _container.Resolve<ILevelGenerationService>(), _container.Resolve<IDistanceCountService>(), _container.Resolve<IActorControllService>()),
+                [typeof(GameResetState)] 
+                    = new GameResetState(this)
             };
         }
     }

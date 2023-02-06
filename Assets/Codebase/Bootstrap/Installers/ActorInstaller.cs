@@ -15,20 +15,9 @@ namespace Lyaguska.Bootstrap.Installers
 
         public override void InstallBindings()
         {
-            BindJumpForceCharger();
             var player = BindGameActor();
             var camera = BindCamera();
             camera.Follow = player.transform;
-        }
-
-        private void BindDistanceCounter()
-        {
-            var distanceCounter = Container.InstantiateComponentOnNewGameObject<DistanceCounter>();
-
-            Container
-                .BindInterfacesAndSelfTo<DistanceCounter>()
-                .FromInstance(distanceCounter)
-                .AsSingle();
         }
 
         private Actor BindGameActor()
@@ -37,6 +26,7 @@ namespace Lyaguska.Bootstrap.Installers
                 , _startPoint
                 , Quaternion.identity,
                 null);
+            
             Container
                 .Bind<Actor>()
                 .FromInstance(defaultActorInstance)
@@ -52,20 +42,6 @@ namespace Lyaguska.Bootstrap.Installers
             Camera.main.AddComponent<CinemachineBrain>();
 
             return camera;
-        }
-
-        private void BindJumpForceCharger()
-        {
-
-            var jumpForceChargerInstance =
-                Container
-                    .InstantiateComponentOnNewGameObject<JumpForceCharger>();
-
-            Container
-                .Bind<IJumpForceCharger>()
-                .To<JumpForceCharger>()
-                .FromInstance(jumpForceChargerInstance)
-                .AsSingle();
         }
 
     }

@@ -1,34 +1,54 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Cinemachine;
 using Lyaguska.Actors;
+using Unity.VisualScripting;
 using UnityEngine;
+using Zenject;
 
 namespace Lyaguska.Services
 {
     public class ActorFactory : IActorFactory
     {
+        public event Action<Actor> ActorChanged;
         public Actor CurrentActor => _currentActor;
+        private DiContainer _container;
         
         private Actor _currentActor;
         private Dictionary<Type, Actor> _actors;
-        
-        private const string ActorsPath = "Actors";
+        private CinemachineVirtualCamera _camera;
 
-        public void SelectActor<TActor>() where TActor : Actor
+        private const string ActorsPath = "Actors";
+        private const string CameraPath = "Camera";
+
+        public ActorFactory(DiContainer container)
         {
-            _currentActor = _actors[typeof(TActor)];
+            _container = container;
+        }
+
+        public Actor SelectActor<TActor>(Vector2 position = default(Vector2)) where TActor : Actor
+        {
+            if (_currentActor != null && _currentActor.GetType() == typeof(TActor))
+                return _currentActor;
+            
+            var actor = _actors[typeof(TActor)];
+            
+            _currentActor = _container.InstantiatePrefabForComponent<Actor>(actor
+                , position
+                , Quaternion.identity,
+                null);
+
+            ActorChanged?.Invoke(_currentActor);
+
+            return _currentActor;
         } 
 
-        public void LoadActors()
+        public void Load()
         {
             _actors = Resources.LoadAll<Actor>(ActorsPath)
                 .ToDictionary(actor => actor.GetType(), actor => actor);
         }
         
-        private void AddActor<TActor>(TActor actor) where TActor : Actor
-        {
-            _actors.Add(typeof(TActor), actor);
-        }
     }
 }

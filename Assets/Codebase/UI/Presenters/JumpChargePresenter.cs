@@ -8,10 +8,10 @@ namespace Lyaguska.UI
     {
         [SerializeField] private ChargeBar chargeBar;
 
-        private IJumpForceCharger _jumpChargeHandler;
+        private IJumpChargeService _jumpChargeHandler;
 
         [Inject]
-        public void Construct(IJumpForceCharger jumpChargeHandler)
+        public void Construct(IJumpChargeService jumpChargeHandler)
         {
             _jumpChargeHandler = jumpChargeHandler;
         }
