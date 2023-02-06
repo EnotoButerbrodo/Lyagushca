@@ -12,7 +12,7 @@ namespace Lyaguska.Bootstrap.Installers
     public class ServiceInstaller : MonoInstaller
     {
         [SerializeField] private CinemachineVirtualCamera _camera;
-        
+        [SerializeField] private string _chunksRootName = "-----Level-----";
         private IResetService _resetService;
         
         public override void InstallBindings()
@@ -21,7 +21,7 @@ namespace Lyaguska.Bootstrap.Installers
             
             BindActorFactory();
             BindPlayerControlService();
-            BindDistanceCounter();
+            BindDistanceCountService();
             BindTimer();
             BindLevelGeneration();
             BindJumpForceCharger();
@@ -67,10 +67,9 @@ namespace Lyaguska.Bootstrap.Installers
                 .To<ActorFactory>()
                 .FromInstance(factory)
                 .AsSingle();
-
         }
 
-        private void BindDistanceCounter()
+        private void BindDistanceCountService()
         {
             var distanceCount = new DistanceCountService();
 
@@ -93,7 +92,8 @@ namespace Lyaguska.Bootstrap.Installers
         
         private void BindLevelGeneration()
         {
-            var factory = new ChunkFactory(Container.Resolve<ChunksCollection>(), null);
+            Transform chunksRoot = new GameObject(_chunksRootName).transform;
+            ChunkFactory factory = new ChunkFactory(Container.Resolve<ChunksCollection>(), chunksRoot);
             LevelGenerationService generationService = new LevelGenerationService(Container.Resolve<LevelGenerationConfig>(),
                 factory, Container.Resolve<IDistanceCountService>());
 
