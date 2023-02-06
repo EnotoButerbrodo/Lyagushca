@@ -10,7 +10,9 @@ namespace Codebase.UI
     {
         [SerializeField] private TextMeshProUGUI _text;
         [SerializeField] private string _format = "0.0";
+        
         [Inject] private IDistanceCountService _distanceCount;
+        private int _lastDistance = -1;
 
         private void OnEnable()
         {
@@ -24,7 +26,13 @@ namespace Codebase.UI
 
         private void OnDistanceChanged(float distance)
         {
-            _text.text = Mathf.FloorToInt(distance).ToString(_format, CultureInfo.InvariantCulture);
+            int normalizedDistance = Mathf.FloorToInt(distance);
+            if(_lastDistance == normalizedDistance)
+                return;
+
+            _lastDistance = normalizedDistance;
+            
+            _text.text = normalizedDistance.ToString(_format, CultureInfo.InvariantCulture);
         } 
     }
 }

@@ -20,7 +20,7 @@ namespace Lyaguska.Services
         public Vector2 Position => _target.position;
 
         private float _distance;
-
+ 
         private Vector3 _startPosition;
         private Transform _target;
 
@@ -28,6 +28,7 @@ namespace Lyaguska.Services
         {
             _target = targetTransform;
             _startPosition = targetTransform.position;
+            Distance = 0;
         }
 
         public void Update()
