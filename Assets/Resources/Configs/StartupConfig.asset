@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65500c2bd92f49f9b1b50fde493e64ba, type: 3}
+  m_Name: StartupConfig
+  m_EditorClassIdentifier: 
+  _actorStartPosition: {x: -12, y: -2}
+  _generationStartPosition: {x: -20, y: -2}

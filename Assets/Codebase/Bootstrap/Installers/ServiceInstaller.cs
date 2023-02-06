@@ -94,6 +94,7 @@ namespace Lyaguska.Bootstrap.Installers
         {
             Transform chunksRoot = new GameObject(_chunksRootName).transform;
             ChunkFactory factory = new ChunkFactory(Container.Resolve<ChunksCollection>(), chunksRoot);
+            
             LevelGenerationService generationService = new LevelGenerationService(Container.Resolve<LevelGenerationConfig>(),
                 factory, Container.Resolve<IDistanceCountService>());
 
