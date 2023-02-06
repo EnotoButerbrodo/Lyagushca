@@ -30,7 +30,7 @@ namespace Lyaguska.Services
         private void CreateLevelRepeaters()
         {
             _levelRepeater = new LevelLayerRepeater(_factory, new ChunkPlacer(_config), ChunkType.Start,
-                ChunkType.Default, 3f);
+                ChunkType.Default, 7f);
             _backgroundsRepeaters = new List<ILevelLayerRepeater>(4);
             CreateMiddleBackgroundRepeater();
             CreateFarBackgroundRepeater();
