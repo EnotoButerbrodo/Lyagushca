@@ -4,30 +4,26 @@ using Lyaguska.Services;
 
 namespace Lyaguska.Bootstrap
 {
-    public class GameLoopState : PayloadedState<Actor>
+    public class GameLoopState : State
     {
         private ILevelGenerationService _generationService;
-        private IActorFactory _actorFactory;
+        private StaticData _staticData;
         private IDistanceCountService _distanceCount;
         private IActorControllService _controlls;
         private Actor _actor;
 
-        public GameLoopState(StateMachine stateMachine
-            , ILevelGenerationService generationService
-            , IDistanceCountService distanceCount
-            , IActorControllService controlls) : base(stateMachine)
+        public GameLoopState(StateMachine stateMachine, ILevelGenerationService generationService, StaticData staticData, IDistanceCountService distanceCount, IActorControllService controlls) : base(stateMachine)
         {
             _generationService = generationService;
+            _staticData = staticData;
             _distanceCount = distanceCount;
             _controlls = controlls;
         }
 
-        public override void Enter(Actor actor)
+        public override void Enter()
         {
-            _actor = actor;
-            
+            _actor = _staticData.CurrentActor;
             _controlls.Enable(_actor);
-            _distanceCount.SetTarget(_actor.transform);
             _actor.Dead += OnActorDeath;
         }
 

@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using Zenject;
 
-namespace Codebase.UI
+namespace Lyaguska.HUD
 {
     public class DistancePresenter : MonoBehaviour
     {

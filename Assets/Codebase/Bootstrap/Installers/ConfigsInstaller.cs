@@ -18,6 +18,11 @@ namespace Lyaguska.Bootstrap.Installers
                     .FromInstance(config)
                     .AsSingle();
             }
+
+            Container
+                .Bind<StaticData>()
+                .FromNew()
+                .AsSingle();
         }
 
      

@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-namespace Lyaguska.UI
+namespace Lyaguska.HUD
 {
     [RequireComponent(typeof(CanvasGroup))]
 

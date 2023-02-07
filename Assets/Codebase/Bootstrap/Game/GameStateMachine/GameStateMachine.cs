@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using Codebase.Bootstrap.Config;
+using Codebase.Services;
 using EnotoButerbrodo.StateMachine;
-using Lyaguska.Actors;
 using Lyaguska.Services;
-using UnityEngine;
 using Zenject;
 
 namespace Lyaguska.Bootstrap
@@ -25,8 +24,13 @@ namespace Lyaguska.Bootstrap
                 [typeof(LevelCreateState)] = GetLevelCreateState(),
                 [typeof(ActorSpawnState)] = GetActorSpawnState(),
                 [typeof(GameLoopState)] = GetGameLoopState(),
-                [typeof(GameResetState)] = GetGameResetState()
+                [typeof(GameResetState)] = GetGameResetState(),
+                [typeof(PauseState)] = GetPauseState()
             };
+
+        private PauseState GetPauseState() 
+            => new PauseState(this,
+                _container.Resolve<IInputService>());
 
         private LevelCreateState GetLevelCreateState() =>
              new LevelCreateState(this
@@ -37,11 +41,14 @@ namespace Lyaguska.Bootstrap
             new ActorSpawnState(this
                 , _container.Resolve<IActorFactory>()
                 , _container.Resolve<ICameraService>()
+                , _container.Resolve<IDistanceCountService>()
+                , _container.Resolve<StaticData>()
                 , _container.Resolve<StartupConfig>().ActorStartPosition);
 
         private GameLoopState GetGameLoopState() =>
             new GameLoopState(this
                 , _container.Resolve<ILevelGenerationService>()
+                , _container.Resolve<StaticData>()
                 , _container.Resolve<IDistanceCountService>()
                 , _container.Resolve<IActorControllService>());
 

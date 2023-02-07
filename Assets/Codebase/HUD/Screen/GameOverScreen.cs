@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-namespace Lyaguska.UI
+namespace Lyaguska.HUD
 {
     public class GameOverScreen : Screen
     {

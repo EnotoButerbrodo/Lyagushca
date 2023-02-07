@@ -22,12 +22,12 @@ namespace Lyaguska.Bootstrap
 
         public void Pause()
         {
-            
+            _stateMachine.Enter<PauseState>();
         }
 
         public void Resume()
         {
-            
+            _stateMachine.Enter<GameLoopState>();
         }
 
         private void Update()

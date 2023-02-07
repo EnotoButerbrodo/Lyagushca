@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
 
-namespace Lyaguska.UI
+namespace Lyaguska.HUD
 {
     [RequireComponent(typeof(CanvasGroup))]
 

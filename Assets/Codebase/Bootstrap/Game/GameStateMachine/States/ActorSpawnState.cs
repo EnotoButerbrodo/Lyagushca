@@ -9,12 +9,21 @@ namespace Lyaguska.Bootstrap
     {
         private IActorFactory _actorFactory;
         private ICameraService _cameraService;
+        private IDistanceCountService _distanceCount;
+        private StaticData _staticData;
         private Vector2 _startPosition;
 
-        public ActorSpawnState(StateMachine stateMachine, IActorFactory actorFactory, ICameraService cameraService, Vector2 startPosition) : base(stateMachine)
+        public ActorSpawnState(StateMachine stateMachine
+            , IActorFactory actorFactory
+            , ICameraService cameraService
+            , IDistanceCountService distanceCount
+            , StaticData staticData
+            , Vector2 startPosition) : base(stateMachine)
         {
             _actorFactory = actorFactory;
             _cameraService = cameraService;
+            _distanceCount = distanceCount;
+            _staticData = staticData;
             _startPosition = startPosition;
         }
 
@@ -22,9 +31,10 @@ namespace Lyaguska.Bootstrap
         public override void Enter()
         {
             var actor = _actorFactory.Get<Frog>((Vector3)_startPosition);
+            _staticData.CurrentActor = actor;
             _cameraService.SetTarget(actor.transform);
-            
-            _stateMachine.Enter<GameLoopState, Actor>(actor);
+            _distanceCount.SetTarget(actor.transform);
+            _stateMachine.Enter<GameLoopState>();
         }
     }
 }

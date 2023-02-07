@@ -2,7 +2,7 @@
 using UnityEngine;
 using Zenject;
 
-namespace Lyaguska.UI
+namespace Lyaguska.HUD
 {
     public class JumpChargePresenter : MonoBehaviour
     {
