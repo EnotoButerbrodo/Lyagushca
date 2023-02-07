@@ -1,4 +1,5 @@
 ﻿using Cinemachine;
+using Codebase.Services;
 using EnotoButebrodo;
 using EnotoButerbrodo.LevelGeneration;
 using Lyaguska.Services;
@@ -13,20 +14,41 @@ namespace Lyaguska.Bootstrap.Installers
     {
         [SerializeField] private CinemachineVirtualCamera _camera;
         [SerializeField] private string _chunksRootName = "-----Level-----";
-        private IResetService _resetService;
+
         
+
         public override void InstallBindings()
         {
-            _resetService = BindResetService();
-            
             BindActorFactory();
-            BindPlayerControlService();
-            BindDistanceCountService();
             BindTimer();
-            BindLevelGeneration();
-            BindJumpForceCharger();
-            BindCameraService();
             
+            IResetService resetService = BindResetService();
+            BindCameraService(resetService);
+            BindDistanceCountService(resetService);
+            BindJumpForceCharger(resetService);
+            BindLevelGeneration(resetService);
+
+            IInputService inputService = BindInputService();
+            BindPlayerControlService(inputService);
+        }
+
+        private void BindActorFactory()
+        {
+            var factory = new ActorFactory(Container);
+            factory.Load();
+
+            Container
+                .Bind<IActorFactory>()
+                .To<ActorFactory>()
+                .FromInstance(factory)
+                .AsSingle();
+        }
+        private void BindTimer()
+        {
+            Container
+                .BindInterfacesAndSelfTo<Timer>()
+                .FromInstance(new Timer())
+                .AsTransient();
         }
 
         private IResetService BindResetService()
@@ -41,7 +63,7 @@ namespace Lyaguska.Bootstrap.Installers
             return resetService;
         }
 
-        private void BindCameraService()
+        private void BindCameraService(IResetService resetService)
         {
             var camera = Container.InstantiatePrefabForComponent<CinemachineVirtualCamera>(_camera);
             Camera.main.AddComponent<CinemachineBrain>();
@@ -54,22 +76,10 @@ namespace Lyaguska.Bootstrap.Installers
                 .FromInstance(cameraService)
                 .AsSingle();
             
-            _resetService.Register(cameraService);
+            resetService.Register(cameraService);
         }
 
-        private void BindActorFactory()
-        {
-            var factory = new ActorFactory(Container);
-            factory.Load();
-
-            Container
-                .Bind<IActorFactory>()
-                .To<ActorFactory>()
-                .FromInstance(factory)
-                .AsSingle();
-        }
-
-        private void BindDistanceCountService()
+        private void BindDistanceCountService(IResetService resetService)
         {
             var distanceCount = new DistanceCountService();
 
@@ -79,18 +89,25 @@ namespace Lyaguska.Bootstrap.Installers
                 .FromInstance(distanceCount)
                 .AsSingle();
             
-            _resetService.Register(distanceCount);
+            resetService.Register(distanceCount);
         }
 
-        private void BindTimer()
+        private void BindJumpForceCharger(IResetService resetService)
         {
+
+            var jumpChargeService = Container
+                .InstantiateComponentOnNewGameObject<JumpChargeService>();
+
             Container
-                .BindInterfacesAndSelfTo<Timer>()
-                .FromInstance(new Timer())
-                .AsTransient();
+                .Bind<IJumpChargeService>()
+                .To<JumpChargeService>()
+                .FromInstance(jumpChargeService)
+                .AsSingle();
+            
+            resetService.Register(jumpChargeService);
         }
-        
-        private void BindLevelGeneration()
+
+        private void BindLevelGeneration(IResetService resetService)
         {
             Transform chunksRoot = new GameObject(_chunksRootName).transform;
             ChunkFactory factory = new ChunkFactory(Container.Resolve<ChunksCollection>(), chunksRoot);
@@ -104,31 +121,31 @@ namespace Lyaguska.Bootstrap.Installers
                 .FromInstance(generationService)
                 .AsSingle();
             
-            _resetService.Register(generationService);
+            resetService.Register(generationService);
         }
         
-        private void BindPlayerControlService()
+
+        private IInputService BindInputService()
         {
+            var inputService = new InputService();
+
+            Container
+                .Bind<IInputService>()
+                .To<InputService>()
+                .FromInstance(inputService)
+                .AsSingle();
+
+            return inputService;
+        }
+
+        private void BindPlayerControlService(IInputService inputService)
+        {
+            var controlsService = new ActorControllService(inputService);
             Container
                 .Bind<IActorControllService>()
                 .To<ActorControllService>()
-                .FromNew()
+                .FromInstance(controlsService)
                 .AsSingle();
-        }
-        
-        private void BindJumpForceCharger()
-        {
-
-            var jumpChargeService = Container
-                    .InstantiateComponentOnNewGameObject<JumpChargeService>();
-
-            Container
-                .Bind<IJumpChargeService>()
-                .To<JumpChargeService>()
-                .FromInstance(jumpChargeService)
-                .AsSingle();
-            
-            _resetService.Register(jumpChargeService);
         }
     }
 }
