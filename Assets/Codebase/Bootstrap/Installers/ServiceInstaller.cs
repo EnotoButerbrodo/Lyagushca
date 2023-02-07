@@ -15,8 +15,6 @@ namespace Lyaguska.Bootstrap.Installers
         [SerializeField] private CinemachineVirtualCamera _camera;
         [SerializeField] private string _chunksRootName = "-----Level-----";
 
-        
-
         public override void InstallBindings()
         {
             BindActorFactory();
