@@ -17,7 +17,8 @@ namespace Lyaguska.Bootstrap.Installers
 
         public override void InstallBindings()
         {
-            BindActorFactory();
+            IActorFactory actorFactory = BindActorFactory();
+            BindActorSelectService(actorFactory);
             BindTimer();
             
             IResetService resetService = BindResetService();
@@ -30,7 +31,18 @@ namespace Lyaguska.Bootstrap.Installers
             BindPlayerControlService(inputService);
         }
 
-        private void BindActorFactory()
+        private void BindActorSelectService(IActorFactory actorFactory)
+        {
+            var actorSelectService = new ActorSelectService(actorFactory);
+            Container
+                .Bind<IActorSelectService>()
+                .To<ActorSelectService>()
+                .FromInstance(actorSelectService)
+                .AsSingle();
+
+        }
+
+        private IActorFactory BindActorFactory()
         {
             var factory = new ActorFactory(Container);
             factory.Load();
@@ -40,6 +52,8 @@ namespace Lyaguska.Bootstrap.Installers
                 .To<ActorFactory>()
                 .FromInstance(factory)
                 .AsSingle();
+
+            return factory;
         }
         private void BindTimer()
         {

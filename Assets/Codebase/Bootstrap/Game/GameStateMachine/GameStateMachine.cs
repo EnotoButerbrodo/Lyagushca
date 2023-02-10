@@ -39,16 +39,15 @@ namespace Lyaguska.Bootstrap
 
         private ActorSpawnState GetActorSpawnState() =>
             new ActorSpawnState(this
-                , _container.Resolve<IActorFactory>()
                 , _container.Resolve<ICameraService>()
                 , _container.Resolve<IDistanceCountService>()
-                , _container.Resolve<StaticData>()
+                , _container.Resolve<IActorSelectService>()
                 , _container.Resolve<StartupConfig>().ActorStartPosition);
 
         private GameLoopState GetGameLoopState() =>
             new GameLoopState(this
                 , _container.Resolve<ILevelGenerationService>()
-                , _container.Resolve<StaticData>()
+                , _container.Resolve<IActorSelectService>()
                 , _container.Resolve<IDistanceCountService>()
                 , _container.Resolve<IActorControllService>());
 
