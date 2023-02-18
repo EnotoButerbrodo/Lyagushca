@@ -33,6 +33,7 @@ namespace Lyaguska.Actors
         [SerializeField] private JumpHandler _jumpHandler;
         [SerializeField] private GroundCheckHandler _groundChecker;
         [SerializeField] private DieHandler _dieHandler;
+        [SerializeField] private FrogAnimationHandler _animation;
 
         private Rigidbody2D _rigidbody2D;
 
@@ -67,6 +68,7 @@ namespace Lyaguska.Actors
         public override void Reset()
         {
             GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+            _animation.Reset();
         }
 
         private void OnLand()

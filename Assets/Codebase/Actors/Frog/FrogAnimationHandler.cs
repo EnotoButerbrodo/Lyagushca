@@ -4,7 +4,7 @@ using Zenject;
 
 namespace Lyaguska.Actors
 {
-    public class FrogAnimationHandler : MonoBehaviour
+    public class FrogAnimationHandler : MonoBehaviour, IResetable
     {
         private IJumpChargeService _jumpChargeHandler;
 
@@ -97,6 +97,12 @@ namespace Lyaguska.Actors
             _actor.Jumped -= OnJump;
             _actor.GroundLand -= OnLand;
             _actor.VelocityChanged -= OnVelocityChanged;
+        }
+
+        public void Reset()
+        {
+            _animator.Rebind();
+            _animator.Update(0f);
         }
     }
 }

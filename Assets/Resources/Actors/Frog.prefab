@@ -289,6 +289,7 @@ MonoBehaviour:
   _jumpHandler: {fileID: 5148772177827140244}
   _groundChecker: {fileID: 7746660312402523465}
   _dieHandler: {fileID: 183046831206656142}
+  _animation: {fileID: 5148772178954213971}
 --- !u!114 &183046831206656142
 MonoBehaviour:
   m_ObjectHideFlags: 0

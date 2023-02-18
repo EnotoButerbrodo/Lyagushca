@@ -25,5 +25,12 @@ namespace Lyaguska.Services
             ActorChanged?.Invoke(_selectedActor);
             return _selectedActor;
         }
+
+        public void Reset()
+        {
+            if (_selectedActor != null)
+                _selectedActor.Reset();
+        }
+
     }
 }

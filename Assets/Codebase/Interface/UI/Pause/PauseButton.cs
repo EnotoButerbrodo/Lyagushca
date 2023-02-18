@@ -1,5 +1,4 @@
-﻿using System;
-using Lyaguska.Bootstrap;
+﻿using Lyaguska.Bootstrap;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
@@ -19,18 +18,7 @@ namespace Lyaguska.UI
 
         private void PauseGame()
         {
-            
-            if (_isPaused)
-            {
-                _game.Resume();
-                _isPaused = false;
-            }
-            else
-            {
-                _game.Pause();
-                _isPaused = true;
-            }
-            
+            _game.Pause();
         }
 
         private void OnDisable()

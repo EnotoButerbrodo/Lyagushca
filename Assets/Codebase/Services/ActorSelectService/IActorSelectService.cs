@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Lyaguska.Services
 {
-    public interface IActorSelectService
+    public interface IActorSelectService : IResetable
     {
         event Action<Actor> ActorChanged;
         Actor SelectedActor { get; }

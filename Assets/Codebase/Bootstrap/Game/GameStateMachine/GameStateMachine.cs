@@ -30,7 +30,8 @@ namespace Lyaguska.Bootstrap
 
         private PauseState GetPauseState() 
             => new PauseState(this,
-                _container.Resolve<IInputService>());
+                _container.Resolve<IInputService>(),
+                _container.Resolve<IScreenService>());
 
         private LevelCreateState GetLevelCreateState() =>
              new LevelCreateState(this

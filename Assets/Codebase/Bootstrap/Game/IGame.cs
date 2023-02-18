@@ -5,5 +5,6 @@
         void StartNewGame();
         void Pause();
         void Resume();
+        void Reset();
     }
 }

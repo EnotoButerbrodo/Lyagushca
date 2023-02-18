@@ -3,6 +3,7 @@ using Codebase.Services;
 using EnotoButebrodo;
 using EnotoButerbrodo.LevelGeneration;
 using Lyaguska.Services;
+using Lyaguska.UI;
 using UnityEngine;
 using Zenject;
 using Unity.VisualScripting;
@@ -17,21 +18,23 @@ namespace Lyaguska.Bootstrap.Installers
 
         public override void InstallBindings()
         {
-            IActorFactory actorFactory = BindActorFactory();
-            BindActorSelectService(actorFactory);
             BindTimer();
-            
             IResetService resetService = BindResetService();
+            
             BindCameraService(resetService);
             BindDistanceCountService(resetService);
             BindJumpForceCharger(resetService);
             BindLevelGeneration(resetService);
+            
+            IActorFactory actorFactory = BindActorFactory();
+            BindActorSelectService(actorFactory, resetService);
 
             IInputService inputService = BindInputService();
             BindPlayerControlService(inputService);
         }
+        
 
-        private void BindActorSelectService(IActorFactory actorFactory)
+        private void BindActorSelectService(IActorFactory actorFactory, IResetService resetService)
         {
             var actorSelectService = new ActorSelectService(actorFactory);
             Container
@@ -39,7 +42,8 @@ namespace Lyaguska.Bootstrap.Installers
                 .To<ActorSelectService>()
                 .FromInstance(actorSelectService)
                 .AsSingle();
-
+            
+            resetService.Register(actorSelectService);
         }
 
         private IActorFactory BindActorFactory()
