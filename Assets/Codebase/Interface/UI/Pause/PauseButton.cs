@@ -9,8 +9,7 @@ namespace Lyaguska.UI
     {
         [SerializeField] private Button _button;
         [Inject] private IGame _game;
-
-        private bool _isPaused;
+        
         private void OnEnable()
         {
             _button.onClick.AddListener(PauseGame);

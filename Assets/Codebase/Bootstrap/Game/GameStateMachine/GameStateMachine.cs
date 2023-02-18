@@ -50,7 +50,8 @@ namespace Lyaguska.Bootstrap
                 , _container.Resolve<ILevelGenerationService>()
                 , _container.Resolve<IActorSelectService>()
                 , _container.Resolve<IDistanceCountService>()
-                , _container.Resolve<IActorControllService>());
+                , _container.Resolve<IActorControllService>()
+                , _container.Resolve<IScreenService>());
 
         private GameResetState GetGameResetState() =>
             new GameResetState(this

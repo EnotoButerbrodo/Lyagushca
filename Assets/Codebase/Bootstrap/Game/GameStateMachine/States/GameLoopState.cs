@@ -1,6 +1,7 @@
 ﻿using EnotoButerbrodo.StateMachine;
 using Lyaguska.Actors;
 using Lyaguska.Services;
+using UnityEngine;
 
 namespace Lyaguska.Bootstrap
 {
@@ -10,6 +11,7 @@ namespace Lyaguska.Bootstrap
         private readonly IDistanceCountService _distanceCount;
         private readonly IActorControllService _controlls;
         private readonly IActorSelectService _actorSelectService;
+        private readonly IScreenService _screenService;
 
         private Actor _actor;
 
@@ -17,12 +19,14 @@ namespace Lyaguska.Bootstrap
             , ILevelGenerationService generationService
             , IActorSelectService actorSelectService
             , IDistanceCountService distanceCount
-            , IActorControllService controlls) : base(stateMachine)
+            , IActorControllService controlls
+            , IScreenService screenService) : base(stateMachine)
         {
             _generationService = generationService;
             _actorSelectService = actorSelectService;
             _distanceCount = distanceCount;
             _controlls = controlls;
+            _screenService = screenService;
         }
 
         public override void Enter()
@@ -36,12 +40,15 @@ namespace Lyaguska.Bootstrap
         {
            _actor.Dead -= OnActorDeath;
            _controlls.Disable();
+           Time.timeScale = 1;
         }
 
         private void OnActorDeath()
         {
-            _stateMachine.Enter<GameResetState>();
-            
+            float distance = _distanceCount.Distance;
+            _screenService.ShowGameOverScreen(distance);
+            Time.timeScale = 0;
+
         }
 
         public override void UpdateState()

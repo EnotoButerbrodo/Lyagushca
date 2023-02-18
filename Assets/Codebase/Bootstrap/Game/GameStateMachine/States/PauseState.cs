@@ -19,7 +19,6 @@ namespace Lyaguska.Bootstrap
         {
             _inputService.Disable();
             _screenService.ShowPauseScreen();
-            
             Time.timeScale = 0;
         }
         

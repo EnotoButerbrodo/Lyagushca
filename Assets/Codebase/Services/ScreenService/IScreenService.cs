@@ -6,5 +6,6 @@ namespace Lyaguska.Services
     public interface IScreenService
     {
         void ShowPauseScreen();
+        void ShowGameOverScreen(float distance);
     }
 }
