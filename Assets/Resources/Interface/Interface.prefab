@@ -51,7 +51,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _text: {fileID: 201737487969296010}
-  _format: 0
 --- !u!1 &201737487353123871
 GameObject:
   m_ObjectHideFlags: 0

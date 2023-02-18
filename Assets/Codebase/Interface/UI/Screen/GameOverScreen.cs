@@ -32,7 +32,7 @@ namespace Lyaguska.UI
 
         public void Show(float distance = 0)
         {
-            _distanceText.text =  Mathf.FloorToInt(distance).ToString();
+            _distanceText.text = distance.ToString();
             base.Show();
         }
     }

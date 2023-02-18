@@ -33,7 +33,11 @@ namespace Lyaguska.Services
 
         public void Update()
         {
-            Distance = _target.position.x - _startPosition.x;
+            var newDistance = Mathf.FloorToInt(_target.position.x - _startPosition.x);
+            if(newDistance == _distance)
+                return;
+
+            Distance = newDistance;
         }
 
         void IResetable.Reset()
