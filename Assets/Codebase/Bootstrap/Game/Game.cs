@@ -11,7 +11,7 @@ namespace Lyaguska.Bootstrap
         [Inject] private DiContainer _container;
 
         private GameStateMachine _stateMachine;
-
+ 
         private void Start()
         {
             _stateMachine = new GameStateMachine(_container);
