@@ -7,6 +7,7 @@ using Lyaguska.UI;
 using UnityEngine;
 using Zenject;
 using Unity.VisualScripting;
+using Random = EnotoButebrodo.Random;
 using Timer = EnotoButebrodo.Timer;
 
 namespace Lyaguska.Bootstrap.Installers
@@ -25,8 +26,7 @@ namespace Lyaguska.Bootstrap.Installers
             BindDistanceCountService(resetService);
             BindJumpForceCharger(resetService);
             
-            IRandomService random = BindRandom();
-            BindLevelGeneration(resetService, random);
+            BindLevelGeneration(resetService);
             
             IActorFactory actorFactory = BindActorFactory();
             BindActorSelectService(actorFactory, resetService);
@@ -34,20 +34,6 @@ namespace Lyaguska.Bootstrap.Installers
             IInputService inputService = BindInputService();
             BindPlayerControlService(inputService);
         }
-
-        private IRandomService BindRandom()
-        {
-            RandomService randomService = new RandomService();
-
-            Container
-                .Bind<IRandomService>()
-                .To<RandomService>()
-                .FromInstance(randomService)
-                .AsSingle();
-
-            return randomService;
-        }
-
 
         private void BindActorSelectService(IActorFactory actorFactory, IResetService resetService)
         {
@@ -138,10 +124,10 @@ namespace Lyaguska.Bootstrap.Installers
             resetService.Register(jumpChargeService);
         }
 
-        private void BindLevelGeneration(IResetService resetService, IRandomService random)
+        private void BindLevelGeneration(IResetService resetService)
         {
             Transform chunksRoot = new GameObject(_chunksRootName).transform;
-            ChunkFactory factory = new ChunkFactory(Container.Resolve<ChunksCollection>(), chunksRoot, random);
+            ChunkFactory factory = new ChunkFactory(Container.Resolve<ChunksCollection>(), chunksRoot);
             
             LevelGenerationService generationService = new LevelGenerationService(Container.Resolve<LevelGenerationConfig>(),
                 factory, Container.Resolve<IDistanceCountService>());
