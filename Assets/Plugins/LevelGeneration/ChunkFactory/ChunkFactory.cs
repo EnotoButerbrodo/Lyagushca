@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
-using Random = UnityEngine.Random;
+using EnotoButebrodo;
 
 namespace EnotoButerbrodo.LevelGeneration
 {
@@ -11,10 +11,13 @@ namespace EnotoButerbrodo.LevelGeneration
 
         private Dictionary<ChunkType, List<ChunksPool>> _chunks;
 
-        public ChunkFactory(ChunksCollection chunksCollection, Transform parent)
+        private IRandomService _random;
+
+        public ChunkFactory(ChunksCollection chunksCollection, Transform parent, IRandomService random)
         {
             _chunksCollection = chunksCollection;
             _chunks = new Dictionary<ChunkType, List<ChunksPool>>();
+            _random = random;
 
             CreatePools(parent);
         }
@@ -31,14 +34,14 @@ namespace EnotoButerbrodo.LevelGeneration
                     _chunks.Add(key: chunk.Type, value: poolList);
                 }
 
-                _chunks[chunk.Type].Add(new ChunksPool(chunk, 4, parent));
+                _chunks[chunk.Type].Add(new ChunksPool(chunk, startCapacity: 4, parent));
             }
         }
 
         public Chunk GetChunk(ChunkType type, float distance)
         {
             var chunksPool = _chunks[type];
-            int chunkIndex = Random.Range(0, chunksPool.Count);
+            int chunkIndex = _random.Range(0, chunksPool.Count - 1);
 
             return chunksPool[chunkIndex].Get();
         }
