@@ -6,8 +6,12 @@ namespace Lyaguska.Services
 {
     public class LevelGenerationService : ILevelGenerationService
     {
-        public int StartChunksCount = 5;
-        public int StartBackgroundsAmount = 3;
+        private const int StartChunksCount = 5;
+        private const int StartBackgroundsAmount = 3;
+
+        private const float LevelDespawnDistance = 5f,
+            MiddleBackgroundDespawnDistance = 15f,
+            FarBackgroundDespawnDistance = 20f;
 
         private IDistanceCountService _distanceCountService;
 
@@ -27,15 +31,6 @@ namespace Lyaguska.Services
             CreateLevelRepeaters();
         }
 
-        private void CreateLevelRepeaters()
-        {
-            _levelRepeater = new LevelLayerRepeater(_factory, new ChunkPlacer(_config), ChunkType.Start,
-                ChunkType.Default, 5f);
-            _backgroundsRepeaters = new List<ILevelLayerRepeater>(4);
-            CreateMiddleBackgroundRepeater();
-            CreateFarBackgroundRepeater();
-        }
-
         public void SpawnStartChunks(Vector2 startPosition)
         {
             SpawnStartDefaultChunks(startPosition);
@@ -51,14 +46,26 @@ namespace Lyaguska.Services
             }
             
         }
-
+        
+        private void CreateLevelRepeaters()
+        {
+            _levelRepeater = new LevelLayerRepeater(_factory
+                , new ChunkPlacer(_config)
+                , ChunkType.Start
+                , ChunkType.Default
+                , LevelDespawnDistance);
+            _backgroundsRepeaters = new List<ILevelLayerRepeater>(4);
+            CreateMiddleBackgroundRepeater();
+            CreateFarBackgroundRepeater();
+        }
+        
         private void CreateMiddleBackgroundRepeater()
         {
             var middleBackgroundRepeater = new LevelLayerRepeater(_factory
                 , new BackgroundPlacer()
                 , ChunkType.Background_Middle
                 , ChunkType.Background_Middle
-                , 10f);
+                , MiddleBackgroundDespawnDistance);
             _backgroundsRepeaters.Add(middleBackgroundRepeater);
         }
 
@@ -68,7 +75,7 @@ namespace Lyaguska.Services
                 , new BackgroundPlacer()
                 , ChunkType.Background_Far
                 , ChunkType.Background_Far
-                , 20f);
+                , FarBackgroundDespawnDistance);
             _backgroundsRepeaters.Add(farBackgroundRepeater);
         }
 
