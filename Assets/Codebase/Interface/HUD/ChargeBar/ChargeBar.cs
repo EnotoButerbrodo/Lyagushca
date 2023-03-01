@@ -2,14 +2,13 @@ using Lyaguska.Services;
 using UnityEngine;
 using UnityEngine.UI;
 
-
 namespace Lyaguska.HUD
 {
     [RequireComponent(typeof(CanvasGroup))]
-
     public class ChargeBar : MonoBehaviour, IResetable
     {
         [SerializeField] private Image _chargeFillImage;
+        [SerializeField] private Image _chargedIndicatorImage;
         private CanvasGroup _elementCanvasGroup;
 
         private void Awake()
@@ -17,6 +16,15 @@ namespace Lyaguska.HUD
             _elementCanvasGroup = GetComponent<CanvasGroup>();
         }
 
+        public void ShowFullChargeIndicator()
+        {
+            _chargedIndicatorImage.enabled = true;
+        }
+
+        public void HideFullChargeIndicator()
+        {
+            _chargedIndicatorImage.enabled = false;
+        }
         public void Show()
         {
             _elementCanvasGroup.alpha = 1;

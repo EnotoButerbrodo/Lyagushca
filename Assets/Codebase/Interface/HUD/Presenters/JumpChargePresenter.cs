@@ -23,23 +23,20 @@ namespace Lyaguska.HUD
             _jumpChargeHandler.ChargeEnd += OnChargeEnd;
             _jumpChargeHandler.Showed += Show;
             _jumpChargeHandler.Hided += Hide;
+            _jumpChargeHandler.DechargeBegin += OnDechargeBegin;
+            _jumpChargeHandler.DechargeEnd += OnDechargeEnd;
         }
-
-        private void Hide()
-        {
-            _chargeBar.Hide();
-        }
-
-        private void Show()
-        {
-            _chargeBar.Show();
-        }
-
+        
         private void OnDisable()
         {
             _jumpChargeHandler.ChargeBegin -= OnChargeBegin;
             _jumpChargeHandler.ChargePercentChanged -= OnPercentChanged;
             _jumpChargeHandler.ChargeEnd -= OnChargeEnd;
+            _jumpChargeHandler.Showed -= Show;
+            _jumpChargeHandler.Hided -= Hide;
+            _jumpChargeHandler.DechargeBegin -= OnDechargeBegin;
+            _jumpChargeHandler.DechargeEnd -= OnDechargeEnd;
+            
         }
 
         private void OnPercentChanged(float percent)
@@ -50,15 +47,33 @@ namespace Lyaguska.HUD
         private void OnChargeBegin(float percent)
         {
             _chargeBar.SetFillPercent(percent);
+            _chargeBar.HideFullChargeIndicator();
             
         }
 
         private void OnChargeEnd(float percent)
         {
-            if(percent == 0)
-                _chargeBar.Hide();
-            
-            _chargeBar.SetFillPercent(percent);
+            _chargeBar.ShowFullChargeIndicator();
+        }
+        
+        private void OnDechargeEnd(float distance)
+        {
+            _chargeBar.Hide();
+        }
+
+        private void OnDechargeBegin(float distance)
+        {
+            _chargeBar.HideFullChargeIndicator();
+        }
+        
+        private void Hide()
+        {
+            _chargeBar.Hide();
+        }
+
+        private void Show()
+        {
+            _chargeBar.Show();
         }
 
 

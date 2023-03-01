@@ -10,6 +10,8 @@ namespace Lyaguska.Services
         public event Action<float> ChargeBegin;
         public event Action<float> ChargePercentChanged;
         public event Action<float> ChargeEnd;
+        public event Action<float> DechargeBegin;
+        public event Action<float> DechargeEnd; 
         public event Action Showed;
         public event Action Hided;
 
@@ -49,8 +51,7 @@ namespace Lyaguska.Services
         {
             if(_chargeCoroutine != null)
                 StopCoroutine(_chargeCoroutine);
-            
-            
+
         }
 
         public void Show()
@@ -85,9 +86,11 @@ namespace Lyaguska.Services
             }
 
             ChargePercent = 1;
-
+            ChargeEnd?.Invoke(ChargePercent);
+            
             yield return chargesDelay;
-
+            
+            DechargeBegin?.Invoke(1);
             for (int currentTime = _gameConfig.AutoCharge_TickCount; currentTime > 0; currentTime--)
             {
                 ChargePercent = (float)currentTime / _gameConfig.AutoCharge_TickCount;
@@ -96,8 +99,8 @@ namespace Lyaguska.Services
             }
 
             ChargePercent = 0;
-
-            ChargeEnd?.Invoke(ChargePercent);
+            DechargeEnd?.Invoke(0);
+            
 
         }
 
