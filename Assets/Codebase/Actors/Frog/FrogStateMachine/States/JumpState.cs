@@ -12,6 +12,11 @@ namespace Lyaguska.Actors.StateMachine
 
         public override void Enter()
         {
+            if (_charger.ChargePercent == 0)
+            {
+                _stateMachine.ChangeState(_stateMachine.IdleState);
+                return;
+            }
             _stateMachine.Actor.Jump(_charger.ChargePercent);
             _charger.Reset();
 

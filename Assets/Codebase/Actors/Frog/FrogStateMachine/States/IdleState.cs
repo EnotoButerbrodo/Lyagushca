@@ -16,6 +16,7 @@ namespace Lyaguska.Actors.StateMachine
         {
             HandleDelayedJump();
             _stateMachine.Actor.VelocityChanged += OnVelocityChanged;
+            _charger.Hide();
         }
 
         private void HandleDelayedJump()

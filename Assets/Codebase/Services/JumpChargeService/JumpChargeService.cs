@@ -9,7 +9,9 @@ namespace Lyaguska.Services
     {
         public event Action<float> ChargeBegin;
         public event Action<float> ChargePercentChanged;
-        public event Action<float> JumpCharged;
+        public event Action<float> ChargeEnd;
+        public event Action Showed;
+        public event Action Hided;
 
         public float ChargePercent
         {
@@ -22,10 +24,9 @@ namespace Lyaguska.Services
         }
 
         private float _chargePercent;
-        private bool _chargeStarted;
-        private bool _chargeCancelRequst;
 
         private JumpsConfig _gameConfig;
+        private Coroutine _chargeCoroutine;
 
         [Inject]
         private void Construct(JumpsConfig config)
@@ -35,56 +36,72 @@ namespace Lyaguska.Services
 
         public void StartCharge()
         {
-            if (_chargeStarted)
-            {
+            if (_chargeCoroutine == null) 
                 StopCharge();
-            }
-            StartCoroutine(ChargeCoroutine());
+            
+            Show();
+            ChargeBegin?.Invoke(0);
+            ChargePercent = 0;
+            _chargeCoroutine = StartCoroutine(ChargeCoroutine());
         }
 
         public void StopCharge()
         {
-            _chargeCancelRequst = true;
+            if(_chargeCoroutine != null)
+                StopCoroutine(_chargeCoroutine);
+            
+            
+        }
+
+        public void Show()
+        {
+            Showed?.Invoke();
+        }
+
+        public void Hide()
+        {
+            Hided?.Invoke();
         }
 
         public void Reset()
         {
             StopCharge();
             ChargePercent = 0;
+            Hide();
         }
 
         private IEnumerator ChargeCoroutine()
         {
-            Reset();
-            _chargeCancelRequst = false;
-            _chargeStarted = true;
-
-            ChargeBegin?.Invoke(0);
-
             float waitTime = _gameConfig.AutoCharge_MaxChargeTimeInSeconds / _gameConfig.AutoCharge_TickCount;
             WaitForSeconds waiter = new WaitForSeconds(waitTime);
+            WaitForSeconds chargesDelay = new WaitForSeconds(.25f);
+
 
             for (int currentTime = 1; currentTime < _gameConfig.AutoCharge_TickCount; currentTime++)
             {
-                if (_chargeCancelRequst)
-                {
-                    break;
-                }
                 ChargePercent = (float)currentTime / _gameConfig.AutoCharge_TickCount;
 
                 yield return waiter;
             }
 
-            if (_chargeCancelRequst == false)
+            ChargePercent = 1;
+
+            yield return chargesDelay;
+
+            for (int currentTime = _gameConfig.AutoCharge_TickCount; currentTime > 0; currentTime--)
             {
-                ChargePercent = 1;
+                ChargePercent = (float)currentTime / _gameConfig.AutoCharge_TickCount;
+
+                yield return waiter;
             }
 
-            JumpCharged?.Invoke(ChargePercent);
-            _chargeStarted = false;
+            ChargePercent = 0;
+
+            ChargeEnd?.Invoke(ChargePercent);
+
         }
 
-      
+
 
     }
 }

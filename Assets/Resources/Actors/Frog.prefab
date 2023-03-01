@@ -206,7 +206,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 071e5710b90026945ad259e45f540c77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chargeBar: {fileID: 5148772177441134531}
+  _chargeBar: {fileID: 5148772177441134531}
 --- !u!114 &5148772177441134531
 MonoBehaviour:
   m_ObjectHideFlags: 0

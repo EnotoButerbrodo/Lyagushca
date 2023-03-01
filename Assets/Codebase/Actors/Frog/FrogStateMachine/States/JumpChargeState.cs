@@ -12,20 +12,19 @@ namespace Lyaguska.Actors.StateMachine
 
         public override void Enter()
         {
-            if(_charger.ChargePercent == 0)
-            {
-                _charger.StartCharge();
-            }
+            _charger.StartCharge();
         }
         
 
         public override void HandleButtonRelease()
         {
             _charger.StopCharge();
+            
             if (_stateMachine.Actor.Grounded)
             {
                 _stateMachine.ChangeState(_stateMachine.JumpState);
-            }else
+            }
+            else
             {
                 _stateMachine.ChangeState(_stateMachine.BufferedJumpState);
             }
