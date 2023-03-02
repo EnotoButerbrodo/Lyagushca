@@ -9,14 +9,14 @@ namespace Lyaguska.Services
     {
         [SerializeField] private Screen _pauseScreen;
         [SerializeField] private GameOverScreen _gameOverScreen;
-        public void ShowPauseScreen()
-        {
-            _pauseScreen.Show();
-        }
+        [SerializeField] private TittleScreen _tittleScreen;
+        public void ShowPauseScreen() 
+            => _pauseScreen.Show();
 
-        public void ShowGameOverScreen(float distance)
-        {
-            _gameOverScreen.Show(distance);
-        }
+        public void ShowGameOverScreen(float distance) 
+            => _gameOverScreen.Show(distance);
+
+        public void ShowTittleScreen()
+            => _tittleScreen.Show();
     }
 }

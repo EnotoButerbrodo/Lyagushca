@@ -21,7 +21,7 @@ namespace Lyaguska.Bootstrap
 
         public void StartNewGame()
         {
-            _stateMachine.Enter<LevelCreateState>();
+            _stateMachine.Enter<GameStartState>();
         }
 
         public void Pause()

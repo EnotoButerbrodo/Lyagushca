@@ -21,6 +21,7 @@ namespace Lyaguska.Bootstrap
         protected override Dictionary<Type, IExitableState> InitialStates() =>
             new Dictionary<Type, IExitableState>()
             {
+                [typeof(GameStartState)] = GetGameStartState(),
                 [typeof(LevelCreateState)] = GetLevelCreateState(),
                 [typeof(ActorSpawnState)] = GetActorSpawnState(),
                 [typeof(GameLoopState)] = GetGameLoopState(),
@@ -28,12 +29,17 @@ namespace Lyaguska.Bootstrap
                 [typeof(GameOverState)] = GetGameOverState()
             };
 
+        private IExitableState GetGameStartState()
+            => new GameStartState(this
+            , _container.Resolve<IScreenService>());
+        
+
         private IExitableState GetGameOverState()
             => new GameOverState(this
                 , _container.Resolve<IScreenService>());
                 
 
-
+        
         private IExitableState GetLevelCreateState() =>
              new LevelCreateState(this
                     , _container.Resolve<ILevelGenerationService>()
