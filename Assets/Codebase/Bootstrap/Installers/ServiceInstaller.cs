@@ -19,20 +19,32 @@ namespace Lyaguska.Bootstrap.Installers
 
         public override void InstallBindings()
         {
-            BindTimer();
             IResetService resetService = BindResetService();
+            IPauseService pauseService = BindPauseService();
+            IActorFactory actorFactory = BindActorFactory();
+            IInputService inputService = BindInputService();
             
+            BindTimer();
             BindCameraService(resetService);
             BindDistanceCountService(resetService);
             BindJumpForceCharger(resetService);
-            
             BindLevelGeneration(resetService);
-            
-            IActorFactory actorFactory = BindActorFactory();
             BindActorSelectService(actorFactory, resetService);
 
-            IInputService inputService = BindInputService();
-            BindPlayerControlService(inputService);
+            BindPlayerControlService(inputService, pauseService);
+        }
+
+        private IPauseService BindPauseService()
+        {
+            PauseService pause = new PauseService();
+
+            Container
+                .Bind<IPauseService>()
+                .To<PauseService>()
+                .FromInstance(pause)
+                .AsSingle();
+
+            return pause;
         }
 
         private void BindActorSelectService(IActorFactory actorFactory, IResetService resetService)
@@ -141,7 +153,6 @@ namespace Lyaguska.Bootstrap.Installers
             resetService.Register(generationService);
         }
         
-
         private IInputService BindInputService()
         {
             var inputService = new InputService();
@@ -155,7 +166,7 @@ namespace Lyaguska.Bootstrap.Installers
             return inputService;
         }
 
-        private void BindPlayerControlService(IInputService inputService)
+        private void BindPlayerControlService(IInputService inputService, IPauseService pause)
         {
             var controlsService = new ActorControllService(inputService);
             Container
@@ -163,6 +174,8 @@ namespace Lyaguska.Bootstrap.Installers
                 .To<ActorControllService>()
                 .FromInstance(controlsService)
                 .AsSingle();
+            
+            pause.Register(controlsService);
         }
     }
 }

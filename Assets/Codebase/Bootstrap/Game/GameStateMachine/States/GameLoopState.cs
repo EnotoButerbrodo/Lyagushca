@@ -13,6 +13,7 @@ namespace Lyaguska.Bootstrap
         private readonly IActorSelectService _actorSelectService;
         private readonly IScreenService _screenService;
 
+        private readonly IGame _game;
         private Actor _actor;
 
         public GameLoopState(StateMachine stateMachine
@@ -20,17 +21,18 @@ namespace Lyaguska.Bootstrap
             , IActorSelectService actorSelectService
             , IDistanceCountService distanceCount
             , IActorControllService controlls
-            , IScreenService screenService) : base(stateMachine)
+            , IGame game) : base(stateMachine)
         {
             _generationService = generationService;
             _actorSelectService = actorSelectService;
             _distanceCount = distanceCount;
             _controlls = controlls;
-            _screenService = screenService;
+            _game = game;
         }
 
         public override void Enter()
         {
+            _game.Resume();
             _actor = _actorSelectService.SelectedActor;
             _controlls.Enable(_actor);
             _actor.Dead += OnActorDeath;
@@ -40,19 +42,21 @@ namespace Lyaguska.Bootstrap
         {
            _actor.Dead -= OnActorDeath;
            _controlls.Disable();
-           Time.timeScale = 1;
+           _game.Pause();
         }
 
         private void OnActorDeath()
         {
-            float distance = _distanceCount.Distance;
-            _screenService.ShowGameOverScreen(distance);
-            Time.timeScale = 0;
+            _game.Pause();
+            _stateMachine.Enter<GameOverState, float>(_distanceCount.Distance);
 
         }
 
         public override void UpdateState()
         {
+            if(_game.IsPaused)
+                return;
+            
             _generationService.CheckChunksRelevance();
             _distanceCount.Update();
         }

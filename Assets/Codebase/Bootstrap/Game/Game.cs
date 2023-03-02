@@ -9,9 +9,10 @@ namespace Lyaguska.Bootstrap
     public class Game : MonoBehaviour, IGame
     {
         [Inject] private DiContainer _container;
-
+        [Inject] private IPauseService _pauseService;
         private GameStateMachine _stateMachine;
- 
+
+        public bool IsPaused => _pauseService.IsPaused;
         private void Start()
         {
             _stateMachine = new GameStateMachine(_container);
@@ -25,12 +26,12 @@ namespace Lyaguska.Bootstrap
 
         public void Pause()
         {
-            _stateMachine.Enter<PauseState>();
+            _pauseService.Pause();
         }
 
         public void Resume()
         {
-            _stateMachine.Enter<GameLoopState>();
+            _pauseService.Resume();
         }
 
         public void Reset()

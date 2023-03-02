@@ -29,11 +29,13 @@ namespace Lyaguska.Services
 
         private JumpsConfig _gameConfig;
         private Coroutine _chargeCoroutine;
+        private IPauseService _pause;
 
         [Inject]
-        private void Construct(JumpsConfig config)
+        private void Construct(JumpsConfig config, IPauseService pause)
         {
             _gameConfig = config;
+            _pause = pause;
         }
 
         public void StartCharge()
@@ -51,7 +53,6 @@ namespace Lyaguska.Services
         {
             if(_chargeCoroutine != null)
                 StopCoroutine(_chargeCoroutine);
-
         }
 
         public void Show()
@@ -76,10 +77,13 @@ namespace Lyaguska.Services
             float waitTime = _gameConfig.AutoCharge_MaxChargeTimeInSeconds / _gameConfig.AutoCharge_TickCount;
             WaitForSeconds waiter = new WaitForSeconds(waitTime);
             WaitForSeconds chargesDelay = new WaitForSeconds(.25f);
-
+  
 
             for (int currentTime = 1; currentTime < _gameConfig.AutoCharge_TickCount; currentTime++)
             {
+                if (_pause.IsPaused)
+                    yield return null;
+                
                 ChargePercent = (float)currentTime / _gameConfig.AutoCharge_TickCount;
 
                 yield return waiter;
@@ -93,6 +97,9 @@ namespace Lyaguska.Services
             DechargeBegin?.Invoke(1);
             for (int currentTime = _gameConfig.AutoCharge_TickCount; currentTime > 0; currentTime--)
             {
+                if (_pause.IsPaused)
+                    yield return null;
+                
                 ChargePercent = (float)currentTime / _gameConfig.AutoCharge_TickCount;
 
                 yield return waiter;
@@ -100,11 +107,6 @@ namespace Lyaguska.Services
 
             ChargePercent = 0;
             DechargeEnd?.Invoke(0);
-            
-
         }
-
-
-
     }
 }

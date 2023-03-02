@@ -7,7 +7,7 @@ using Zenject;
 
 namespace Lyaguska.Services
 {
-    public class ActorControllService : IActorControllService
+    public class ActorControllService : IActorControllService, IPauseable
     {
         private IInputService _inputService;
         private Actor _actor;
@@ -38,9 +38,16 @@ namespace Lyaguska.Services
             _inputService.Pressed -= OnPressed;
             _inputService.Released -= OnReleased;
         }
-        
 
+        void IPauseable.Pause()
+        {
+            _inputService.Disable();
+        }
 
+        void IPauseable.Resume()
+        {
+            _inputService.Enable();
+        }
     }
 
 

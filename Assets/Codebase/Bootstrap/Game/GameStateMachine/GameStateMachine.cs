@@ -25,35 +25,36 @@ namespace Lyaguska.Bootstrap
                 [typeof(ActorSpawnState)] = GetActorSpawnState(),
                 [typeof(GameLoopState)] = GetGameLoopState(),
                 [typeof(GameResetState)] = GetGameResetState(),
-                [typeof(PauseState)] = GetPauseState()
+                [typeof(GameOverState)] = GetGameOverState()
             };
 
-        private PauseState GetPauseState() 
-            => new PauseState(this,
-                _container.Resolve<IInputService>(),
-                _container.Resolve<IScreenService>());
+        private IExitableState GetGameOverState()
+            => new GameOverState(this
+                , _container.Resolve<IScreenService>());
+                
 
-        private LevelCreateState GetLevelCreateState() =>
+
+        private IExitableState GetLevelCreateState() =>
              new LevelCreateState(this
                     , _container.Resolve<ILevelGenerationService>()
                     , _container.Resolve<StartupConfig>().GenerationStartPosition);
 
-        private ActorSpawnState GetActorSpawnState() =>
+        private IExitableState GetActorSpawnState() =>
             new ActorSpawnState(this
                 , _container.Resolve<ICameraService>()
                 , _container.Resolve<IDistanceCountService>()
                 , _container.Resolve<IActorSelectService>()
                 , _container.Resolve<StartupConfig>().ActorStartPosition);
 
-        private GameLoopState GetGameLoopState() =>
+        private IExitableState GetGameLoopState() =>
             new GameLoopState(this
                 , _container.Resolve<ILevelGenerationService>()
                 , _container.Resolve<IActorSelectService>()
                 , _container.Resolve<IDistanceCountService>()
                 , _container.Resolve<IActorControllService>()
-                , _container.Resolve<IScreenService>());
+                , _container.Resolve<IGame>());
 
-        private GameResetState GetGameResetState() =>
+        private IExitableState GetGameResetState() =>
             new GameResetState(this
                 , _container.Resolve<IResetService>());
     }

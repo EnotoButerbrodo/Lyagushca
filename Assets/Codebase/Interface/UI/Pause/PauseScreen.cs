@@ -1,4 +1,5 @@
 ﻿using Lyaguska.Bootstrap;
+using Lyaguska.Services;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
@@ -9,7 +10,7 @@ namespace Lyaguska.UI
     {
         [SerializeField] private Button _resumeButton;
         [SerializeField] private Button _resetButton;
-        
+
         [Inject] private IGame _game;
 
         protected override void OnAwaked()

@@ -3,8 +3,10 @@
     public interface IGame 
     {
         void StartNewGame();
+        void Reset();
+        
         void Pause();
         void Resume();
-        void Reset();
+        bool IsPaused { get; }
     }
 }
