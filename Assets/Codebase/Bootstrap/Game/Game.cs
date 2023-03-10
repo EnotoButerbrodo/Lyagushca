@@ -16,12 +16,12 @@ namespace Lyaguska.Bootstrap
         private void Start()
         {
             _stateMachine = new GameStateMachine(_container);
-            StartNewGame();
+            _stateMachine.Enter<TittleScreenState>();
         }
 
-        public void StartNewGame()
+        public void StartGame()
         {
-            _stateMachine.Enter<GameStartState>();
+            _stateMachine.Enter<GameLoopState>();
         }
 
         public void Pause()
@@ -34,7 +34,7 @@ namespace Lyaguska.Bootstrap
             _pauseService.Resume();
         }
 
-        public void Reset()
+        public void ResetGame()
         {
             _stateMachine.Enter<GameResetState>();
         }

@@ -26,7 +26,7 @@ namespace Lyaguska.UI
 
         private void OnReset()
         {
-            _game.Reset();
+            _game.ResetGame();
             Hide();
         }
 

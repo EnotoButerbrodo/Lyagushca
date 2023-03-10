@@ -2,8 +2,8 @@
 {
     public interface IGame 
     {
-        void StartNewGame();
-        void Reset();
+        void StartGame();
+        void ResetGame();
         
         void Pause();
         void Resume();

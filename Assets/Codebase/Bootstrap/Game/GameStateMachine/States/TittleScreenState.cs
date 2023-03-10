@@ -3,19 +3,25 @@ using Lyaguska.Services;
 
 namespace Lyaguska.Bootstrap
 {
-    public class GameStartState : State
+    public class TittleScreenState : State
     {
         private readonly IScreenService _screenService;
-
-        public GameStartState(StateMachine stateMachine, IScreenService screenService) : base(stateMachine)
+        private readonly IGame _game;
+        
+        public TittleScreenState(StateMachine stateMachine
+            , IScreenService screenService
+            , IGame game) : base(stateMachine)
         {
             _screenService = screenService;
+            _game = game;
         }
 
         public override void Enter()
         {
             _screenService.ShowTittleScreen();
+            _game.Resume();
             _stateMachine.Enter<LevelCreateState>();
+
         }
     }
 }

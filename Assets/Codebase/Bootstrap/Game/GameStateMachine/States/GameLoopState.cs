@@ -32,9 +32,9 @@ namespace Lyaguska.Bootstrap
 
         public override void Enter()
         {
-            _game.Resume();
             _actor = _actorSelectService.SelectedActor;
-            _controlls.Enable(_actor);
+            _controlls.SetActor(_actor);
+            _controlls.Enable();
             _actor.Dead += OnActorDeath;
         }
 
@@ -42,7 +42,6 @@ namespace Lyaguska.Bootstrap
         {
            _actor.Dead -= OnActorDeath;
            _controlls.Disable();
-           _game.Pause();
         }
 
         private void OnActorDeath()

@@ -17,20 +17,19 @@ namespace Lyaguska.Services
             _inputService = inputService;
         }
 
-        public void Enable(Actor actor)
+        public void Enable()
+        {
+            _inputService.Enable();
+        }
+        
+        public void SetActor(Actor actor)
         {
             _actor = actor;
             _inputService.Pressed += OnPressed;
             _inputService.Released += OnReleased;
             
-            _inputService.Enable();
+            
         }
-
-        private void OnPressed() 
-            => _actor.HandleButtonPress();
-
-        private void OnReleased() 
-            => _actor.HandleButtonRelease();
 
         public void Disable()
         {
@@ -38,6 +37,12 @@ namespace Lyaguska.Services
             _inputService.Pressed -= OnPressed;
             _inputService.Released -= OnReleased;
         }
+
+        private void OnPressed() 
+            => _actor.HandleButtonPress();
+
+        private void OnReleased() 
+            => _actor.HandleButtonRelease();
 
         void IPauseable.Pause()
         {

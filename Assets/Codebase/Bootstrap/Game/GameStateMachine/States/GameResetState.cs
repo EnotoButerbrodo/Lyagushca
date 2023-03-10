@@ -16,7 +16,7 @@ namespace Lyaguska.Bootstrap
         public override void Enter()
         {
             _resetService.Reset();
-            _stateMachine.Enter<LevelCreateState>();
+            _stateMachine.Enter<TittleScreenState>();
         }
 
       

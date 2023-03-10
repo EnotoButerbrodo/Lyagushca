@@ -22,7 +22,7 @@ namespace Lyaguska.UI
         private void OnReset()
         {
             Hide();
-            _game.Reset();
+            _game.ResetGame();
         }
 
         protected override void OnDestroyed()

@@ -31,7 +31,6 @@ namespace Lyaguska.Bootstrap
 
             _cameraService.SetTarget(actor.transform);
             _distanceCount.SetTarget(actor.transform);
-            _stateMachine.Enter<GameLoopState>();
         }
     }
 }

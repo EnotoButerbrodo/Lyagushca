@@ -2,9 +2,10 @@
 
 namespace Lyaguska.Services
 {
-    public interface IActorControllService 
+    public interface IActorControllService
     {
-        void Enable(Actor actor);
+        void Enable();
+        void SetActor(Actor actor);
         void Disable();
     }
 }
