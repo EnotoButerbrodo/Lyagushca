@@ -27,12 +27,13 @@ namespace Lyaguska.Services
             _actor = actor;
             _inputService.Pressed += OnPressed;
             _inputService.Released += OnReleased;
-            
-            
         }
 
         public void Disable()
         {
+            if(_actor is null)
+                return;
+            
             _inputService.Disable();
             _inputService.Pressed -= OnPressed;
             _inputService.Released -= OnReleased;
