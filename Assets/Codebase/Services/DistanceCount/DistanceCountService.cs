@@ -5,9 +5,9 @@ namespace Lyaguska.Services
 {
     public class DistanceCountService : IDistanceCountService
     {
-        public event Action<float> DistanceChanged;
+        public event Action<int> DistanceChanged;
 
-        public float Distance
+        public int Distance
         {
             get => _distance;
             set
@@ -19,7 +19,7 @@ namespace Lyaguska.Services
 
         public Vector2 Position => _target.position;
 
-        private float _distance;
+        private int _distance;
  
         private Vector3 _startPosition;
         private Transform _target;

@@ -23,8 +23,9 @@ namespace Lyaguska.HUD
             _distanceCount.DistanceChanged -= OnDistanceChanged;
         }
 
-        private void OnDistanceChanged(float distance)
+        private void OnDistanceChanged(int distance)
         {
+            _text.enabled = distance > 0;
             _text.text = distance.ToString();
         } 
     }

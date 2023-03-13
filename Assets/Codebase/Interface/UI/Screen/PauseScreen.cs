@@ -19,6 +19,11 @@ namespace Lyaguska.UI
             _resetButton.onClick.AddListener(OnReset);
         }
 
+        protected override void OnShow()
+        {
+            _resumeButton.Select();
+        }
+
         private void OnReset()
         {
             Hide();

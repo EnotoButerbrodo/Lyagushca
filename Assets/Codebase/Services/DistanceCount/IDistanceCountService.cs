@@ -5,8 +5,8 @@ namespace Lyaguska.Services
 {
     public interface IDistanceCountService : IResetable
     {
-        event Action<float> DistanceChanged;
-        float Distance { get; }
+        event Action<int> DistanceChanged;
+        int Distance { get; }
         Vector2 Position { get; }
         void SetTarget(Transform targetTransform);
         void Update();

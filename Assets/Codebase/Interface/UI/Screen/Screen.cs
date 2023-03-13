@@ -11,11 +11,17 @@ namespace Lyaguska.UI
         public void Show()
         { 
             gameObject.SetActive(true);
+            OnShow();
         }
+
+        protected virtual void OnShow() {}
+        protected virtual void OnHide() {}
+        
 
         public void Hide()
         {
             gameObject.SetActive(false);
+            OnHide();
         }
         
         private void Awake()

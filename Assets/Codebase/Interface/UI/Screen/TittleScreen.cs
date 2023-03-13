@@ -17,6 +17,11 @@ namespace Lyaguska.UI
             
         }
 
+        protected override void OnShow()
+        {
+            _startGameButton.Select();
+        }
+        
         private void OnStartGame()
         {
             _game.StartGame();
