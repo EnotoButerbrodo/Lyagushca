@@ -9,6 +9,9 @@ namespace Lyaguska.HUD
     {
         [SerializeField] private Image _chargeFillImage;
         [SerializeField] private Image _chargedIndicatorImage;
+        [SerializeField] private Color _startColor;
+        [SerializeField] private Color _endColor;
+        
         private CanvasGroup _elementCanvasGroup;
 
         private void Awake()
@@ -42,6 +45,7 @@ namespace Lyaguska.HUD
 
         public void SetFillPercent(float percent)
         {
+            _chargeFillImage.color = Color.Lerp(_startColor, _endColor, percent);
             _chargeFillImage.fillAmount = percent;
         }
 
