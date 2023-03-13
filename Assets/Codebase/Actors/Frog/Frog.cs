@@ -69,6 +69,7 @@ namespace Lyaguska.Actors
         {
             GetComponent<Rigidbody2D>().velocity = Vector2.zero;
             _animation.Reset();
+            _dieHandler.Reset();
         }
 
         public override void Pause()

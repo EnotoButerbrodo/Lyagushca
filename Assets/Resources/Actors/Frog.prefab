@@ -247,9 +247,9 @@ GameObject:
   - component: {fileID: 183046831206656142}
   - component: {fileID: 5364046645820158168}
   - component: {fileID: 5148772177827140244}
-  - component: {fileID: 5148772177827140245}
+  - component: {fileID: 1614984940809572569}
   - component: {fileID: 2437672648540485056}
-  - component: {fileID: 819678787638134575}
+  - component: {fileID: 5148772177827140245}
   - component: {fileID: 2554465496884473422}
   m_Layer: 0
   m_Name: Frog
@@ -399,27 +399,23 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   _rigidbody: {fileID: 5148772177827140245}
---- !u!50 &5148772177827140245
-Rigidbody2D:
-  serializedVersion: 4
+--- !u!114 &1614984940809572569
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5148772177827140233}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 6200000, guid: 8345f7520013f18459a1c6668473a040, type: 2}
-  m_Interpolate: 1
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 4
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58354861272440ee872c10b06ae792a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _actor: {fileID: 5148772177827140243}
+  _audioSource: {fileID: 2437672648540485056}
+  _jumpSound: {fileID: 8300000, guid: 765828436b456fd45843e3e87ff77ce9, type: 3}
+  _groundSound: {fileID: 8300000, guid: 6cfa4dff286f2564893cd406f595e0e1, type: 3}
+  _dieSound: {fileID: 8300000, guid: fe57d5960e5b4ff4e93d430555cf117c, type: 3}
 --- !u!82 &2437672648540485056
 AudioSource:
   m_ObjectHideFlags: 0
@@ -516,22 +512,27 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &819678787638134575
-MonoBehaviour:
+--- !u!50 &5148772177827140245
+Rigidbody2D:
+  serializedVersion: 4
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5148772177827140233}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5bf717f9287374246a87899777387670, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _jumpHandler: {fileID: 5148772177827140244}
-  _audioSource: {fileID: 2437672648540485056}
-  _sounds:
-  - {fileID: 8300000, guid: 765828436b456fd45843e3e87ff77ce9, type: 3}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 6200000, guid: 8345f7520013f18459a1c6668473a040, type: 2}
+  m_Interpolate: 1
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4
 --- !u!61 &2554465496884473422
 BoxCollider2D:
   m_ObjectHideFlags: 0

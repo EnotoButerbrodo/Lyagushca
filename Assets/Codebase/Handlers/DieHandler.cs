@@ -1,14 +1,17 @@
 ﻿using System;
+using Lyaguska.Services;
 using UnityEngine;
 
 namespace Lyaguska.Handlers
 {
-    public class DieHandler : MonoBehaviour
+    
+    public class DieHandler : MonoBehaviour, IResetable
     {
         public event Action Dead;
         [SerializeField] private float _deadLevelY;
 
         private Transform _transform;
+        private bool _dead;
 
         private void Awake()
         {
@@ -17,16 +20,18 @@ namespace Lyaguska.Handlers
 
         private void FixedUpdate()
         {
+            if(_dead)
+                return;
+            
             if (_transform.position.y < _deadLevelY)
             {
-                Die();
+                _dead = true;
+                Dead?.Invoke();
             }
         }
-
-        public void Die()
+        public void Reset()
         {
-            Dead?.Invoke();
+            _dead = false;
         }
-
     }
 }
