@@ -48,11 +48,13 @@ namespace Lyaguska.Services
         void IPauseable.Pause()
         {
             _inputService.Disable();
+            _actor?.Pause();
         }
 
         void IPauseable.Resume()
         {
             _inputService.Enable();
+            _actor?.Resume();
         }
     }
 

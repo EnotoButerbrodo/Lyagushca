@@ -71,6 +71,18 @@ namespace Lyaguska.Actors
             _animation.Reset();
         }
 
+        public override void Pause()
+        {
+            _rigidbody2D.simulated = false;
+            _animation.Pause();
+        }
+
+        public override void Resume()
+        {
+            _rigidbody2D.simulated = true;
+            _animation.Resume();
+        }
+
         private void OnLand()
         {
             _rigidbody2D.velocity = Vector2.zero;

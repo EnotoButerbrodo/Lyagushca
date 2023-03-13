@@ -1,10 +1,11 @@
 ﻿using Lyaguska.Services;
+using TMPro.EditorUtilities;
 using UnityEngine;
 using Zenject;
 
 namespace Lyaguska.Actors
 {
-    public class FrogAnimationHandler : MonoBehaviour, IResetable
+    public class FrogAnimationHandler : MonoBehaviour, IResetable, IPauseable
     {
         private IJumpChargeService _jumpChargeHandler;
 
@@ -103,6 +104,16 @@ namespace Lyaguska.Actors
         {
             _animator.Rebind();
             _animator.Update(0f);
+        }
+
+        public void Pause()
+        {
+            _animator.speed = 0;
+        }
+
+        public void Resume()
+        {
+            _animator.speed = 1;
         }
     }
 }

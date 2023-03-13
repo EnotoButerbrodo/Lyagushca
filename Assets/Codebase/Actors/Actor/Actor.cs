@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Lyaguska.Actors
 {
-    public abstract class Actor : MonoBehaviour, IResetable
+    public abstract class Actor : MonoBehaviour, IResetable, IPauseable
     {
         public abstract event Action Jumped;
         public abstract event Action GroundLand;
@@ -18,6 +18,8 @@ namespace Lyaguska.Actors
 
         public abstract void Jump(float chargePercent);
         public abstract void Reset();
+        public abstract void Pause();
+        public abstract void Resume();
     }
 
     
