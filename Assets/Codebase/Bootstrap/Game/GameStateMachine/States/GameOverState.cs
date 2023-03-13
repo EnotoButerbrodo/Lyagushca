@@ -5,13 +5,13 @@ namespace Lyaguska.Bootstrap
 {
     public class GameOverState : PayloadedState<float>
     {
-        private readonly IScreenService _screenService;
+        private readonly IInterfaceService _interfaceService;
         private readonly IGame _game;
 
         public GameOverState(StateMachine stateMachine
-            , IScreenService screenService, IGame game) : base(stateMachine)
+            , IInterfaceService interfaceService, IGame game) : base(stateMachine)
         {
-            _screenService = screenService;
+            _interfaceService = interfaceService;
             _game = game;
         }
 
@@ -19,7 +19,7 @@ namespace Lyaguska.Bootstrap
         public override void Enter(float distance)
         {
             _game.Pause();
-            _screenService.ShowGameOverScreen(distance);
+            _interfaceService.ShowGameOverScreen(distance);
         }
     }
 }

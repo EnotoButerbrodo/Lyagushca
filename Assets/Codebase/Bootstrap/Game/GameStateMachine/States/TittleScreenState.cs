@@ -5,20 +5,20 @@ namespace Lyaguska.Bootstrap
 {
     public class TittleScreenState : State
     {
-        private readonly IScreenService _screenService;
+        private readonly IInterfaceService _interfaceService;
         private readonly IGame _game;
         
         public TittleScreenState(StateMachine stateMachine
-            , IScreenService screenService
+            , IInterfaceService interfaceService
             , IGame game) : base(stateMachine)
         {
-            _screenService = screenService;
+            _interfaceService = interfaceService;
             _game = game;
         }
 
         public override void Enter()
         {
-            _screenService.ShowTittleScreen();
+            _interfaceService.ShowTittleScreen();
             _game.Resume();
             _stateMachine.Enter<LevelCreateState>();
 

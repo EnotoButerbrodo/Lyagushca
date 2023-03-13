@@ -31,13 +31,13 @@ namespace Lyaguska.Bootstrap
 
         private IExitableState GetGameStartState()
             => new TittleScreenState(this
-            , _container.Resolve<IScreenService>()
+            , _container.Resolve<IInterfaceService>()
             , _container.Resolve<IGame>());
         
 
         private IExitableState GetGameOverState()
             => new GameOverState(this
-                , _container.Resolve<IScreenService>()
+                , _container.Resolve<IInterfaceService>()
                 , _container.Resolve<IGame>());
                 
 
@@ -60,7 +60,8 @@ namespace Lyaguska.Bootstrap
                 , _container.Resolve<IActorSelectService>()
                 , _container.Resolve<IDistanceCountService>()
                 , _container.Resolve<IActorControllService>()
-                , _container.Resolve<IGame>());
+                , _container.Resolve<IGame>()
+                , _container.Resolve<IInterfaceService>());
 
         private IExitableState GetGameResetState() =>
             new GameResetState(this

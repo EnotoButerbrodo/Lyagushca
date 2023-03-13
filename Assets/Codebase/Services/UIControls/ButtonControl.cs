@@ -21,7 +21,6 @@ namespace Codebase.Services.UIControls
         private void Awake()
         {
             _button = GetComponent<Button>();
-            
         }
 
         private void OnDisable()
@@ -32,7 +31,6 @@ namespace Codebase.Services.UIControls
         private void OnPerformed(InputAction.CallbackContext obj)
         {
             _button.onClick.Invoke();
-            Debug.Log("Press");
         }
     }
 }

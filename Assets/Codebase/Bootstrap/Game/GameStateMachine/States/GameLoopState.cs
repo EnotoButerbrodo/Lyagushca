@@ -11,8 +11,8 @@ namespace Lyaguska.Bootstrap
         private readonly IDistanceCountService _distanceCount;
         private readonly IActorControllService _controlls;
         private readonly IActorSelectService _actorSelectService;
-        private readonly IScreenService _screenService;
-
+        private readonly IInterfaceService _interfaceService;
+        
         private readonly IGame _game;
         private Actor _actor;
 
@@ -21,13 +21,15 @@ namespace Lyaguska.Bootstrap
             , IActorSelectService actorSelectService
             , IDistanceCountService distanceCount
             , IActorControllService controlls
-            , IGame game) : base(stateMachine)
+            , IGame game
+            , IInterfaceService interfaceService) : base(stateMachine)
         {
             _generationService = generationService;
             _actorSelectService = actorSelectService;
             _distanceCount = distanceCount;
             _controlls = controlls;
             _game = game;
+            _interfaceService = interfaceService;
         }
 
         public override void Enter()
@@ -36,12 +38,15 @@ namespace Lyaguska.Bootstrap
             _controlls.SetActor(_actor);
             _controlls.Enable();
             _actor.Dead += OnActorDeath;
+            
+            _interfaceService.ShowUI();
         }
 
         public override void Exit()
         {
            _actor.Dead -= OnActorDeath;
            _controlls.Disable();
+           _interfaceService.HideUI();
         }
 
         private void OnActorDeath()

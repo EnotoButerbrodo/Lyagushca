@@ -6,7 +6,7 @@ namespace Lyaguska.Bootstrap.Installers
 {
     public class InterfaceInstaller : MonoInstaller
     {
-        [SerializeField] private ScreenService _interface;
+        [SerializeField] private InterfaceService _interface;
         public override void InstallBindings()
         {
             CreateInterface();
@@ -14,12 +14,12 @@ namespace Lyaguska.Bootstrap.Installers
 
         private void CreateInterface()
         {
-            ScreenService screenService = Container.InstantiatePrefabForComponent<ScreenService>(_interface);
+            InterfaceService interfaceService = Container.InstantiatePrefabForComponent<InterfaceService>(_interface);
 
             Container
-                .Bind<IScreenService>()
-                .To<ScreenService>()
-                .FromInstance(screenService)
+                .Bind<IInterfaceService>()
+                .To<InterfaceService>()
+                .FromInstance(interfaceService)
                 .AsSingle();
         }
         
