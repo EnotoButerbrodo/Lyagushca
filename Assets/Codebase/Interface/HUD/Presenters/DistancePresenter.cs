@@ -12,7 +12,12 @@ namespace Lyaguska.HUD
 
         [Inject] private IDistanceCountService _distanceCount;
         private int _lastDistance = -1;
-
+        
+        public void Hide()
+        {
+            _text.enabled = false;
+        }
+        
         private void OnEnable()
         {
             _distanceCount.DistanceChanged += OnDistanceChanged;

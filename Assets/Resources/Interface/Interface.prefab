@@ -201,6 +201,7 @@ MonoBehaviour:
   _gameOverScreen: {fileID: 2532923221049259193}
   _tittleScreen: {fileID: 1761638635845289588}
   _pauseButton: {fileID: 201737487353123858}
+  _distancePresenter: {fileID: 201737487266905858}
 --- !u!1 &201737488494456331
 GameObject:
   m_ObjectHideFlags: 0
@@ -503,6 +504,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9bf0a03cf30b5a1418f9da91062996d8, type: 3}
+--- !u!114 &201737487266905858 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3243062587950777525, guid: 9bf0a03cf30b5a1418f9da91062996d8, type: 3}
+  m_PrefabInstance: {fileID: 3444439048784329655}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21f657c84a524db8a6f9ff74ff95e09d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &201737487266905859 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3243062587950777524, guid: 9bf0a03cf30b5a1418f9da91062996d8, type: 3}

@@ -1,4 +1,5 @@
 ﻿using System;
+using Lyaguska.HUD;
 using Lyaguska.UI;
 using UnityEngine;
 using Screen = Lyaguska.UI.Screen;
@@ -11,6 +12,7 @@ namespace Lyaguska.Services
         [SerializeField] private GameOverScreen _gameOverScreen;
         [SerializeField] private TittleScreen _tittleScreen;
         [SerializeField] private PauseButton _pauseButton;
+        [SerializeField] private DistancePresenter _distancePresenter;
 
         public void ShowUI()
         {
@@ -20,6 +22,7 @@ namespace Lyaguska.Services
         public void HideUI()
         {
             _pauseButton.gameObject.SetActive(false);
+            _distancePresenter.Hide();
         }
         public void ShowPauseScreen() 
             => _pauseScreen.Show();
