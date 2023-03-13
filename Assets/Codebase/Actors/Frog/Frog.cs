@@ -88,8 +88,6 @@ namespace Lyaguska.Actors
             _rigidbody2D.velocity = Vector2.zero;
         }
 
-  
-
 
     }
 }

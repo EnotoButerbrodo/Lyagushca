@@ -21,14 +21,12 @@ namespace Lyaguska.Services
 
         public void Pause()
         {
-            //Time.timeScale = 0;
             IsPaused = true;
             _pausableServices.ForEach(x => x.Pause());
         }
 
         public void Resume()
         {
-            //Time.timeScale = 1;
             IsPaused = false;
             _pausableServices.ForEach(x => x.Resume());
         }

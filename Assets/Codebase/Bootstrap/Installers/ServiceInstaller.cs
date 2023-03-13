@@ -27,7 +27,7 @@ namespace Lyaguska.Bootstrap.Installers
             BindTimer();
             BindCameraService(resetService);
             BindDistanceCountService(resetService);
-            BindJumpForceCharger(resetService);
+            BindJumpForceCharger(resetService, pauseService);
             BindLevelGeneration(resetService);
             BindActorSelectService(actorFactory, resetService);
 
@@ -121,7 +121,7 @@ namespace Lyaguska.Bootstrap.Installers
             resetService.Register(distanceCount);
         }
 
-        private void BindJumpForceCharger(IResetService resetService)
+        private void BindJumpForceCharger(IResetService resetService, IPauseService pauseService)
         {
 
             var jumpChargeService = Container
@@ -134,6 +134,7 @@ namespace Lyaguska.Bootstrap.Installers
                 .AsSingle();
             
             resetService.Register(jumpChargeService);
+            pauseService.Register(jumpChargeService);
         }
 
         private void BindLevelGeneration(IResetService resetService)
