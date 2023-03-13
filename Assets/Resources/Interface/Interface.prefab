@@ -519,6 +519,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameOverScreen
       objectReference: {fileID: 0}
+    - target: {fileID: 3299225876279805439, guid: 131fe8825e6bfbe488a6096e092d5427, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5876966339951785323, guid: 131fe8825e6bfbe488a6096e092d5427, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -628,6 +632,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 201737488649475545}
     m_Modifications:
+    - target: {fileID: 45900223948502709, guid: fdb652a0cd6a3454a944e966be39f752, type: 3}
+      propertyPath: m_Color.a
+      value: 0.19607843
+      objectReference: {fileID: 0}
     - target: {fileID: 3732790400482305418, guid: fdb652a0cd6a3454a944e966be39f752, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -715,6 +723,10 @@ PrefabInstance:
     - target: {fileID: 3818984714609699394, guid: fdb652a0cd6a3454a944e966be39f752, type: 3}
       propertyPath: m_Name
       value: TittleScreen
+      objectReference: {fileID: 0}
+    - target: {fileID: 3818984714609699394, guid: fdb652a0cd6a3454a944e966be39f752, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fdb652a0cd6a3454a944e966be39f752, type: 3}
