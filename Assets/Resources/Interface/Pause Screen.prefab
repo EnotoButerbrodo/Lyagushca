@@ -367,6 +367,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8267121500077707307}
   - component: {fileID: 9036168006680273365}
+  - component: {fileID: 3754398931019923321}
   m_Layer: 5
   m_Name: Pause Screen
   m_TagString: Untagged
@@ -409,8 +410,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _hideInAwake: 1
+  _showTime: 0.1
+  _hideTime: 0.1
   _resumeButton: {fileID: 4038386322995485259}
   _resetButton: {fileID: 4679695364787494180}
+--- !u!225 &3754398931019923321
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8267121500077707306}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &8267121501593099606
 GameObject:
   m_ObjectHideFlags: 0
@@ -470,7 +485,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.39215687}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.5882353}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

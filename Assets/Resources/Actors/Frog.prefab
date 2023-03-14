@@ -306,7 +306,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93a4165e21d7543429f23150f07b5973, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _deadLevelY: -6
+  _deadLevelY: -5
 --- !u!114 &5364046645820158168
 MonoBehaviour:
   m_ObjectHideFlags: 0

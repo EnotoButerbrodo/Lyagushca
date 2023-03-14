@@ -32,7 +32,8 @@ namespace Lyaguska.UI
             _currentTween = DOTween.To(ChangeScreenAlphaTween
                 , 0
                 , 1
-                , _showTime);
+                , _showTime)
+                .OnComplete(() => _canvasGroup.interactable = true);
 
             OnShow();
         }
@@ -43,6 +44,7 @@ namespace Lyaguska.UI
         public void Hide()
         {
             _currentTween?.Kill();
+            _canvasGroup.interactable = false;
             _currentTween = DOTween.To(ChangeScreenAlphaTween
                 , startValue: 1
                 , endValue: 0
