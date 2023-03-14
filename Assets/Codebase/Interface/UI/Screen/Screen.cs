@@ -1,41 +1,67 @@
 ﻿using System;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Lyaguska.UI
 {
+    [RequireComponent(typeof(CanvasGroup))]
     public class Screen : MonoBehaviour
     {
         [SerializeField] private bool _hideInAwake = true;
 
-        public void Show()
-        { 
-            gameObject.SetActive(true);
-            OnShow();
-        }
-
-        protected virtual void OnShow() {}
-        protected virtual void OnHide() {}
-        
-
-        public void Hide()
-        {
-            gameObject.SetActive(false);
-            OnHide();
-        }
+        private CanvasGroup _canvasGroup;
+        private Tween _currentTween;
         
         private void Awake()
         {
+            _canvasGroup = GetComponent<CanvasGroup>();
+
             if (_hideInAwake)
-                Hide();
+                DisableGameObject();
 
             OnAwaked();
         }
 
-        private void OnDestroy()
+        public void Show()
         {
-            OnDestroyed();
+            EnableGameObject();
+            _currentTween?.Kill();
+            _currentTween = DOTween.To(ChangeScreenAlphaTween
+                , _canvasGroup.alpha
+                , 1
+                , 0.1f);
+
+            OnShow();
         }
+        
+        private void EnableGameObject()
+            => gameObject.SetActive(true);
+
+        public void Hide()
+        {
+            _currentTween?.Kill();
+            _currentTween = DOTween.To(ChangeScreenAlphaTween
+                , startValue: _canvasGroup.alpha
+                , endValue: 0
+                , duration: 0.1f)
+                .OnComplete(DisableGameObject);
+            
+            OnHide();
+        }
+
+        private void DisableGameObject() 
+            => gameObject.SetActive(false);
+
+        private void ChangeScreenAlphaTween(float alpha)
+            => _canvasGroup.alpha = alpha;
+
+       
+
+        
+        protected virtual void OnShow() {}
+
+        protected virtual void OnHide() {}
         
         protected virtual void OnAwaked()
         {
@@ -45,6 +71,11 @@ namespace Lyaguska.UI
         protected virtual void OnDestroyed()
         {
             return;
+        }
+        
+        private void OnDestroy()
+        {
+            OnDestroyed();
         }
     }
 }
