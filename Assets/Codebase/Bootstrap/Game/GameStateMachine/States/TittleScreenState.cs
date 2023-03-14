@@ -20,7 +20,7 @@ namespace Lyaguska.Bootstrap
         {
             _backgroundSound.Play();
             _interfaceService.ShowTittleScreen();
-            _game.Resume();
+            //_game.Resume();
             _stateMachine.Enter<LevelCreateState>();
 
         }

@@ -40,7 +40,8 @@ namespace Lyaguska.Bootstrap
             => new GameOverState(this
                 , _container.Resolve<IInterfaceService>()
                 , _container.Resolve<IGame>()
-                , _container.Resolve<BackgroundSound>());
+                , _container.Resolve<BackgroundSound>()
+                , _container.Resolve<ICameraService>());
                 
 
         

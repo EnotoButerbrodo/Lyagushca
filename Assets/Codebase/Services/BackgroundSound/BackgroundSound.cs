@@ -18,7 +18,7 @@ namespace Lyaguska.Services
             _audioSource.Play();   
             _currentTween = _audioSource.DOFade(_maxVolume, _playFadeDuration);
         }
-
+        
         public void Stop()
         {
             _currentTween?.Kill();
@@ -26,6 +26,6 @@ namespace Lyaguska.Services
                 .OnComplete(() => _audioSource.Stop());
         }
 
-        
+
     }
 }

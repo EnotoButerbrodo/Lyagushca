@@ -8,6 +8,7 @@ namespace Lyaguska.Services
         private CinemachineVirtualCamera _camera;
         private CinemachineFramingTransposer _cameraTransposer;
         private Vector3 _startPosition;
+        private Transform _target;
 
         public CameraService(CinemachineVirtualCamera camera)
         {
@@ -16,9 +17,19 @@ namespace Lyaguska.Services
             _startPosition = camera.transform.position;
         }
 
+        public void Enable()
+        {
+            _camera.Follow = _target;
+        }
+
         public void SetTarget(Transform transform)
         {
-            _camera.Follow = transform;
+            _target = transform;
+        }
+
+        public void Disable()
+        {
+            _camera.Follow = null;
         }
 
         public void Reset()

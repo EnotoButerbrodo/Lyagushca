@@ -30,6 +30,8 @@ namespace Lyaguska.Bootstrap
             var actor = _actorSelectService.SelectActor<Frog>(_startPosition);
 
             _cameraService.SetTarget(actor.transform);
+            _cameraService.Enable();
+            
             _distanceCount.SetTarget(actor.transform);
         }
     }

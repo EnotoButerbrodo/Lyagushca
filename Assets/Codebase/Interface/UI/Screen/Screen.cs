@@ -30,7 +30,7 @@ namespace Lyaguska.UI
             EnableGameObject();
             _currentTween?.Kill();
             _currentTween = DOTween.To(ChangeScreenAlphaTween
-                , _canvasGroup.alpha
+                , 0
                 , 1
                 , _showTime);
 
@@ -44,7 +44,7 @@ namespace Lyaguska.UI
         {
             _currentTween?.Kill();
             _currentTween = DOTween.To(ChangeScreenAlphaTween
-                , startValue: _canvasGroup.alpha
+                , startValue: 1
                 , endValue: 0
                 , duration: _hideTime)
                 .OnComplete(DisableGameObject);
