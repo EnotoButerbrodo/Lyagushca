@@ -444,6 +444,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _audioSource: {fileID: 222940694}
+  _maxVolume: 0.25
+  _playFadeDuration: 3
+  _stopFadeDuration: 1
 --- !u!1 &901679194
 GameObject:
   m_ObjectHideFlags: 0
