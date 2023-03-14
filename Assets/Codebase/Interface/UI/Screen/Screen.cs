@@ -9,7 +9,9 @@ namespace Lyaguska.UI
     public class Screen : MonoBehaviour
     {
         [SerializeField] private bool _hideInAwake = true;
-
+        [SerializeField] private float _showTime = 0.1f;
+        [SerializeField] private float _hideTime = 0.1f;
+        
         private CanvasGroup _canvasGroup;
         private Tween _currentTween;
         
@@ -30,7 +32,7 @@ namespace Lyaguska.UI
             _currentTween = DOTween.To(ChangeScreenAlphaTween
                 , _canvasGroup.alpha
                 , 1
-                , 0.1f);
+                , _showTime);
 
             OnShow();
         }
@@ -44,7 +46,7 @@ namespace Lyaguska.UI
             _currentTween = DOTween.To(ChangeScreenAlphaTween
                 , startValue: _canvasGroup.alpha
                 , endValue: 0
-                , duration: 0.1f)
+                , duration: _hideTime)
                 .OnComplete(DisableGameObject);
             
             OnHide();
