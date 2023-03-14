@@ -32,13 +32,15 @@ namespace Lyaguska.Bootstrap
         private IExitableState GetGameStartState()
             => new TittleScreenState(this
             , _container.Resolve<IInterfaceService>()
-            , _container.Resolve<IGame>());
+            , _container.Resolve<IGame>()
+            , _container.Resolve<BackgroundSound>());
         
 
         private IExitableState GetGameOverState()
             => new GameOverState(this
                 , _container.Resolve<IInterfaceService>()
-                , _container.Resolve<IGame>());
+                , _container.Resolve<IGame>()
+                , _container.Resolve<BackgroundSound>());
                 
 
         

@@ -311,9 +311,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 222940695}
+  - component: {fileID: 222940696}
   - component: {fileID: 222940694}
   m_Layer: 0
-  m_Name: AudioTest
+  m_Name: BackgroundSound
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -330,7 +331,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 3f849d97e75adb144be52f2f81104b94, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 0.25
   m_Pitch: 1
   Loop: 1
@@ -428,8 +429,21 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &222940696
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 222940693}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ca388f2e78b99f44ae1b6edecaca30f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _audioSource: {fileID: 222940694}
 --- !u!1 &901679194
 GameObject:
   m_ObjectHideFlags: 0
@@ -642,7 +656,7 @@ RectTransform:
   m_Children:
   - {fileID: 21221919}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -720,5 +734,9 @@ PrefabInstance:
       propertyPath: _monoInstallers.Array.data[3]
       value: 
       objectReference: {fileID: 31033443}
+    - target: {fileID: 1158784918336610159, guid: 105409cff3ed9e240aeb6635dae93d37, type: 3}
+      propertyPath: _backgroundSound
+      value: 
+      objectReference: {fileID: 222940696}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 105409cff3ed9e240aeb6635dae93d37, type: 3}

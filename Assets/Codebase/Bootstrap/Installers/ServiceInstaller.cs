@@ -16,6 +16,7 @@ namespace Lyaguska.Bootstrap.Installers
     {
         [SerializeField] private CinemachineVirtualCamera _camera;
         [SerializeField] private string _chunksRootName = "-----Level-----";
+        [SerializeField] private BackgroundSound _backgroundSound;
 
         public override void InstallBindings()
         {
@@ -25,6 +26,8 @@ namespace Lyaguska.Bootstrap.Installers
             IInputService inputService = BindInputService();
             
             BindTimer();
+            BindBackgroundSound();
+            
             BindCameraService(resetService);
             BindDistanceCountService(resetService);
             BindJumpForceCharger(resetService, pauseService);
@@ -32,6 +35,14 @@ namespace Lyaguska.Bootstrap.Installers
             BindActorSelectService(actorFactory, resetService);
 
             BindPlayerControlService(inputService, pauseService);
+        }
+
+        private void BindBackgroundSound()
+        {
+            Container
+                .Bind<BackgroundSound>()
+                .FromInstance(_backgroundSound)
+                .AsSingle();
         }
 
         private IPauseService BindPauseService()
