@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Codebase.Bootstrap.Config;
 using Codebase.Services;
+using Codebase.Services.ProgressService;
 using EnotoButerbrodo.StateMachine;
 using Lyaguska.Services;
 using Zenject;
@@ -41,7 +42,8 @@ namespace Lyaguska.Bootstrap
                 , _container.Resolve<IInterfaceService>()
                 , _container.Resolve<IGame>()
                 , _container.Resolve<BackgroundSound>()
-                , _container.Resolve<ICameraService>());
+                , _container.Resolve<ICameraService>()
+                , _container.Resolve<IProgressService>());
                 
 
         

@@ -35,9 +35,10 @@ namespace Lyaguska.UI
             Hide();
         }
 
-        public void Show(float distance = 0)
+        public void Show(int distance = 0, int highScore = 0)
         {
             _distanceText.text = distance.ToString();
+            Debug.Log(highScore);
             base.Show();
         }
     }

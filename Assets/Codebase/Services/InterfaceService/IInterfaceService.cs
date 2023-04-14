@@ -7,7 +7,7 @@ namespace Lyaguska.Services
     {
         void ShowPauseScreen();
         void ShowTittleScreen();
-        void ShowGameOverScreen(float distance);
+        void ShowGameOverScreen(int distance, int highScore);
         void ShowUI();
         void HideUI();
     }

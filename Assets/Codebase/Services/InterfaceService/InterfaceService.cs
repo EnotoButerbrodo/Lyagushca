@@ -27,7 +27,7 @@ namespace Lyaguska.Services
         public void ShowPauseScreen() 
             => _pauseScreen.Show();
 
-        public void ShowGameOverScreen(float distance) 
+        public void ShowGameOverScreen(int distance, int highScore) 
             => _gameOverScreen.Show(distance);
 
         public void ShowTittleScreen()

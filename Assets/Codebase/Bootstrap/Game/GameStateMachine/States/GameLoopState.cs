@@ -51,7 +51,7 @@ namespace Lyaguska.Bootstrap
 
         private void OnActorDeath()
         {
-            _stateMachine.Enter<GameOverState, float>(_distanceCount.Distance);
+            _stateMachine.Enter<GameOverState, int>(_distanceCount.Distance);
 
         }
 

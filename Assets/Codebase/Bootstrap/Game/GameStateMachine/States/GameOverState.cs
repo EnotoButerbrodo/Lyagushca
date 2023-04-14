@@ -1,29 +1,38 @@
-﻿using EnotoButerbrodo.StateMachine;
+﻿using Codebase.Services.ProgressService;
+using EnotoButerbrodo.StateMachine;
 using Lyaguska.Services;
 
 namespace Lyaguska.Bootstrap
 {
-    public class GameOverState : PayloadedState<float>
+    public class GameOverState : PayloadedState<int>
     {
         private readonly IInterfaceService _interfaceService;
         private readonly IGame _game;
         private readonly BackgroundSound _backgroundSound;
         private readonly ICameraService _camera;
+        private readonly IProgressService _progress;
 
-        public GameOverState(StateMachine stateMachine, IInterfaceService interfaceService, IGame game, BackgroundSound backgroundSound, ICameraService camera) : base(stateMachine)
+        public GameOverState(StateMachine stateMachine
+            , IInterfaceService interfaceService
+            , IGame game
+            , BackgroundSound backgroundSound
+            , ICameraService camera
+            , IProgressService progress) : base(stateMachine)
         {
             _interfaceService = interfaceService;
             _game = game;
             _backgroundSound = backgroundSound;
             _camera = camera;
+            _progress = progress;
         }
 
 
-        public override void Enter(float distance)
+        public override void Enter(int distance)
         {
             _backgroundSound.Stop();
             _camera.Disable();
-            _interfaceService.ShowGameOverScreen(distance);
+            _progress.UpdateHighScore(distance);
+            _interfaceService.ShowGameOverScreen(distance, _progress.GetHighScore());
         }
     }
 }

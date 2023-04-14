@@ -1,4 +1,6 @@
-﻿namespace Lyaguska.Services
+﻿using System;
+
+namespace Lyaguska.Services
 {
     public interface IPauseService
     {
@@ -7,5 +9,8 @@
         void Pause();
         void Resume();
         bool IsPaused { get; }
+
+        event Action Paused;
+        event Action Resumed;
     }
 }

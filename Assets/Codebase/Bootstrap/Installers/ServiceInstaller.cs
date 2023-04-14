@@ -1,5 +1,6 @@
 ﻿using Cinemachine;
 using Codebase.Services;
+using Codebase.Services.ProgressService;
 using EnotoButebrodo;
 using EnotoButerbrodo.LevelGeneration;
 using Lyaguska.Services;
@@ -35,6 +36,16 @@ namespace Lyaguska.Bootstrap.Installers
             BindActorSelectService(actorFactory, resetService);
 
             BindPlayerControlService(inputService, pauseService);
+            BindProgressService();
+        }
+
+        private void BindProgressService()
+        {
+            Container
+                .Bind<IProgressService>()
+                .To<UnityProgressService>()
+                .FromNew()
+                .AsSingle();
         }
 
         private void BindBackgroundSound()
