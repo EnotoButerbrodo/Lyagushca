@@ -16,10 +16,10 @@ namespace Lyaguska.Bootstrap
         public GameStateMachine(DiContainer container)
         {
             _container = container;
-            _states = InitialStates();
+            _states = GetStates();
         }
 
-        protected override Dictionary<Type, IExitableState> InitialStates() =>
+        private Dictionary<Type, IExitableState> GetStates() =>
             new Dictionary<Type, IExitableState>()
             {
                 [typeof(TittleScreenState)] = GetGameStartState(),

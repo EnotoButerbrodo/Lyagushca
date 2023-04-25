@@ -1,5 +1,17 @@
 {
   "dependencies": {
+    "com.enotobuterbrodo.objectspool": {
+      "version": "file:S:/Unity/MyPackages/ObjectsPool",
+      "depth": 0,
+      "source": "local",
+      "dependencies": {}
+    },
+    "com.enotobuterbrodo.statemachine": {
+      "version": "file:S:/Unity/MyPackages/StateMachine",
+      "depth": 0,
+      "source": "local",
+      "dependencies": {}
+    },
     "com.unity.2d.animation": {
       "version": "7.0.6",
       "depth": 1,

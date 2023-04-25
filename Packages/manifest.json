@@ -1,5 +1,7 @@
 {
   "dependencies": {
+    "com.enotobuterbrodo.objectspool": "file:S:/Unity/MyPackages/ObjectsPool",
+    "com.enotobuterbrodo.statemachine": "file:S:/Unity/MyPackages/StateMachine",
     "com.unity.cinemachine": "2.8.9",
     "com.unity.collab-proxy": "1.17.2",
     "com.unity.feature.2d": "1.0.0",
