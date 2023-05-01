@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Lyaguska.Bootstrap
 {
-    public class GameLoopState : State
+    public class GameLoopState : State, IUpdateableState
     {
         private readonly ILevelGenerationService _generationService;
         private readonly IDistanceCountService _distanceCount;
@@ -55,7 +55,7 @@ namespace Lyaguska.Bootstrap
 
         }
 
-        public override void UpdateState()
+        public void UpdateState()
         {
             if(_game.IsPaused)
                 return;

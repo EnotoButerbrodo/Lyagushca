@@ -163,7 +163,6 @@ GameObject:
   - component: {fileID: 5148772177441134534}
   - component: {fileID: 5148772177441134533}
   - component: {fileID: 5148772177441134531}
-  - component: {fileID: 5148772177441134532}
   m_Layer: 0
   m_Name: ChargeBar
   m_TagString: Untagged
@@ -220,22 +219,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b1580d74ffcb614c9f96849b96a2bef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _canvas: {fileID: 5148772178183353043}
   _chargeFillImage: {fileID: 5148772177030093337}
   _chargedIndicatorImage: {fileID: 5796425539216424442}
   _startColor: {r: 0.9811321, g: 0.962419, b: 0.5507298, a: 1}
   _endColor: {r: 1, g: 0.9607843, b: 0.09803922, a: 1}
---- !u!225 &5148772177441134532
-CanvasGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5148772177441134535}
-  m_Enabled: 1
-  m_Alpha: 0
-  m_Interactable: 0
-  m_BlocksRaycasts: 0
-  m_IgnoreParentGroups: 0
 --- !u!1 &5148772177827140233
 GameObject:
   m_ObjectHideFlags: 0

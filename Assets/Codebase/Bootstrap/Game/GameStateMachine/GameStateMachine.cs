@@ -12,7 +12,7 @@ namespace Lyaguska.Bootstrap
     public class GameStateMachine : StateMachine
     {
         private DiContainer _container;
-
+        
         public GameStateMachine(DiContainer container)
         {
             _container = container;
