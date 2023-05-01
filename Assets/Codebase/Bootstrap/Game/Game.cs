@@ -1,4 +1,5 @@
 ﻿using System;
+using EnotoButerbrodo.StateMachine;
 using Lyaguska.Services;
 using Lyaguska.UI;
 using UnityEngine;
@@ -8,14 +9,15 @@ namespace Lyaguska.Bootstrap
 {
     public class Game : MonoBehaviour, IGame
     {
-        [Inject] private DiContainer _container;
         [Inject] private IPauseService _pauseService;
+
+        [Inject] private IStateFactory _stateFactory;
         private GameStateMachine _stateMachine;
 
         public bool IsPaused => _pauseService.IsPaused;
         private void Start()
         {
-            _stateMachine = new GameStateMachine(_container);
+            _stateMachine = new GameStateMachine(_stateFactory);
             _stateMachine.Enter<TittleScreenState>();
         }
 

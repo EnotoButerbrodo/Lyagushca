@@ -1,4 +1,5 @@
-﻿using Zenject;
+﻿using EnotoButerbrodo.StateMachine;
+using Zenject;
 
 namespace Lyaguska.Bootstrap.Installers
 {
@@ -6,7 +7,19 @@ namespace Lyaguska.Bootstrap.Installers
     {
         public override void InstallBindings()
         {
+            BindStateFactory();
             BindGame();
+        }
+
+        private void BindStateFactory()
+        {
+            GameStateFactory factory = new GameStateFactory(Container);
+
+            Container
+                .Bind<IStateFactory>()
+                .To<GameStateFactory>()
+                .FromInstance(factory)
+                .AsSingle();
         }
 
         private void BindGame()
