@@ -4,7 +4,6 @@ using EnotoButerbrodo.LevelGeneration;
 using Lyaguska.Services;
 using UnityEngine;
 using Zenject;
-using Unity.VisualScripting;
 using Timer = EnotoButebrodo.Timer;
 
 namespace Lyaguska.Bootstrap.Installers
@@ -96,9 +95,11 @@ namespace Lyaguska.Bootstrap.Installers
         
         private void BindBackgroundSound()
         {
+            var backgroundSound = GameObject.Instantiate(_backgroundSound);
+            
             Container
                 .Bind<BackgroundSound>()
-                .FromInstance(_backgroundSound)
+                .FromInstance(backgroundSound)
                 .AsSingle();
         }
 
