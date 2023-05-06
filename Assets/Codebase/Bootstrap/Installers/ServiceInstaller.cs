@@ -105,8 +105,7 @@ namespace Lyaguska.Bootstrap.Installers
         private void BindCameraService(IResetService resetService)
         {
             var camera = Container.InstantiatePrefabForComponent<CinemachineVirtualCamera>(_camera);
-            Camera.main.AddComponent<CinemachineBrain>();
-            
+
             CameraService cameraService = new CameraService(camera);
 
             Container
