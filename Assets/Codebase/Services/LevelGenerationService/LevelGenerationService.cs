@@ -46,7 +46,11 @@ namespace Lyaguska.Services
             }
             
         }
-        
+
+        public void LoadResources()
+        {
+            _factory.Load();
+        }
         private void CreateLevelRepeaters()
         {
             _levelRepeater = new LevelLayerRepeater(_factory

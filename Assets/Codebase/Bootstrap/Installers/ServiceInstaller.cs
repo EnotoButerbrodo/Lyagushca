@@ -24,8 +24,7 @@ namespace Lyaguska.Bootstrap.Installers
             
             BindTimer();
             BindBackgroundSound();
-            BindCoroutineRunner();
-            
+
             BindCameraService(resetService);
             BindDistanceCountService(resetService);
             BindJumpForceCharger(resetService, pauseService);
@@ -35,29 +34,19 @@ namespace Lyaguska.Bootstrap.Installers
             BindPlayerControlService(inputService, pauseService);
             BindProgressService();
         }
-
-        private void BindCoroutineRunner()
+        
+        private IResetService BindResetService()
         {
-            
-        }
-
-        private void BindProgressService()
-        {
+            ResetService resetService = new ResetService();
             Container
-                .Bind<IProgressService>()
-                .To<UnityProgressService>()
-                .FromNew()
+                .Bind<IResetService>()
+                .To<ResetService>()
+                .FromInstance(resetService)
                 .AsSingle();
-        }
 
-        private void BindBackgroundSound()
-        {
-            Container
-                .Bind<BackgroundSound>()
-                .FromInstance(_backgroundSound)
-                .AsSingle();
+            return resetService;
         }
-
+        
         private IPauseService BindPauseService()
         {
             PauseService pause = new PauseService();
@@ -70,32 +59,33 @@ namespace Lyaguska.Bootstrap.Installers
 
             return pause;
         }
-
-        private void BindActorSelectService(IActorFactory actorFactory, IResetService resetService)
-        {
-            var actorSelectService = new ActorSelectService(actorFactory);
-            Container
-                .Bind<IActorSelectService>()
-                .To<ActorSelectService>()
-                .FromInstance(actorSelectService)
-                .AsSingle();
-            
-            resetService.Register(actorSelectService);
-        }
-
+        
         private IActorFactory BindActorFactory()
         {
-            var factory = new ActorFactory(Container);
-            factory.Load();
+            ActorFactory actorFactory = new ActorFactory(Container);
 
             Container
                 .Bind<IActorFactory>()
                 .To<ActorFactory>()
-                .FromInstance(factory)
+                .FromInstance(actorFactory)
                 .AsSingle();
 
-            return factory;
+            return actorFactory;
         }
+        
+        private IInputService BindInputService()
+        {
+            var inputService = new InputService();
+
+            Container
+                .Bind<IInputService>()
+                .To<InputService>()
+                .FromInstance(inputService)
+                .AsSingle();
+
+            return inputService;
+        }
+        
         private void BindTimer()
         {
             Container
@@ -103,17 +93,13 @@ namespace Lyaguska.Bootstrap.Installers
                 .FromInstance(new Timer())
                 .AsTransient();
         }
-
-        private IResetService BindResetService()
+        
+        private void BindBackgroundSound()
         {
-            ResetService resetService = new ResetService();
             Container
-                .Bind<IResetService>()
-                .To<ResetService>()
-                .FromInstance(resetService)
+                .Bind<BackgroundSound>()
+                .FromInstance(_backgroundSound)
                 .AsSingle();
-
-            return resetService;
         }
 
         private void BindCameraService(IResetService resetService)
@@ -131,7 +117,7 @@ namespace Lyaguska.Bootstrap.Installers
             
             resetService.Register(cameraService);
         }
-
+        
         private void BindDistanceCountService(IResetService resetService)
         {
             var distanceCount = new DistanceCountService();
@@ -144,7 +130,7 @@ namespace Lyaguska.Bootstrap.Installers
             
             resetService.Register(distanceCount);
         }
-
+        
         private void BindJumpForceCharger(IResetService resetService, IPauseService pauseService)
         {
 
@@ -160,35 +146,35 @@ namespace Lyaguska.Bootstrap.Installers
             resetService.Register(jumpChargeService);
             pauseService.Register(jumpChargeService);
         }
-
+        
         private void BindLevelGeneration(IResetService resetService)
         {
             Transform chunksRoot = new GameObject(_chunksRootName).transform;
             ChunkFactory factory = new ChunkFactory(Container.Resolve<ChunksCollection>(), chunksRoot);
             
-            LevelGenerationService generationService = new LevelGenerationService(Container.Resolve<LevelGenerationConfig>(),
-                factory, Container.Resolve<IDistanceCountService>());
+            LevelGenerationService generationService = new LevelGenerationService(Container.Resolve<LevelGenerationConfig>()
+                , factory
+                , Container.Resolve<IDistanceCountService>());
 
             Container
                 .Bind<ILevelGenerationService>()
                 .To<LevelGenerationService>()
                 .FromInstance(generationService)
                 .AsSingle();
-            
+
             resetService.Register(generationService);
         }
         
-        private IInputService BindInputService()
+        private void BindActorSelectService(IActorFactory actorFactory, IResetService resetService)
         {
-            var inputService = new InputService();
-
+            var actorSelectService = new ActorSelectService(actorFactory);
             Container
-                .Bind<IInputService>()
-                .To<InputService>()
-                .FromInstance(inputService)
+                .Bind<IActorSelectService>()
+                .To<ActorSelectService>()
+                .FromInstance(actorSelectService)
                 .AsSingle();
-
-            return inputService;
+            
+            resetService.Register(actorSelectService);
         }
 
         private void BindPlayerControlService(IInputService inputService, IPauseService pause)
@@ -201,6 +187,15 @@ namespace Lyaguska.Bootstrap.Installers
                 .AsSingle();
             
             pause.Register(controlsService);
+        }
+        
+        private void BindProgressService()
+        {
+            Container
+                .Bind<IProgressService>()
+                .To<UnityProgressService>()
+                .FromNew()
+                .AsSingle();
         }
     }
 }

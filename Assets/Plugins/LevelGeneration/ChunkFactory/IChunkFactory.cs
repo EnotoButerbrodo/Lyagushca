@@ -3,5 +3,6 @@
     public interface IChunkFactory
     {
         Chunk GetChunk(ChunkType type, float distance = 0);
+        void Load();
     }
 }

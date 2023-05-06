@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Codebase.Bootstrap.Config;
+using EnotoButerbrodo.LevelGeneration;
 using EnotoButerbrodo.StateMachine;
 using Lyaguska.Services;
 using Zenject;
@@ -30,7 +31,9 @@ namespace Lyaguska.Bootstrap
 
         private IExitableState GetLoadState(StateMachine owner)
             => new LoadState(owner
-                , _container.Resolve<IUIFactory>());
+                , _container.Resolve<IUIFactory>()
+                , _container.Resolve<IActorFactory>()
+                , _container.Resolve<ILevelGenerationService>());
         
 
         private IExitableState GetGameStartState(StateMachine owner)

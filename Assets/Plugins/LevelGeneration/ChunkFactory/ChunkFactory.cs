@@ -8,6 +8,7 @@ namespace EnotoButerbrodo.LevelGeneration
     public class ChunkFactory : IChunkFactory 
     {
         private ChunksCollection _chunksCollection;
+        private readonly Transform _parent;
 
         private Dictionary<ChunkType, List<ChunksPool>> _chunks;
         
@@ -15,13 +16,26 @@ namespace EnotoButerbrodo.LevelGeneration
         public ChunkFactory(ChunksCollection chunksCollection, Transform parent)
         {
             _chunksCollection = chunksCollection;
-            _chunks = new Dictionary<ChunkType, List<ChunksPool>>();
+            _parent = parent;
+        }
+        
+        public Chunk GetChunk(ChunkType type, float distance)
+        {
+            var chunksPool = _chunks[type];
+            int chunkIndex = Random.Range(0, chunksPool.Count - 1);
 
-            CreatePools(parent);
+            return chunksPool[chunkIndex].Get();
+        }
+        
+        public void Load()
+        {
+            CreatePools();
         }
 
-        private void CreatePools(Transform parent)
+        private void CreatePools()
         {
+            _chunks = new Dictionary<ChunkType, List<ChunksPool>>();
+            
             foreach (Chunk chunk in _chunksCollection.Chunks)
             {
                 if (_chunks.ContainsKey(chunk.Type) == false)
@@ -32,17 +46,11 @@ namespace EnotoButerbrodo.LevelGeneration
                     _chunks.Add(key: chunk.Type, value: poolList);
                 }
 
-                _chunks[chunk.Type].Add(new ChunksPool(chunk, startCapacity: 4, parent));
+                _chunks[chunk.Type].Add(new ChunksPool(chunk, startCapacity: 4, _parent));
             }
         }
 
-        public Chunk GetChunk(ChunkType type, float distance)
-        {
-            var chunksPool = _chunks[type];
-            int chunkIndex = Random.Range(0, chunksPool.Count - 1);
-
-            return chunksPool[chunkIndex].Get();
-        }
+        
 
 
     }

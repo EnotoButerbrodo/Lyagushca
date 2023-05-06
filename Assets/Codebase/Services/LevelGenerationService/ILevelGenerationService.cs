@@ -6,5 +6,7 @@ namespace Lyaguska.Services
     {
         void SpawnStartChunks(Vector2 startPosition);
         void CheckChunksRelevance();
+
+        void LoadResources();
     }
 }
