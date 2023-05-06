@@ -7,30 +7,17 @@ namespace Lyaguska.Bootstrap.Installers
     {
         public override void InstallBindings()
         {
-            BindStateFactory();
-            BindGame();
+            BindStateMachine();
         }
 
-        private void BindStateFactory()
+        private void BindStateMachine()
         {
             GameStateFactory factory = new GameStateFactory(Container);
-
+            GameStateMachine stateMachine = new GameStateMachine(factory);
+            
             Container
-                .Bind<IStateFactory>()
-                .To<GameStateFactory>()
-                .FromInstance(factory)
-                .AsSingle();
-        }
-
-        private void BindGame()
-        {
-            var game = Container
-                .InstantiateComponentOnNewGameObject<Game>();
-
-            Container
-                .Bind<IGame>()
-                .To<Game>()
-                .FromInstance(game)
+                .Bind<GameStateMachine>()
+                .FromInstance(stateMachine)
                 .AsSingle();
         }
     }

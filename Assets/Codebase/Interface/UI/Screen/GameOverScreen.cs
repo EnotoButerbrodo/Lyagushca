@@ -1,4 +1,5 @@
 ﻿using Lyaguska.Bootstrap;
+using Lyaguska.Services;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem.HID;
@@ -11,12 +12,12 @@ namespace Lyaguska.UI
     {
         [SerializeField] private Button _resetButton;
         [SerializeField] private TextMeshProUGUI _distanceText;
-        [Inject] private IGame _game;
+        [Inject] private GameStateMachine _stateMachine;
 
 
         protected override void OnAwaked()
         {
-            _resetButton.onClick.AddListener(OnReset);
+            _resetButton.onClick.AddListener(OnResetButtonPressed);
         }
 
         protected override void OnShow()
@@ -26,12 +27,12 @@ namespace Lyaguska.UI
 
         private void OnDestroy()
         {
-            _resetButton.onClick.RemoveListener(OnReset);
+            _resetButton.onClick.RemoveListener(OnResetButtonPressed);
         }
 
-        private void OnReset()
+        private void OnResetButtonPressed()
         {
-            _game.ResetGame();
+            _stateMachine.Enter<GameResetState>();
             Hide();
         }
 

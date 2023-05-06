@@ -6,13 +6,16 @@ namespace Lyaguska.Bootstrap
     public class TittleScreenState : State
     {
         private readonly IInterfaceService _interfaceService;
-        private readonly IGame _game;
         private readonly BackgroundSound _backgroundSound;
+        private IPauseService _pauseService;
 
-        public TittleScreenState(StateMachine stateMachine, IInterfaceService interfaceService, IGame game, BackgroundSound backgroundSound) : base(stateMachine)
+        public TittleScreenState(StateMachine stateMachine
+            , IInterfaceService interfaceService
+            , IPauseService pauseService
+            , BackgroundSound backgroundSound) : base(stateMachine)
         {
             _interfaceService = interfaceService;
-            _game = game;
+            _pauseService = pauseService;
             _backgroundSound = backgroundSound;
         }
 
@@ -20,7 +23,7 @@ namespace Lyaguska.Bootstrap
         {
             _backgroundSound.Play();
             _interfaceService.ShowTittleScreen();
-            _game.Resume(); 
+            _pauseService.Resume(); 
             _stateMachine.Enter<LevelCreateState>();
 
         }

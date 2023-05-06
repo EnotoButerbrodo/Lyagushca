@@ -12,8 +12,8 @@ namespace Lyaguska.Bootstrap
         private readonly IActorControllService _controlls;
         private readonly IActorSelectService _actorSelectService;
         private readonly IInterfaceService _interfaceService;
-        
-        private readonly IGame _game;
+
+        private readonly IPauseService _pauseService;
         private Actor _actor;
 
         public GameLoopState(StateMachine stateMachine
@@ -21,14 +21,14 @@ namespace Lyaguska.Bootstrap
             , IActorSelectService actorSelectService
             , IDistanceCountService distanceCount
             , IActorControllService controlls
-            , IGame game
+            , IPauseService pauseService
             , IInterfaceService interfaceService) : base(stateMachine)
         {
             _generationService = generationService;
             _actorSelectService = actorSelectService;
             _distanceCount = distanceCount;
             _controlls = controlls;
-            _game = game;
+            _pauseService = pauseService;
             _interfaceService = interfaceService;
         }
 
@@ -57,7 +57,7 @@ namespace Lyaguska.Bootstrap
 
         public void UpdateState()
         {
-            if(_game.IsPaused)
+            if(_pauseService.IsPaused)
                 return;
             
             _generationService.CheckChunksRelevance();

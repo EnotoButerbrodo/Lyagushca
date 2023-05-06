@@ -6,15 +6,24 @@ namespace Lyaguska.Bootstrap.Installers
 {
     public class InterfaceInstaller : MonoInstaller
     {
-        [SerializeField] private InterfaceService _interface;
+        [SerializeField] private UIElements _elements;
+
         public override void InstallBindings()
         {
-            CreateInterface();
+            BindInterface();
         }
 
-        private void CreateInterface()
+        private void BindInterface()
         {
-            InterfaceService interfaceService = Container.InstantiatePrefabForComponent<InterfaceService>(_interface);
+            UIFactory _uiFactory = new UIFactory(Container, _elements);
+
+            Container
+                .Bind<IUIFactory>()
+                .To<UIFactory>()
+                .FromInstance(_uiFactory)
+                .AsSingle();
+            
+            InterfaceService interfaceService = new InterfaceService(_uiFactory);
 
             Container
                 .Bind<IInterfaceService>()
@@ -22,6 +31,5 @@ namespace Lyaguska.Bootstrap.Installers
                 .FromInstance(interfaceService)
                 .AsSingle();
         }
-        
     }
 }

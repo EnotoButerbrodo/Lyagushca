@@ -565,6 +565,50 @@ MonoBehaviour:
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
   m_Version: 2
+--- !u!1 &1119018651
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1119018653}
+  - component: {fileID: 1119018652}
+  m_Layer: 0
+  m_Name: Bootsrtap
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1119018652
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1119018651}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7a579331c1d417f8c28e9a3b4532ce5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1119018653
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1119018651}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.36878645, y: 1.0819732, z: -0.07721957}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1219079714
 GameObject:
   m_ObjectHideFlags: 0
@@ -677,6 +721,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: -----Installs------
       objectReference: {fileID: 0}
+    - target: {fileID: 1158784918336610152, guid: 105409cff3ed9e240aeb6635dae93d37, type: 3}
+      propertyPath: _elements
+      value: 
+      objectReference: {fileID: 11400000, guid: e4bdf9256d494e249a66592adc014dee, type: 2}
     - target: {fileID: 1158784918336610157, guid: 105409cff3ed9e240aeb6635dae93d37, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -728,15 +776,15 @@ PrefabInstance:
     - target: {fileID: 1158784918336610158, guid: 105409cff3ed9e240aeb6635dae93d37, type: 3}
       propertyPath: _monoInstallers.Array.data[1]
       value: 
-      objectReference: {fileID: 31033442}
+      objectReference: {fileID: 31033443}
     - target: {fileID: 1158784918336610158, guid: 105409cff3ed9e240aeb6635dae93d37, type: 3}
       propertyPath: _monoInstallers.Array.data[2]
       value: 
-      objectReference: {fileID: 31033441}
+      objectReference: {fileID: 31033442}
     - target: {fileID: 1158784918336610158, guid: 105409cff3ed9e240aeb6635dae93d37, type: 3}
       propertyPath: _monoInstallers.Array.data[3]
       value: 
-      objectReference: {fileID: 31033443}
+      objectReference: {fileID: 31033441}
     - target: {fileID: 1158784918336610159, guid: 105409cff3ed9e240aeb6635dae93d37, type: 3}
       propertyPath: _backgroundSound
       value: 

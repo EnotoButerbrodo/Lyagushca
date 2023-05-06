@@ -1,14 +1,10 @@
 ﻿using Cinemachine;
 using Codebase.Services;
-using Codebase.Services.ProgressService;
-using EnotoButebrodo;
 using EnotoButerbrodo.LevelGeneration;
 using Lyaguska.Services;
-using Lyaguska.UI;
 using UnityEngine;
 using Zenject;
 using Unity.VisualScripting;
-using Random = EnotoButebrodo.Random;
 using Timer = EnotoButebrodo.Timer;
 
 namespace Lyaguska.Bootstrap.Installers
@@ -28,6 +24,7 @@ namespace Lyaguska.Bootstrap.Installers
             
             BindTimer();
             BindBackgroundSound();
+            BindCoroutineRunner();
             
             BindCameraService(resetService);
             BindDistanceCountService(resetService);
@@ -37,6 +34,11 @@ namespace Lyaguska.Bootstrap.Installers
 
             BindPlayerControlService(inputService, pauseService);
             BindProgressService();
+        }
+
+        private void BindCoroutineRunner()
+        {
+            
         }
 
         private void BindProgressService()

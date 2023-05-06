@@ -1,4 +1,5 @@
-﻿using Lyaguska.Bootstrap;
+﻿using System.Runtime.InteropServices;
+using Lyaguska.Bootstrap;
 using Lyaguska.Services;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -10,8 +11,8 @@ namespace Lyaguska.UI
     public class PauseButton : MonoBehaviour
     {
         [SerializeField] private Button _button;
-        [FormerlySerializedAs("_screenService")] [SerializeField] private InterfaceService interfaceService;
-        [Inject] private IGame _game;
+        [Inject] private IInterfaceService _interfaceService;
+        [Inject] private IPauseService _pauseService;
         
         
         private void OnEnable()
@@ -21,8 +22,8 @@ namespace Lyaguska.UI
 
         private void PauseGame()
         {
-            _game.Pause();
-            interfaceService.ShowPauseScreen();
+            _pauseService.Pause();
+            _interfaceService.ShowPauseScreen();
         }
 
         private void OnDisable()

@@ -10,7 +10,7 @@ namespace Lyaguska.UI
     public class TittleScreen : Screen
     {
         [SerializeField] private Button _startGameButton;
-        [Inject] private IGame _game;
+        [Inject] private GameStateMachine _stateMachine;
         protected override void OnAwaked()
         {
             _startGameButton.onClick.AddListener(OnStartGame);
@@ -24,7 +24,7 @@ namespace Lyaguska.UI
         
         private void OnStartGame()
         {
-            _game.StartGame();
+            _stateMachine.Enter<GameLoopState>();
             Hide();
         }
     }

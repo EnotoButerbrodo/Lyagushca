@@ -1,36 +1,31 @@
-﻿using System;
-using Lyaguska.HUD;
-using Lyaguska.UI;
-using UnityEngine;
-using Screen = Lyaguska.UI.Screen;
-
-namespace Lyaguska.Services
+﻿namespace Lyaguska.Services
 {
-    public class InterfaceService : MonoBehaviour, IInterfaceService
+    public class InterfaceService : IInterfaceService
     {
-        [SerializeField] private Screen _pauseScreen;
-        [SerializeField] private GameOverScreen _gameOverScreen;
-        [SerializeField] private TittleScreen _tittleScreen;
-        [SerializeField] private PauseButton _pauseButton;
-        [SerializeField] private DistancePresenter _distancePresenter;
+        private readonly IUIFactory _uiFactory;
+
+        public InterfaceService(IUIFactory uiFactory)
+        {
+            _uiFactory = uiFactory;
+        }
 
         public void ShowUI()
         {
-            _pauseButton.gameObject.SetActive(true);
+            _uiFactory.GetPauseButton().gameObject.SetActive(true);
         }
 
         public void HideUI()
         {
-            _pauseButton.gameObject.SetActive(false);
-            _distancePresenter.Hide();
+            _uiFactory.GetPauseButton().gameObject.SetActive(false);
+            _uiFactory.GetDistancePresenter().Hide();
         }
         public void ShowPauseScreen() 
-            => _pauseScreen.Show();
+            => _uiFactory.GetPauseScreen().Show();
 
         public void ShowGameOverScreen(int distance, int highScore) 
-            => _gameOverScreen.Show(distance);
+            => _uiFactory.GetGameOverScreen().Show(distance);
 
         public void ShowTittleScreen()
-            => _tittleScreen.Show();
+            => _uiFactory.GetTittleScreen().Show();
     }
 }

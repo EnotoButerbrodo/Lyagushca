@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1acc6939c8a4fdf8cbca830c4c7bc3b, type: 3}
+  m_Name: UIElements
+  m_EditorClassIdentifier: 
+  _pauseScreenPrefab: {fileID: 9036168006680273365, guid: 12381b293a80bde43b4ac87d6f89bd51, type: 3}
+  _gameOverScreenPrefab: {fileID: 2139039296607360082, guid: 131fe8825e6bfbe488a6096e092d5427, type: 3}
+  _tittleScreenPrefab: {fileID: 8664404121071742572, guid: fdb652a0cd6a3454a944e966be39f752, type: 3}
+  _pauseButtonPrefab: {fileID: 5862734007949581002, guid: 3fa9dc62bbbe74545a69ffdf1756b196, type: 3}
+  _distancePresenterPrefab: {fileID: 3243062587950777525, guid: 9bf0a03cf30b5a1418f9da91062996d8, type: 3}
+  _uiRoot: {fileID: 6237402332429829111, guid: a835a7e832e1eac4e825c6be51dec4b2, type: 3}

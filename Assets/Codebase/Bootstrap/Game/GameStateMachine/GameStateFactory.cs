@@ -24,20 +24,25 @@ namespace Lyaguska.Bootstrap
                 [typeof(ActorSpawnState)] = GetActorSpawnState(owner),
                 [typeof(GameLoopState)] = GetGameLoopState(owner),
                 [typeof(GameResetState)] = GetGameResetState(owner),
-                [typeof(GameOverState)] = GetGameOverState(owner)
+                [typeof(GameOverState)] = GetGameOverState(owner),
+                [typeof(LoadState)] = GetLoadState(owner)
             };
+
+        private IExitableState GetLoadState(StateMachine owner)
+            => new LoadState(owner
+                , _container.Resolve<IUIFactory>());
+        
 
         private IExitableState GetGameStartState(StateMachine owner)
             => new TittleScreenState(owner
                 , _container.Resolve<IInterfaceService>()
-                , _container.Resolve<IGame>()
+                , _container.Resolve<IPauseService>()
                 , _container.Resolve<BackgroundSound>());
         
 
         private IExitableState GetGameOverState(StateMachine owner)
             => new GameOverState(owner
                 , _container.Resolve<IInterfaceService>()
-                , _container.Resolve<IGame>()
                 , _container.Resolve<BackgroundSound>()
                 , _container.Resolve<ICameraService>()
                 , _container.Resolve<IProgressService>());
@@ -60,7 +65,7 @@ namespace Lyaguska.Bootstrap
                 , _container.Resolve<IActorSelectService>()
                 , _container.Resolve<IDistanceCountService>()
                 , _container.Resolve<IActorControllService>()
-                , _container.Resolve<IGame>()
+                , _container.Resolve<IPauseService>()
                 , _container.Resolve<IInterfaceService>());
 
         private IExitableState GetGameResetState(StateMachine owner) =>

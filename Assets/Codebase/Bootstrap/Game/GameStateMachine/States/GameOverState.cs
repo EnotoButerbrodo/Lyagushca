@@ -7,20 +7,17 @@ namespace Lyaguska.Bootstrap
     public class GameOverState : PayloadedState<int>
     {
         private readonly IInterfaceService _interfaceService;
-        private readonly IGame _game;
         private readonly BackgroundSound _backgroundSound;
         private readonly ICameraService _camera;
         private readonly IProgressService _progress;
 
         public GameOverState(StateMachine stateMachine
             , IInterfaceService interfaceService
-            , IGame game
             , BackgroundSound backgroundSound
             , ICameraService camera
             , IProgressService progress) : base(stateMachine)
         {
             _interfaceService = interfaceService;
-            _game = game;
             _backgroundSound = backgroundSound;
             _camera = camera;
             _progress = progress;
