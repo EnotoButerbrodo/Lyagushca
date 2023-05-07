@@ -66,14 +66,11 @@ namespace EnotoButerbrodo.LevelGeneration
             _activeChunks.Clear();
         }
 
-        private void SpawnStartChunk(Vector2 position)
-        {
-            _placer.PlaceStartChunk(GetChunk(_startType), position);
-        }
-        private void SpawnChunk(float distance = 0)
-        {
-            _placer.PlaceChunk(GetChunk(_type), distance);
-        }
+        private void SpawnStartChunk(Vector2 position) 
+            => _placer.PlaceStartChunk(GetChunk(_startType), position);
+
+        private void SpawnChunk(float distance = 0) 
+            => _placer.PlaceChunk(GetChunk(_type), distance);
 
         private Chunk GetChunk(ChunkType type)
         {

@@ -20,6 +20,7 @@ namespace Lyaguska.Services
         private ILevelLayerRepeater _levelRepeater;
         private List<ILevelLayerRepeater> _backgroundsRepeaters;
         private readonly LevelGenerationConfig _config;
+        private readonly Vector2 _startBackgroundOffset = Vector2.left * 10f;
 
         public LevelGenerationService(LevelGenerationConfig config, IChunkFactory factory
             , IDistanceCountService distanceCountService)
@@ -44,13 +45,16 @@ namespace Lyaguska.Services
             {
                 repeater.CheckChunksRelevance(_distanceCountService.Position, _distanceCountService.Distance);
             }
-            
         }
 
-        public void LoadResources()
+        public void LoadResources() => _factory.Load();
+
+        public void Reset()
         {
-            _factory.Load();
+            _levelRepeater.Reset();
+            _backgroundsRepeaters.ForEach(x => x.Reset());
         }
+
         private void CreateLevelRepeaters()
         {
             _levelRepeater = new LevelLayerRepeater(_factory
@@ -62,7 +66,15 @@ namespace Lyaguska.Services
             CreateMiddleBackgroundRepeater();
             CreateFarBackgroundRepeater();
         }
-        
+
+        private void SpawnStartBackground(Vector2 position)
+        {
+            foreach (LevelLayerRepeater repeater in _backgroundsRepeaters)
+            {
+                repeater.SpawnStartChunks(position + _startBackgroundOffset, StartBackgroundsAmount);
+            }
+        }
+
         private void CreateMiddleBackgroundRepeater()
         {
             var middleBackgroundRepeater = new LevelLayerRepeater(_factory
@@ -83,23 +95,7 @@ namespace Lyaguska.Services
             _backgroundsRepeaters.Add(farBackgroundRepeater);
         }
 
-        private void SpawnStartDefaultChunks(Vector2 position)
-        {
-            _levelRepeater.SpawnStartChunks(position, StartChunksCount);
-        }
-
-        private void SpawnStartBackground(Vector2 position)
-        {
-            foreach (LevelLayerRepeater repeater in _backgroundsRepeaters)
-            {
-                repeater.SpawnStartChunks(position - Vector2.right * 10, StartBackgroundsAmount);
-            }
-        }
-
-        public void Reset()
-        {
-            _levelRepeater.Reset();
-            _backgroundsRepeaters.ForEach(x => x.Reset());
-        }
+        private void SpawnStartDefaultChunks(Vector2 position) 
+            => _levelRepeater.SpawnStartChunks(position, StartChunksCount);
     }
 }
