@@ -3,14 +3,14 @@ using UnityEngine;
 
 namespace Lyaguska.Services
 {
-    public class CameraService : ICameraService
+    public class CameraFollowFollowService : ICameraFollowService
     {
         private CinemachineVirtualCamera _camera;
         private CinemachineFramingTransposer _cameraTransposer;
         private Vector3 _startPosition;
         private Transform _target;
 
-        public CameraService(CinemachineVirtualCamera camera)
+        public CameraFollowFollowService(CinemachineVirtualCamera camera)
         {
             _camera = camera;
             _cameraTransposer = _camera.GetCinemachineComponent<CinemachineFramingTransposer>();

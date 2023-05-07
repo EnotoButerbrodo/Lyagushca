@@ -7,18 +7,18 @@ namespace Lyaguska.Bootstrap
 {
     public class ActorSpawnState : State
     {
-        private readonly ICameraService _cameraService;
+        private readonly ICameraFollowService _cameraFollowService;
         private readonly IDistanceCountService _distanceCount;
         private readonly IActorSelectService _actorSelectService;
         private readonly Vector2 _startPosition;
 
         public ActorSpawnState(StateMachine stateMachine
-            , ICameraService cameraService
+            , ICameraFollowService cameraFollowService
             , IDistanceCountService distanceCount
             , IActorSelectService actorSelectService
             , Vector2 startPosition) : base(stateMachine)
         {
-            _cameraService = cameraService;
+            _cameraFollowService = cameraFollowService;
             _distanceCount = distanceCount;
             _actorSelectService = actorSelectService;
             _startPosition = startPosition;
@@ -29,8 +29,8 @@ namespace Lyaguska.Bootstrap
         {
             var actor = _actorSelectService.SelectActor<Frog>(_startPosition);
 
-            _cameraService.SetTarget(actor.transform);
-            _cameraService.Enable();
+            _cameraFollowService.SetTarget(actor.transform);
+            _cameraFollowService.Enable();
             
             _distanceCount.SetTarget(actor.transform);
         }

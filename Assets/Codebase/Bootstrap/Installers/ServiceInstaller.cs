@@ -20,20 +20,35 @@ namespace Lyaguska.Bootstrap.Installers
             IPauseService pauseService = BindPauseService();
             IActorFactory actorFactory = BindActorFactory();
             IInputService inputService = BindInputService();
+            ICoroutineRunner coroutineRunner = BindCoroutineRunner();
             
             BindTimer();
             BindBackgroundSound();
 
             BindCameraService(resetService);
             BindDistanceCountService(resetService);
-            BindJumpForceCharger(resetService, pauseService);
+            BindJumpForceCharger(resetService, pauseService, coroutineRunner);
             BindLevelGeneration(resetService);
             BindActorSelectService(actorFactory, resetService);
 
             BindPlayerControlService(inputService, pauseService);
             BindProgressService();
         }
-        
+
+        private ICoroutineRunner BindCoroutineRunner()
+        {
+            CoroutineRunner runner = Container
+                .InstantiateComponentOnNewGameObject<CoroutineRunner>();
+
+            Container
+                .Bind<ICoroutineRunner>()
+                .To<CoroutineRunner>()
+                .FromInstance(runner)
+                .AsSingle();
+
+            return runner;
+        }
+
         private IResetService BindResetService()
         {
             ResetService resetService = new ResetService();
@@ -107,15 +122,15 @@ namespace Lyaguska.Bootstrap.Installers
         {
             var camera = Container.InstantiatePrefabForComponent<CinemachineVirtualCamera>(_camera);
 
-            CameraService cameraService = new CameraService(camera);
+            CameraFollowFollowService cameraFollowFollowService = new CameraFollowFollowService(camera);
 
             Container
-                .Bind<ICameraService>()
-                .To<CameraService>()
-                .FromInstance(cameraService)
+                .Bind<ICameraFollowService>()
+                .To<CameraFollowFollowService>()
+                .FromInstance(cameraFollowFollowService)
                 .AsSingle();
             
-            resetService.Register(cameraService);
+            resetService.Register(cameraFollowFollowService);
         }
         
         private void BindDistanceCountService(IResetService resetService)
@@ -131,11 +146,12 @@ namespace Lyaguska.Bootstrap.Installers
             resetService.Register(distanceCount);
         }
         
-        private void BindJumpForceCharger(IResetService resetService, IPauseService pauseService)
+        private void BindJumpForceCharger(IResetService resetService
+            , IPauseService pauseService
+            , ICoroutineRunner coroutineRunner)
         {
-
-            var jumpChargeService = Container
-                .InstantiateComponentOnNewGameObject<JumpChargeService>();
+            var jumpChargeService = new JumpChargeService(Container.Resolve<JumpsConfig>()
+                , coroutineRunner);
 
             Container
                 .Bind<IJumpChargeService>()

@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections;
+using Lyaguska.Bootstrap;
 using UnityEngine;
 using Zenject;
 
 namespace Lyaguska.Services
 {
-    public class JumpChargeService : MonoBehaviour, IJumpChargeService
+    public class JumpChargeService : IJumpChargeService
     {
         public event Action<float> ChargeBegin;
         public event Action<float> ChargePercentChanged;
@@ -14,7 +15,7 @@ namespace Lyaguska.Services
         public event Action<float> DechargeEnd; 
         public event Action Showed;
         public event Action Hided;
-
+        
         public float ChargePercent
         {
             get => _chargePercent;
@@ -28,13 +29,16 @@ namespace Lyaguska.Services
         private float _chargePercent;
 
         private JumpsConfig _gameConfig;
+        private ICoroutineRunner _coroutineRunner;
+        
         private Coroutine _chargeCoroutine;
         private bool _isPaused;
 
-        [Inject]
-        private void Construct(JumpsConfig config)
+        
+        public JumpChargeService(JumpsConfig gameConfig, ICoroutineRunner coroutineRunner)
         {
-            _gameConfig = config;
+            _gameConfig = gameConfig;
+            _coroutineRunner = coroutineRunner;
         }
 
         public void StartCharge()
@@ -45,24 +49,20 @@ namespace Lyaguska.Services
             Show();
             ChargeBegin?.Invoke(0);
             ChargePercent = 0;
-            _chargeCoroutine = StartCoroutine(ChargeCoroutine());
+            _chargeCoroutine = _coroutineRunner.StartCoroutine(ChargeCoroutine());
         }
 
         public void StopCharge()
         {
             if(_chargeCoroutine != null)
-                StopCoroutine(_chargeCoroutine);
+                _coroutineRunner.StopCoroutine(_chargeCoroutine);
         }
 
-        public void Show()
-        {
-            Showed?.Invoke();
-        }
+        public void Show() 
+            => Showed?.Invoke();
 
-        public void Hide()
-        {
-            Hided?.Invoke();
-        }
+        public void Hide() 
+            => Hided?.Invoke();
 
         public void Reset()
         {

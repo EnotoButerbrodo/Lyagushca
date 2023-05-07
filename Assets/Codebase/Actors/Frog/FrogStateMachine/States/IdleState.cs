@@ -17,6 +17,16 @@ namespace Lyaguska.Actors.StateMachine
             HandleDelayedJump();
             _stateMachine.Actor.VelocityChanged += OnVelocityChanged;
         }
+        
+        public override void HandleButtonPress()
+        {
+            _stateMachine.ChangeState(_stateMachine.JumpChargeState);
+        }
+
+        public override void HandleButtonRelease()
+        {
+            HandleDelayedJump();
+        }
 
         private void HandleDelayedJump()
         {
@@ -40,15 +50,7 @@ namespace Lyaguska.Actors.StateMachine
         }
 
 
-        public override void HandleButtonPress()
-        {
-            _stateMachine.ChangeState(_stateMachine.JumpChargeState);
-        }
-
-        public override void HandleButtonRelease()
-        {
-            HandleDelayedJump();
-        }
+        
     }
 
 

@@ -47,7 +47,7 @@ namespace Lyaguska.Bootstrap
             => new GameOverState(owner
                 , _container.Resolve<IInterfaceService>()
                 , _container.Resolve<BackgroundSound>()
-                , _container.Resolve<ICameraService>()
+                , _container.Resolve<ICameraFollowService>()
                 , _container.Resolve<IProgressService>());
 
         private IExitableState GetLevelCreateState(StateMachine owner) =>
@@ -57,7 +57,7 @@ namespace Lyaguska.Bootstrap
 
         private IExitableState GetActorSpawnState(StateMachine owner) =>
             new ActorSpawnState(owner
-                , _container.Resolve<ICameraService>()
+                , _container.Resolve<ICameraFollowService>()
                 , _container.Resolve<IDistanceCountService>()
                 , _container.Resolve<IActorSelectService>()
                 , _container.Resolve<StartupConfig>().ActorStartPosition);
