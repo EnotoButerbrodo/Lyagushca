@@ -1,10 +1,9 @@
 ﻿using System;
-using UnityEngine;
 using Zenject;
 
 namespace EnotoButebrodo
 {
-    public class Timer : ITickable
+    public class Timer
     {
         public event Action<TimerEventArgs> Started;
         public event Action<TimerEventArgs> Ticked;
@@ -16,6 +15,7 @@ namespace EnotoButebrodo
         private float _targetTime;
 
         private bool _isStarted;
+
         public void Start(float timeInSeconds)
         {
             _isStarted = true;
@@ -30,41 +30,25 @@ namespace EnotoButebrodo
             _isStarted = false;
             Finished?.Invoke(GetArgs());
             _targetTime = 0;
-
         }
 
-        void ITickable.Tick()
+        public void UpdateTime(float deltaTime)
         {
-            if (_isStarted)
-            {
-                _currentTime += Time.deltaTime;
+            if (_isStarted == false)
+                return;
+            
+            _currentTime += deltaTime;
 
-                Ticked?.Invoke(GetArgs());
-
-                if (Check())
-                {
-                    Stop();
-                }
-            }
+            Ticked?.Invoke(GetArgs());
+            
+            if (IsTimeout()) 
+                Stop();
         }
 
-        private bool Check()
+        private bool IsTimeout()
             => _currentTime >= _targetTime;
 
         private TimerEventArgs GetArgs()
             => new(_currentTime, _targetTime);
-
-    }
-
-    public class TimerEventArgs
-    {
-        public float CurrentTime { get; private set; }
-        public float MaxTime { get; private set; }
-
-        public TimerEventArgs(float currentTime, float maxTime)
-        {
-            CurrentTime = currentTime;
-            MaxTime = maxTime;
-        }
     }
 }

@@ -13,13 +13,13 @@ namespace Lyaguska.Actors.StateMachine
         public ActorState BufferedJumpState { get; private set; }
 
         private IJumpChargeService _charger;
-        private Timer _timer;
+        private ITimersService _timerService;
 
         [Inject]
-        public void Construct(IJumpChargeService charger, Timer timer)
+        public void Construct(IJumpChargeService charger, ITimersService timer)
         {
             _charger = charger;
-            _timer = timer;
+            _timerService = timer;
         }
 
         protected override void InitializeStates()
@@ -28,7 +28,7 @@ namespace Lyaguska.Actors.StateMachine
             JumpChargeState = new JumpChargeState(this, _charger);
             JumpState = new JumpState(this, _charger);
             AirState = new AirState(this, _charger);
-            BufferedJumpState = new BufferedJumpState(this, _charger,_timer);
+            BufferedJumpState = new BufferedJumpState(this, _charger,_timerService.GetTimer());
         }
 
         protected override ActorState GetInitialState() => IdleState;

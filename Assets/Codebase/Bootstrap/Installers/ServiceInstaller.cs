@@ -1,5 +1,6 @@
 ﻿using Cinemachine;
 using Codebase.Services;
+using EnotoButebrodo;
 using EnotoButerbrodo.LevelGeneration;
 using Lyaguska.Services;
 using UnityEngine;
@@ -22,7 +23,7 @@ namespace Lyaguska.Bootstrap.Installers
             IInputService inputService = BindInputService();
             ICoroutineRunner coroutineRunner = BindCoroutineRunner();
             
-            BindTimer();
+            BindTimerService();
             BindBackgroundSound();
 
             BindCameraService(resetService);
@@ -100,12 +101,13 @@ namespace Lyaguska.Bootstrap.Installers
             return inputService;
         }
         
-        private void BindTimer()
+        private void BindTimerService()
         {
             Container
-                .BindInterfacesAndSelfTo<Timer>()
-                .FromInstance(new Timer())
-                .AsTransient();
+                .Bind<ITimersService>()
+                .To<TimersService>()
+                .FromNewComponentOnNewGameObject()
+                .AsSingle();
         }
         
         private void BindBackgroundSound()
