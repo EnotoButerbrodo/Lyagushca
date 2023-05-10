@@ -12,6 +12,7 @@ namespace Lyaguska.Bootstrap
         private readonly IActorControllService _controlls;
         private readonly IActorSelectService _actorSelectService;
         private readonly IInterfaceService _interfaceService;
+        private readonly IActorDieCheckService _actorDieCheckService;
 
         private readonly IPauseService _pauseService;
         private Actor _actor;
@@ -22,7 +23,8 @@ namespace Lyaguska.Bootstrap
             , IDistanceCountService distanceCount
             , IActorControllService controlls
             , IPauseService pauseService
-            , IInterfaceService interfaceService) : base(stateMachine)
+            , IInterfaceService interfaceService
+            , IActorDieCheckService actorDieCheckService) : base(stateMachine)
         {
             _generationService = generationService;
             _actorSelectService = actorSelectService;
@@ -30,6 +32,7 @@ namespace Lyaguska.Bootstrap
             _controlls = controlls;
             _pauseService = pauseService;
             _interfaceService = interfaceService;
+            _actorDieCheckService = actorDieCheckService;
         }
 
         public override void Enter()
@@ -38,6 +41,7 @@ namespace Lyaguska.Bootstrap
             _controlls.SetActor(_actor);
             _controlls.Enable();
             _actor.Dead += OnActorDeath;
+            _actorDieCheckService.SetActor(_actor);
             
             _interfaceService.ShowUI();
         }
@@ -49,12 +53,6 @@ namespace Lyaguska.Bootstrap
            _interfaceService.HideUI();
         }
 
-        private void OnActorDeath()
-        {
-            _stateMachine.Enter<GameOverState, int>(_distanceCount.Distance);
-
-        }
-
         public void UpdateState()
         {
             if(_pauseService.IsPaused)
@@ -62,6 +60,10 @@ namespace Lyaguska.Bootstrap
             
             _generationService.CheckChunksRelevance();
             _distanceCount.Update();
+            _actorDieCheckService.CheckDeath();
         }
+
+        private void OnActorDeath() 
+            => _stateMachine.Enter<GameOverState, int>(_distanceCount.Distance);
     }
 }

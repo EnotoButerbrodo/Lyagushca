@@ -12,11 +12,15 @@ namespace Lyaguska.Actors
         public abstract event Action Dead;
 
         public abstract bool Grounded { get; }
+        public abstract bool IsDead { get; }
 
         public abstract void HandleButtonPress();
         public abstract void HandleButtonRelease(); 
 
         public abstract void Jump(float chargePercent);
+
+        public abstract void Die();
+        
         public abstract void Reset();
         public abstract void Pause();
         public abstract void Resume();

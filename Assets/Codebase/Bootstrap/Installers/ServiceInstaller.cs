@@ -34,7 +34,10 @@ namespace Lyaguska.Bootstrap.Installers
 
             BindPlayerControlService(inputService, pauseService);
             BindProgressService();
+            BindDieCheckService();
         }
+
+       
 
         private ICoroutineRunner BindCoroutineRunner()
         {
@@ -212,6 +215,15 @@ namespace Lyaguska.Bootstrap.Installers
             Container
                 .Bind<IProgressService>()
                 .To<UnityProgressService>()
+                .FromNew()
+                .AsSingle();
+        }
+        
+        private void BindDieCheckService()
+        {
+            Container
+                .Bind<IActorDieCheckService>()
+                .To<ActorDieCheckService>()
                 .FromNew()
                 .AsSingle();
         }

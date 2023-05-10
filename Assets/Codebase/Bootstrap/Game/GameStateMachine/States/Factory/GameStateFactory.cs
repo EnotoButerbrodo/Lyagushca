@@ -69,7 +69,8 @@ namespace Lyaguska.Bootstrap
                 , _container.Resolve<IDistanceCountService>()
                 , _container.Resolve<IActorControllService>()
                 , _container.Resolve<IPauseService>()
-                , _container.Resolve<IInterfaceService>());
+                , _container.Resolve<IInterfaceService>()
+                , _container.Resolve<IActorDieCheckService>());
 
         private IExitableState GetGameResetState(StateMachine owner) =>
             new GameResetState(owner

@@ -35,7 +35,8 @@ namespace Lyaguska.Services
         private bool _isPaused;
 
         
-        public JumpChargeService(JumpsConfig gameConfig, ICoroutineRunner coroutineRunner)
+        public JumpChargeService(JumpsConfig gameConfig
+            , ICoroutineRunner coroutineRunner)
         {
             _gameConfig = gameConfig;
             _coroutineRunner = coroutineRunner;

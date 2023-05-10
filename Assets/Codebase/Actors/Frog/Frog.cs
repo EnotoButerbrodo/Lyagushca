@@ -22,17 +22,14 @@ namespace Lyaguska.Actors
             add => _jumpHandler.VelocityChanged += value;
             remove => _jumpHandler.VelocityChanged -= value;
         }
-        public override event Action Dead
-        {
-            add => _dieHandler.Dead += value;
-            remove => _dieHandler.Dead -= value;
-        }
 
+        public override event Action Dead;
         public override bool Grounded => _groundChecker.IsGrounded();
-
+        public override bool IsDead => _isDead;
+        private bool _isDead;
+        
         [SerializeField] private JumpHandler _jumpHandler;
         [SerializeField] private GroundCheckHandler _groundChecker;
-        [SerializeField] private DieHandler _dieHandler;
         [SerializeField] private FrogAnimationHandler _animation;
 
         private Rigidbody2D _rigidbody2D;
@@ -65,11 +62,17 @@ namespace Lyaguska.Actors
             _jumpHandler.Jump(chargePercent);
         }
 
+        public override void Die()
+        {
+            _isDead = true;
+            Dead?.Invoke();
+        }
+
         public override void Reset()
         {
             GetComponent<Rigidbody2D>().velocity = Vector2.zero;
             _animation.Reset();
-            _dieHandler.Reset();
+            _isDead = false;
         }
 
         public override void Pause()

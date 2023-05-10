@@ -224,6 +224,7 @@ MonoBehaviour:
   _chargedIndicatorImage: {fileID: 5796425539216424442}
   _startColor: {r: 0.9811321, g: 0.962419, b: 0.5507298, a: 1}
   _endColor: {r: 1, g: 0.9607843, b: 0.09803922, a: 1}
+  _hideInAwake: 1
 --- !u!1 &5148772177827140233
 GameObject:
   m_ObjectHideFlags: 0
@@ -234,7 +235,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5148772177827140247}
   - component: {fileID: 5148772177827140243}
-  - component: {fileID: 183046831206656142}
   - component: {fileID: 5364046645820158168}
   - component: {fileID: 5148772177827140244}
   - component: {fileID: 1614984940809572569}
@@ -280,21 +280,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _jumpHandler: {fileID: 5148772177827140244}
   _groundChecker: {fileID: 7746660312402523465}
-  _dieHandler: {fileID: 183046831206656142}
   _animation: {fileID: 5148772178954213971}
---- !u!114 &183046831206656142
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5148772177827140233}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 93a4165e21d7543429f23150f07b5973, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _deadLevelY: -5
 --- !u!114 &5364046645820158168
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -696,7 +682,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _collider: {fileID: 403210487602217700}
-  _ground:
+  _groundLayerMask:
     serializedVersion: 2
     m_Bits: 64
 --- !u!61 &403210487602217700
