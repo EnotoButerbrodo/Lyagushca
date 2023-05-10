@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections.Generic;
+using EnotoButerbrodo.LevelGeneration;
+using UnityEngine;
 
 namespace Lyaguska.Services
 {
@@ -8,5 +11,6 @@ namespace Lyaguska.Services
         void CheckChunksRelevance();
 
         void LoadResources();
+        IChunkRepeater MainChunkRepeater { get; }
     }
 }

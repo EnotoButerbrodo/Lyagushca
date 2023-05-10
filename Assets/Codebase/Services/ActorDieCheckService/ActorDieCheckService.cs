@@ -1,12 +1,30 @@
-﻿using Lyaguska.Actors;
+﻿using System.Linq;
+using EnotoButerbrodo.LevelGeneration;
+using Lyaguska.Actors;
+using UnityEngine;
 
 namespace Lyaguska.Services
 {
     public class ActorDieCheckService : IActorDieCheckService
     {
-        public float DeadLevelY = -5f;
+        private float _deadLevelOffset = -5f;
         
+        private IChunkRepeater _chunkRepeater;
+        private float _chunksMinLevel = 0f;
         private Actor _actor;
+
+        public ActorDieCheckService(ILevelGenerationService levelGenerationService)
+        {
+            _chunkRepeater = levelGenerationService.MainChunkRepeater;
+            _chunkRepeater.ChunkSpawned += UpdateChunksLevel;
+        }
+
+        private void UpdateChunksLevel(Chunk chunk)
+        {
+            _chunksMinLevel = _chunkRepeater.ActiveChunks
+                .Select(x => x.transform.position.y)
+                .Min();
+        }
 
         public void SetActor(Actor actor)
         {
@@ -17,8 +35,8 @@ namespace Lyaguska.Services
         {
             if((_actor.IsDead))
                 return;
-            
-            if (_actor.transform.position.y < DeadLevelY)
+
+            if (_actor.transform.position.y < _chunksMinLevel + _deadLevelOffset)
             {
                 _actor.Die();
             }

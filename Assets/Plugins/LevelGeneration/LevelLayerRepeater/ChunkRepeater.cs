@@ -1,10 +1,16 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace EnotoButerbrodo.LevelGeneration
 {
-    public class LevelLayerRepeater : ILevelLayerRepeater
+    public class ChunkRepeater : IChunkRepeater
     {
+        public event Action<Chunk> ChunkSpawned;
+        public event Action<Chunk> ChunkDespawned;
+        
+        public IReadOnlyList<Chunk> ActiveChunks => _activeChunks;
+
         private IChunkFactory _factory;
         private IChunkPlacer _placer;
         private ChunkType _startType;
@@ -13,7 +19,8 @@ namespace EnotoButerbrodo.LevelGeneration
         private List<Chunk> _activeChunks;
         private float _despawnDistance;
 
-        public LevelLayerRepeater(IChunkFactory factory
+
+        public ChunkRepeater(IChunkFactory factory
             , IChunkPlacer placer
             , ChunkType startType
             , ChunkType type
@@ -39,7 +46,6 @@ namespace EnotoButerbrodo.LevelGeneration
                 SpawnChunk();
             }
         }
-        
         public void CheckChunksRelevance(Vector2 currentPosition, float distance)
         {
             for (int i = _activeChunks.Count - 1; i >= 0; i--)
@@ -55,7 +61,7 @@ namespace EnotoButerbrodo.LevelGeneration
                 }
             }
         }
-
+        
         public void Reset()
         {
             foreach (Chunk activeChunk in _activeChunks)
@@ -65,12 +71,16 @@ namespace EnotoButerbrodo.LevelGeneration
             
             _activeChunks.Clear();
         }
-
+        
         private void SpawnStartChunk(Vector2 position) 
             => _placer.PlaceStartChunk(GetChunk(_startType), position);
 
-        private void SpawnChunk(float distance = 0) 
-            => _placer.PlaceChunk(GetChunk(_type), distance);
+        private void SpawnChunk(float distance = 0)
+        {
+            Chunk chunk = GetChunk(_type);
+            _placer.PlaceChunk(chunk, distance);
+            ChunkSpawned?.Invoke(chunk);
+        }
 
         private Chunk GetChunk(ChunkType type)
         {
@@ -83,6 +93,7 @@ namespace EnotoButerbrodo.LevelGeneration
         private void DespawnChunk(int position)
         {
             _activeChunks[position].ReturnToPool();
+            ChunkDespawned?.Invoke(_activeChunks[position]);
             _activeChunks.RemoveAt(position);
         }
     }
