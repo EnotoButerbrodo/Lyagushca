@@ -54,11 +54,11 @@ namespace Lyaguska.Actors.StateMachine
         private void OnGroundLand()
         {
             _stateMachine.Actor.GroundLand -= OnGroundLand;
-            _stateMachine.ChangeState(_stateMachine.IdleState);
             _stateMachine.Animator.SetGrounded(true);
-            
+
             _timer.Finished -= OnTimerFinished;
             _timer.Stop();
+            _stateMachine.ChangeState(_stateMachine.IdleState);
         }
         
         private void OnTimerFinished(TimerEventArgs obj)
