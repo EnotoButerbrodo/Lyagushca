@@ -10,7 +10,7 @@ namespace Lyaguska.Actors
         [SerializeField] private JumpHandler _jumpHandler;
         [SerializeField] private GroundCheckHandler _groundChecker;
         [SerializeField] private FrogDieHandler _frogDie;
-        [SerializeField] private FrogAnimationHandler _animation;
+        [SerializeField] private FrogAnimator _animation;
         [SerializeField] private Rigidbody2D _rigidbody2D;
 
 

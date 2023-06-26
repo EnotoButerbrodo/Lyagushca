@@ -1376,5 +1376,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: Spikes
       objectReference: {fileID: 0}
+    - target: {fileID: 8961938179242769089, guid: 8a369bc7002bfe145b18fbaec5fab6ae, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8a369bc7002bfe145b18fbaec5fab6ae, type: 3}

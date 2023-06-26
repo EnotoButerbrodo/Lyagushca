@@ -13,6 +13,7 @@ namespace Lyaguska.Services
         event Action Hided;
 
         float ChargePercent { get; }
+        bool IsCharging { get; }
         void StartCharge();
         void StopCharge();
 

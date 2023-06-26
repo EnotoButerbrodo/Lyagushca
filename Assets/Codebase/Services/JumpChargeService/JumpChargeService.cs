@@ -26,6 +26,8 @@ namespace Lyaguska.Services
             }
         }
 
+        public bool IsCharging { get; private set; }
+
         private float _chargePercent;
 
         private JumpsConfig _gameConfig;
@@ -46,6 +48,8 @@ namespace Lyaguska.Services
         {
             if (_chargeCoroutine == null) 
                 StopCharge();
+
+            IsCharging = true;
             
             Show();
             ChargeBegin?.Invoke(0);
@@ -57,6 +61,8 @@ namespace Lyaguska.Services
         {
             if(_chargeCoroutine != null)
                 _coroutineRunner.StopCoroutine(_chargeCoroutine);
+
+            IsCharging = false;
         }
 
         public void Show() 

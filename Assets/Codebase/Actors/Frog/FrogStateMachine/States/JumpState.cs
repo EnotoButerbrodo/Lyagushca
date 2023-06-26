@@ -17,13 +17,18 @@ namespace Lyaguska.Actors.StateMachine
                 _stateMachine.ChangeState(_stateMachine.IdleState);
                 return;
             }
-            _stateMachine.Actor.Jump(_charger.ChargePercent);
-            _charger.Reset();
 
+            _stateMachine.Actor.Jump(_charger.ChargePercent);
+            _stateMachine.Animator.SetJump();
+            _charger.Reset();
+            
             _stateMachine.ChangeState(_stateMachine.AirState);
         }
+        
+        
+
+      
     }
 
-
-
+    
 }

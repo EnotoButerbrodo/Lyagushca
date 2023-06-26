@@ -1,14 +1,12 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Lyaguska.Actors.StateMachine
 {
     [RequireComponent(typeof(Actor))]
     public abstract class ActorStateMachine : MonoBehaviour
     {
-        [SerializeField] private Animator _animator;
-
         public Actor Actor { get; private set; }
-        public Animator Animator => _animator;
 
         private ActorState _currentState;
 
@@ -37,8 +35,15 @@ namespace Lyaguska.Actors.StateMachine
         public void ChangeState(ActorState state)
         {
             _currentState?.Exit();
+            Debug.Log($"Exit {_currentState}");
             _currentState = state;
             _currentState.Enter();
+            Debug.Log($"Enter {_currentState}");
+        }
+
+        private void Update()
+        {
+            _currentState?.UpdateState();
         }
 
         protected abstract ActorState GetInitialState();

@@ -6,5 +6,6 @@
         public virtual void Exit() { return; }
         public virtual void HandleButtonPress() { return; }
         public virtual void HandleButtonRelease() { return; }
+        public virtual void UpdateState() {return;}
     }
 }

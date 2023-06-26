@@ -13,28 +13,24 @@ namespace Lyaguska.Actors.StateMachine
         public override void Enter()
         {
             _charger.StartCharge();
+            _stateMachine.Animator.SetJumpCharging(true);
         }
 
-        public override void HandleButtonPress()
+        public override void UpdateState()
         {
-            HandleButtonRelease();
+            _stateMachine.Animator.SetJumpChargePercent(_charger.ChargePercent);
+        }
+
+        public override void Exit()
+        {
+            _stateMachine.Animator.SetJumpCharging(false);
         }
 
         public override void HandleButtonRelease()
         {
             _charger.StopCharge();
-            
-            if (_stateMachine.Actor.Grounded)
-            {
-                _stateMachine.ChangeState(_stateMachine.JumpState);
-            }
-            else
-            {
-                _stateMachine.ChangeState(_stateMachine.BufferedJumpState);
-            }
+            _stateMachine.ChangeState(_stateMachine.JumpState);
         }
     }
-
-
 
 }
