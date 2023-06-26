@@ -42,7 +42,7 @@ namespace Lyaguska.HUD
 
         private void OnPause()
         {
-            _highText.text = "High: " + _progress.GetHighScore();
+            _highText.SetText("High: {0}", _progress.GetHighScore());
             _highText.enabled = true;
         }
 
@@ -54,7 +54,7 @@ namespace Lyaguska.HUD
         private void OnDistanceChanged(int distance)
         {
             _text.enabled = distance > 0;
-            _text.text = distance.ToString();
+            _text.SetText("{0}", distance);
         } 
     }
 }
