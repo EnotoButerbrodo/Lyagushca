@@ -20,10 +20,10 @@ namespace Lyaguska.Actors.StateMachine
 
         public override void Enter()
         {
-            
             _stateMachine.Actor.GroundLand += OnGroundLand;
             _stateMachine.Actor.VelocityChanged += OnVelocityChanged;
             _stateMachine.Animator.SetGrounded(false);
+            _stateMachine.Animator.SetFallVelocity(0f);
         }
 
         public override void HandleButtonPress()
@@ -48,7 +48,7 @@ namespace Lyaguska.Actors.StateMachine
 
         private void OnVelocityChanged(Vector2 velocity)
         {
-            _stateMachine.Animator.SetVerticalSpeed(velocity.y);
+            _stateMachine.Animator.SetFallVelocity(velocity.y);
         }
 
         private void OnGroundLand()

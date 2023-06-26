@@ -14,13 +14,15 @@ namespace Lyaguska.Actors
         public string JumpName = "Jump";
         public string GroundedName = "Grounded";
         public string FallName = "Fall";
+        public string FallVelocityName = "FallVelocity";
         
         private int _isJumpCharging;
         private int _jumpChargePercent;
         private int _jump;
         private int _grounded;
         private int _fall;
-        
+        private int _fallVelocity;
+
 
         public void SetJumpCharging(bool state)
         {
@@ -43,14 +45,14 @@ namespace Lyaguska.Actors
             _animator.SetBool(_grounded, state);
         }
 
-        public void SetVerticalSpeed(float value)
+        public void SetFallVelocity(float value)
         {
-            if (value <= -2f)
-            {
-                _animator.SetTrigger(_fall);    
-            }
+            _animator.SetFloat(_fallVelocity, value);
+        }
 
-            
+        public void SetFall()
+        {
+            _animator.SetTrigger(_fall);
         }
 
         private void Awake()
@@ -60,6 +62,7 @@ namespace Lyaguska.Actors
             _jump = Animator.StringToHash(JumpName);
             _grounded = Animator.StringToHash(GroundedName);
             _fall = Animator.StringToHash(FallName);
+            _fallVelocity = Animator.StringToHash(FallVelocityName);
         }
 
         public void Reset()

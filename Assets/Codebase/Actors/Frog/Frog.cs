@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Lyaguska.Actors
 {
-    public class Frog : Actor 
+    public class Frog : Actor
     {
         [SerializeField] private JumpHandler _jumpHandler;
         [SerializeField] private GroundCheckHandler _groundChecker;
@@ -63,10 +63,6 @@ namespace Lyaguska.Actors
 
         public override void Jump(float chargePercent)
         {
-            if (_groundChecker.IsGrounded() == false)
-            {
-                return;
-            }
             _jumpHandler.Jump(chargePercent);
         }
 
@@ -77,7 +73,9 @@ namespace Lyaguska.Actors
 
         public override void Reset()
         {
-            _rigidbody2D.velocity = Vector2.zero;
+            var velocity = _rigidbody2D.velocity;
+            velocity.x = 0f;
+            _rigidbody2D.velocity = velocity;
             _frogDie.Reset();
             _animation.Reset();
         }
@@ -97,7 +95,7 @@ namespace Lyaguska.Actors
         private void OnLand()
         {
             _rigidbody2D.velocity = Vector2.zero;
-        }
 
+        }
     }
 }
