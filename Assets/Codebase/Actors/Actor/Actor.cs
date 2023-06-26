@@ -25,9 +25,4 @@ namespace Lyaguska.Actors
         public abstract void Pause();
         public abstract void Resume();
     }
-
-    
-
-
-
 }

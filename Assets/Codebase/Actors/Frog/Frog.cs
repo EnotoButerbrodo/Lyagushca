@@ -5,34 +5,43 @@ using UnityEngine;
 
 namespace Lyaguska.Actors
 {
-    public class Frog : Actor
+    public class Frog : Actor 
     {
+        [SerializeField] private JumpHandler _jumpHandler;
+        [SerializeField] private GroundCheckHandler _groundChecker;
+        [SerializeField] private FrogDieHandler _frogDie;
+        [SerializeField] private FrogAnimationHandler _animation;
+        [SerializeField] private Rigidbody2D _rigidbody2D;
+
+
         public override event Action Jumped
         {
             add => _jumpHandler.Jumped += value;
             remove => _jumpHandler.Jumped -= value;
         }
+
         public override event Action GroundLand
         {
             add => _groundChecker.Grounded += value;
             remove => _groundChecker.Grounded -= value;
         }
+
         public override event Action<Vector2> VelocityChanged
         {
             add => _jumpHandler.VelocityChanged += value;
             remove => _jumpHandler.VelocityChanged -= value;
         }
 
-        public override event Action Dead;
-        public override bool Grounded => _groundChecker.IsGrounded();
-        public override bool IsDead => _isDead;
-        private bool _isDead;
-        
-        [SerializeField] private JumpHandler _jumpHandler;
-        [SerializeField] private GroundCheckHandler _groundChecker;
-        [SerializeField] private FrogAnimationHandler _animation;
+        public override event Action Dead
+        {
+            add => _frogDie.Dead += value;
+            remove => _frogDie.Dead -= value;
+        }
 
-        private Rigidbody2D _rigidbody2D;
+        public override bool IsDead => _frogDie.IsDead;
+
+        public override bool Grounded => _groundChecker.IsGrounded();
+
 
         private FrogStateMachine _stateMachine;
 
@@ -40,7 +49,6 @@ namespace Lyaguska.Actors
         {
             _stateMachine = GetComponent<FrogStateMachine>();
             _groundChecker.Grounded += OnLand;
-            _rigidbody2D = GetComponent<Rigidbody2D>();
         }
 
         public override void HandleButtonPress()
@@ -64,15 +72,14 @@ namespace Lyaguska.Actors
 
         public override void Die()
         {
-            _isDead = true;
-            Dead?.Invoke();
+            _frogDie.Die();
         }
 
         public override void Reset()
         {
-            GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+            _rigidbody2D.velocity = Vector2.zero;
+            _frogDie.Reset();
             _animation.Reset();
-            _isDead = false;
         }
 
         public override void Pause()
@@ -91,7 +98,6 @@ namespace Lyaguska.Actors
         {
             _rigidbody2D.velocity = Vector2.zero;
         }
-
 
     }
 }

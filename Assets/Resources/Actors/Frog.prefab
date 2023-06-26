@@ -238,6 +238,7 @@ GameObject:
   - component: {fileID: 5364046645820158168}
   - component: {fileID: 5148772177827140244}
   - component: {fileID: 1614984940809572569}
+  - component: {fileID: 170767295187182378}
   - component: {fileID: 2437672648540485056}
   - component: {fileID: 5148772177827140245}
   - component: {fileID: 2554465496884473422}
@@ -280,7 +281,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _jumpHandler: {fileID: 5148772177827140244}
   _groundChecker: {fileID: 7746660312402523465}
+  _frogDie: {fileID: 170767295187182378}
   _animation: {fileID: 5148772178954213971}
+  _rigidbody2D: {fileID: 5148772177827140245}
 --- !u!114 &5364046645820158168
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -392,6 +395,19 @@ MonoBehaviour:
   _jumpSound: {fileID: 8300000, guid: 765828436b456fd45843e3e87ff77ce9, type: 3}
   _groundSound: {fileID: 8300000, guid: 6cfa4dff286f2564893cd406f595e0e1, type: 3}
   _dieSound: {fileID: 8300000, guid: fe57d5960e5b4ff4e93d430555cf117c, type: 3}
+--- !u!114 &170767295187182378
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5148772177827140233}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4be0d4fb65c24c0f80f7c04e821bc9d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _frogCollider: {fileID: 2554465496884473422}
 --- !u!82 &2437672648540485056
 AudioSource:
   m_ObjectHideFlags: 0

@@ -10,7 +10,7 @@ namespace Lyaguska.Actors
 
         [SerializeField] private Animator _animator;
 
-        [SerializeField] Actor _actor;
+        [SerializeField] Actor _actor;  
 
         [SerializeField] private string _JUMPCHARGE_TRIGGER;
         [SerializeField] private string _JUMP_TRIGGER;

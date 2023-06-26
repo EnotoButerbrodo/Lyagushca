@@ -7,7 +7,6 @@ namespace Lyaguska.Handlers
     public class JumpHandler : MonoBehaviour, IResetable
     {
         public event Action Jumped;
-
         public event Action<Vector2> VelocityChanged;
 
         [SerializeField][Range(0, 50f)] private float _jumpHeightKoeff;
@@ -25,7 +24,6 @@ namespace Lyaguska.Handlers
 
             _rigidbody.AddForce(vericalDirection + horizontalDirection, ForceMode2D.Impulse);
             Jumped?.Invoke();
-
         }
 
         private void FixedUpdate()
