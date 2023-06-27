@@ -7,6 +7,10 @@ namespace Lyaguska.Actors
     public class FrogDieHandler : MonoBehaviour, IResetable
     {
         [SerializeField] private Collider2D _frogCollider;
+        [SerializeField] private FrogAnimator _animator;
+        [SerializeField] private Rigidbody2D _rigidbody;
+
+        [SerializeField] private float _deathForce = 5f;
         public event Action Dead;
         
         public bool IsDead { get; private set; }
@@ -15,7 +19,10 @@ namespace Lyaguska.Actors
         public void Die()
         {
             IsDead = true;
-            _frogCollider.isTrigger = true;
+            _frogCollider.enabled = false;
+            _animator.SetHurt();
+            if(_rigidbody.velocity.y >= -2f)
+                _rigidbody.AddForce(Vector2.up * _deathForce, ForceMode2D.Impulse);
             
             Dead?.Invoke();
         } 
@@ -23,7 +30,7 @@ namespace Lyaguska.Actors
         public void Reset()
         {
             IsDead = false;
-            _frogCollider.isTrigger = false;
+            _frogCollider.enabled = true;
         }
     }
 }

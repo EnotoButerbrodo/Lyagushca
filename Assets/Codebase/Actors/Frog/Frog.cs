@@ -91,7 +91,8 @@ namespace Lyaguska.Actors
 
         private void OnLand()
         {
-            _rigidbody2D.velocity = Vector2.zero;
+            if(!_frogDie.IsDead)
+                _rigidbody2D.velocity = Vector2.zero;
         }
     }
 }

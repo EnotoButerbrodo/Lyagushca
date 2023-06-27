@@ -409,6 +409,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _frogCollider: {fileID: 2554465496884473422}
+  _animator: {fileID: 5148772178954213971}
+  _rigidbody: {fileID: 5148772177827140245}
+  _deathForce: 10
 --- !u!82 &2437672648540485056
 AudioSource:
   m_ObjectHideFlags: 0
@@ -535,7 +538,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 5148772177827140233}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 8345f7520013f18459a1c6668473a040, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -782,6 +785,7 @@ MonoBehaviour:
   FallName: Fall
   FallVelocityName: FallVelocity
   HopName: Hop
+  HurtName: Hurt
 --- !u!95 &5148772178954213972
 Animator:
   serializedVersion: 4

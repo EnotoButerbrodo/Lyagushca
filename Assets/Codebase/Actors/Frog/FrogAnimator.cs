@@ -17,6 +17,7 @@ namespace Lyaguska.Actors
         public string FallName = "Fall";
         public string FallVelocityName = "FallVelocity";
         public string HopName = "Hop";
+        public string HurtName = "Hurt";
         
         private int _isJumpCharging;
         private int _jumpChargePercent;
@@ -25,6 +26,7 @@ namespace Lyaguska.Actors
         private int _fall;
         private int _fallVelocity;
         private int _hop;
+        private int _hurt;
 
 
         private void Awake()
@@ -36,42 +38,32 @@ namespace Lyaguska.Actors
             _fall = Animator.StringToHash(FallName);
             _fallVelocity = Animator.StringToHash(FallVelocityName);
             _hop = Animator.StringToHash(HopName);
+            _hurt = Animator.StringToHash(HurtName);
         }
 
-        public void SetJumpCharging(bool state)
-        {
-            _animator.SetBool(_isJumpCharging, state);
-        }
+        public void SetJumpCharging(bool state) 
+            => _animator.SetBool(_isJumpCharging, state);
 
-        public void SetJumpChargePercent(float value)
-        {
-            _animator.SetFloat(_jumpChargePercent, value);
-        }
+        public void SetJumpChargePercent(float value) 
+            => _animator.SetFloat(_jumpChargePercent, value);
 
-        public void SetJump()
-        {
-            _animator.SetTrigger(_jump);
-        }
+        public void SetJump() 
+            => _animator.SetTrigger(_jump);
 
-        public void SetLand()
-        {
-            _animator.SetTrigger(_land);
-        }
+        public void SetLand() 
+            => _animator.SetTrigger(_land);
 
-        public void SetFallVelocity(float value)
-        {
-            _animator.SetFloat(_fallVelocity, value);
-        }
+        public void SetFallVelocity(float value) 
+            => _animator.SetFloat(_fallVelocity, value);
 
-        public void SetFall()
-        {
-            _animator.SetTrigger(_fall);
-        }
+        public void SetFall() 
+            => _animator.SetTrigger(_fall);
 
-        public void SetHop()
-        {
-            _animator.SetTrigger(_hop);
-        }
+        public void SetHop() 
+            => _animator.SetTrigger(_hop);
+
+        public void SetHurt()
+            => _animator.SetTrigger(_hurt);
 
         public void Reset()
         {
