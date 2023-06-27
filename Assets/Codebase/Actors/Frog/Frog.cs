@@ -11,6 +11,7 @@ namespace Lyaguska.Actors
         [SerializeField] private GroundCheckHandler _groundChecker;
         [SerializeField] private FrogDieHandler _frogDie;
         [SerializeField] private FrogAnimator _animation;
+        [SerializeField] private FrogStateMachine _stateMachine;
         [SerializeField] private Rigidbody2D _rigidbody2D;
 
 
@@ -41,13 +42,10 @@ namespace Lyaguska.Actors
         public override bool IsDead => _frogDie.IsDead;
 
         public override bool Grounded => _groundChecker.IsGrounded();
-
-
-        private FrogStateMachine _stateMachine;
+        
 
         private void Awake()
         {
-            _stateMachine = GetComponent<FrogStateMachine>();
             _groundChecker.Grounded += OnLand;
         }
 
@@ -73,11 +71,10 @@ namespace Lyaguska.Actors
 
         public override void Reset()
         {
-            var velocity = _rigidbody2D.velocity;
-            velocity.x = 0f;
-            _rigidbody2D.velocity = velocity;
+            _rigidbody2D.velocity = Vector2.up;
             _frogDie.Reset();
             _animation.Reset();
+            _stateMachine.Reset();
         }
 
         public override void Pause()
@@ -95,7 +92,6 @@ namespace Lyaguska.Actors
         private void OnLand()
         {
             _rigidbody2D.velocity = Vector2.zero;
-
         }
     }
 }

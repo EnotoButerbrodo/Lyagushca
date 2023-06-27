@@ -283,6 +283,7 @@ MonoBehaviour:
   _groundChecker: {fileID: 7746660312402523465}
   _frogDie: {fileID: 170767295187182378}
   _animation: {fileID: 5148772178954213971}
+  _stateMachine: {fileID: 5364046645820158168}
   _rigidbody2D: {fileID: 5148772177827140245}
 --- !u!114 &5364046645820158168
 MonoBehaviour:
@@ -777,9 +778,10 @@ MonoBehaviour:
   IsJumpChargingName: IsJumpCharging
   JumpChargePercentName: JumpChargePercent
   JumpName: Jump
-  GroundedName: Grounded
+  LandName: Land
   FallName: Fall
   FallVelocityName: FallVelocity
+  HopName: Hop
 --- !u!95 &5148772178954213972
 Animator:
   serializedVersion: 4

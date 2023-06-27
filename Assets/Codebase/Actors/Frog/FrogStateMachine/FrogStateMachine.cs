@@ -5,7 +5,7 @@ using Zenject;
 
 namespace Lyaguska.Actors.StateMachine
 {
-    public class FrogStateMachine : ActorStateMachine
+    public class FrogStateMachine : ActorStateMachine, IResetable
     {
         public FrogState IdleState { get; private set; }
         public FrogState JumpChargeState { get; private set; }
@@ -36,6 +36,10 @@ namespace Lyaguska.Actors.StateMachine
 
         protected override ActorState GetInitialState() => IdleState;
 
+        public void Reset()
+        {
+            ChangeState(IdleState);
+        }
     }
 
 

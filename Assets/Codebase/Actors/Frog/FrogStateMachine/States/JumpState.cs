@@ -18,7 +18,9 @@ namespace Lyaguska.Actors.StateMachine
                 return;
             }
 
-            _stateMachine.Actor.Jump(_charger.ChargePercent);
+            var percent = _charger.ChargePercent;
+            
+            _stateMachine.Actor.Jump(percent);
             _stateMachine.Animator.SetJump();
             _charger.Reset();
             

@@ -22,7 +22,6 @@ namespace Lyaguska.Actors.StateMachine
         {
             _stateMachine.Actor.GroundLand += OnGroundLand;
             _stateMachine.Actor.VelocityChanged += OnVelocityChanged;
-            _stateMachine.Animator.SetGrounded(false);
             _stateMachine.Animator.SetFallVelocity(0f);
         }
 
@@ -54,7 +53,7 @@ namespace Lyaguska.Actors.StateMachine
         private void OnGroundLand()
         {
             _stateMachine.Actor.GroundLand -= OnGroundLand;
-            _stateMachine.Animator.SetGrounded(true);
+            _stateMachine.Animator.SetLand();
 
             _timer.Finished -= OnTimerFinished;
             _timer.Stop();
