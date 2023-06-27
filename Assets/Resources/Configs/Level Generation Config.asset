@@ -14,10 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _seed: 0
   _useRandomSeed: 0
-  _chunksCollection: {fileID: 11400000, guid: e94d5ee6e8d9b094bafc6abe1b29ce1e, type: 2}
   _minYOffset: -1.5
-  _maxYOffset: 1.5
-  _minXOffset: 3
+  _maxYOffset: -5
+  _minXOffset: 1
   _maxXOffset: 5
   _minChunkY: -5
   _maxChunkY: 5

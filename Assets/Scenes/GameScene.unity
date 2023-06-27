@@ -414,6 +414,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: -----Installs------
       objectReference: {fileID: 0}
+    - target: {fileID: 1158784918336610156, guid: 105409cff3ed9e240aeb6635dae93d37, type: 3}
+      propertyPath: _chunksCollection
+      value: 
+      objectReference: {fileID: 11400000, guid: e94d5ee6e8d9b094bafc6abe1b29ce1e, type: 2}
     - target: {fileID: 1158784918336610157, guid: 105409cff3ed9e240aeb6635dae93d37, type: 3}
       propertyPath: m_RootOrder
       value: 1

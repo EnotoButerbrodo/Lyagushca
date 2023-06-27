@@ -16,6 +16,7 @@ namespace EnotoButerbrodo.LevelGeneration
         [SerializeField] private Transform _endPosition;
         [SerializeField] private float _distanceLevel;
         [SerializeField] private float _heightLevel;
+        
         private Action<Chunk> _returnAction;
 
         public void Link(Vector2 point)

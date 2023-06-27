@@ -46,7 +46,7 @@ namespace EnotoButerbrodo.LevelGeneration
                     _chunks.Add(key: chunk.Type, value: poolList);
                 }
 
-                _chunks[chunk.Type].Add(new ChunksPool(chunk, startCapacity: 4, _parent));
+                _chunks[chunk.Type].Add(new ChunksPool(chunk, startCapacity: 1, _parent));
             }
         }
 
