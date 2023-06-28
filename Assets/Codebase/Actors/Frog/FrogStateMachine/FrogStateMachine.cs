@@ -14,6 +14,8 @@ namespace Lyaguska.Actors.StateMachine
         public FrogState JumpChargeState { get; private set; }
         public FrogState JumpState { get; private set; }
         public FrogState AirState { get; private set; }
+        public FrogState LandState { get; private set; }
+        
         public FrogAnimator Animator => _animator;
         
 
@@ -23,6 +25,7 @@ namespace Lyaguska.Actors.StateMachine
             JumpChargeState = _factory.GetJumpChargeState(this);
             JumpState = _factory.GetJumpState(this);
             AirState = _factory.GetAirState(this);
+            LandState = _factory.GetLandState(this);
         }
 
         protected override ActorState GetInitialState() => IdleState;

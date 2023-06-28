@@ -1,4 +1,5 @@
 ﻿using EnotoButebrodo;
+using Lyaguska.Handlers;
 using Lyaguska.Services;
 using UnityEngine;
 using Zenject;
@@ -7,8 +8,9 @@ namespace Lyaguska.Actors.StateMachine
 {
     public class FrogStateFactory : MonoBehaviour
     {
+        [SerializeField] private JumpHandler _jumpHandler;
         [Inject] private DiContainer _container;
-        
+
         public FrogState GetIdleState(FrogStateMachine context)
             => new IdleState(context
                 , _container.Resolve<IJumpChargeService>());
@@ -25,6 +27,8 @@ namespace Lyaguska.Actors.StateMachine
             => new AirState(context
                 , _container.Resolve<IJumpChargeService>()
                 , _container.Resolve<ITimersService>());
-        
+
+        public FrogState GetLandState(FrogStateMachine context)
+            => new LandState(context, _jumpHandler);
     }
 }

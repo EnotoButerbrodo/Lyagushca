@@ -26,6 +26,11 @@ namespace Lyaguska.Handlers
             Jumped?.Invoke();
         }
 
+        public void HardLand()
+        {
+            _rigidbody.velocity = Vector2.zero;
+        }
+
         private void FixedUpdate()
         {
             VelocityChanged?.Invoke(_rigidbody.velocity);

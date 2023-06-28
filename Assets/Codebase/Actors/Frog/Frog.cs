@@ -44,11 +44,6 @@ namespace Lyaguska.Actors
         public override bool Grounded => _groundChecker.IsGrounded();
         
 
-        private void Awake()
-        {
-            _groundChecker.Grounded += OnLand;
-        }
-
         public override void HandleButtonPress()
         {
             _stateMachine.ButtonPressHandler();
@@ -87,12 +82,6 @@ namespace Lyaguska.Actors
         {
             _rigidbody2D.simulated = true;
             _animation.Resume();
-        }
-
-        private void OnLand()
-        {
-            if(!_frogDie.IsDead)
-                _rigidbody2D.velocity = Vector2.zero;
         }
     }
 }

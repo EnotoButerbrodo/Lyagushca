@@ -17,7 +17,6 @@ namespace Lyaguska.Actors.StateMachine
             _charger = charger;
             _timersService = timersService;
             _timer = _timersService.GetTimer();
-
             _timer.Finished += OnTimerFinished;
         }
 
@@ -56,11 +55,9 @@ namespace Lyaguska.Actors.StateMachine
         private void OnGroundLand()
         {
             Context.Actor.GroundLand -= OnGroundLand;
-            Context.Animator.SetLand();
-
             _timer.Finished -= OnTimerFinished;
-            _timer.Stop();
-            Context.ChangeState(Context.IdleState);
+            _timer.Stop(); 
+            Context.ChangeState(Context.LandState);
         }
         
         private void OnTimerFinished(TimerEventArgs obj)
