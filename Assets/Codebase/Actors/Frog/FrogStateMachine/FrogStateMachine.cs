@@ -8,14 +8,12 @@ namespace Lyaguska.Actors.StateMachine
     public class FrogStateMachine : ActorStateMachine, IResetable
     {
         [SerializeField] private FrogAnimator _animator;
-
         [SerializeField] private FrogStateFactory _factory;
         
         public FrogState IdleState { get; private set; }
         public FrogState JumpChargeState { get; private set; }
         public FrogState JumpState { get; private set; }
         public FrogState AirState { get; private set; }
-
         public FrogAnimator Animator => _animator;
         
 

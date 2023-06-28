@@ -35,14 +35,6 @@ namespace Lyaguska.Actors.StateMachine
                 Context.ChangeState(Context.JumpState);
             }
         }
-        
-
-        public override void Exit()
-        {
-        }
-
-
-        
     }
 
 

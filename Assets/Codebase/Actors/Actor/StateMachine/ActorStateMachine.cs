@@ -3,16 +3,15 @@ using UnityEngine;
 
 namespace Lyaguska.Actors.StateMachine
 {
-    [RequireComponent(typeof(Actor))]
     public abstract class ActorStateMachine : MonoBehaviour
     {
-        public Actor Actor { get; private set; }
+        [SerializeField] private Actor _actor;
+        public Actor Actor => _actor;
 
         private ActorState _currentState;
 
         private void Awake()
         {
-            Actor = GetComponent<Actor>();
             InitializeStates();
             ChangeState(GetInitialState());
             OnAwake();
