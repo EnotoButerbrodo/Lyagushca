@@ -53,11 +53,6 @@ namespace Lyaguska.Actors
             _stateMachine.ButtonReleaseHandler();
         }
 
-        public override void Jump(float chargePercent)
-        {
-            _jumpHandler.Jump(chargePercent);
-        }
-
         public override void Die()
         {
             _frogDie.Die();

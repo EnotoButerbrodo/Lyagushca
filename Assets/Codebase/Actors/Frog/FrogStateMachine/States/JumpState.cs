@@ -6,11 +6,14 @@ namespace Lyaguska.Actors.StateMachine
     public class JumpState : FrogState
     {
         private IJumpChargeService _charger;
+        private readonly JumpHandler _jumpHandler;
 
         public JumpState(FrogStateMachine context
-            , IJumpChargeService charger) : base(context)
+            , IJumpChargeService charger
+            , JumpHandler jumpHandler) : base(context)
         {
             _charger = charger;
+            _jumpHandler = jumpHandler;
         }
 
         public override void Enter()
@@ -23,7 +26,7 @@ namespace Lyaguska.Actors.StateMachine
 
             var percent = _charger.ChargePercent;
             
-            Context.Actor.Jump(percent);
+            _jumpHandler.Jump(percent);
             Context.Animator.SetJump();
             Context.FrogSound.PlayJump();
             _charger.Reset();

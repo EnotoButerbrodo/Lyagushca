@@ -22,7 +22,8 @@ namespace Lyaguska.Actors.StateMachine
 
         public FrogState GetJumpState(FrogStateMachine context)
             => new JumpState(context
-                , _container.Resolve<IJumpChargeService>());
+                , _container.Resolve<IJumpChargeService>()
+                , _jumpHandler);
 
         public FrogState GetAirState(FrogStateMachine context)
             => new AirState(context
