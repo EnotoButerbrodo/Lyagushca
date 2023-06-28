@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using Random = EnotoButebrodo.Random;
 
 namespace EnotoButerbrodo.LevelGeneration
 {
