@@ -1,11 +1,14 @@
-﻿using Lyaguska.Services;
+﻿using Lyaguska.Handlers;
+using Lyaguska.Services;
 
 namespace Lyaguska.Actors.StateMachine
 {
     public class JumpState : FrogState
     {
         private IJumpChargeService _charger;
-        public JumpState(FrogStateMachine context, IJumpChargeService charger) : base(context)
+
+        public JumpState(FrogStateMachine context
+            , IJumpChargeService charger) : base(context)
         {
             _charger = charger;
         }
@@ -22,6 +25,7 @@ namespace Lyaguska.Actors.StateMachine
             
             Context.Actor.Jump(percent);
             Context.Animator.SetJump();
+            Context.FrogSound.PlayJump();
             _charger.Reset();
             
             Context.ChangeState(Context.AirState);

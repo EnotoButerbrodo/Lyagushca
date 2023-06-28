@@ -14,7 +14,6 @@ namespace Lyaguska.Actors
         [SerializeField] private FrogStateMachine _stateMachine;
         [SerializeField] private Rigidbody2D _rigidbody2D;
 
-
         public override event Action Jumped
         {
             add => _jumpHandler.Jumped += value;

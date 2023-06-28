@@ -9,6 +9,7 @@ namespace Lyaguska.Actors.StateMachine
     public class FrogStateFactory : MonoBehaviour
     {
         [SerializeField] private JumpHandler _jumpHandler;
+        [SerializeField] private FrogSoundHandler _frogSound;
         [Inject] private DiContainer _container;
 
         public FrogState GetIdleState(FrogStateMachine context)

@@ -4,41 +4,25 @@ using Random = EnotoButebrodo.Random;
 
 namespace Lyaguska.Handlers
 {
-    public class ActorSoundHanler : MonoBehaviour
+    public class FrogSoundHandler : MonoBehaviour
     {
-        [SerializeField] private Actor _actor;
         [SerializeField] private AudioSource _audioSource;
         
         [SerializeField] private AudioClip _jumpSound;
         [SerializeField] private AudioClip _groundSound;
         [SerializeField] private AudioClip _dieSound;
 
-
-        private void OnEnable()
-        {
-            _actor.Jumped += OnJump;
-            _actor.Dead += OnDead;
-        }
-
-
-        private void OnDisable()
-        {
-            
-            _actor.Jumped -= OnJump;
-            _actor.Dead -= OnDead;
-        }
-
-        private void OnDead()
+        public void PlayDead()
         {
             Play(_dieSound);
         }
 
-        private void OnJump()
+        public void PlayJump()
         {
             Play(_jumpSound);
         }
 
-        private void OnGrounded()
+        public void PlayLand()
         {
             Play(_groundSound);
         }

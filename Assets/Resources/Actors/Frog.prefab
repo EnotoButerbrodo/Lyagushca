@@ -47,6 +47,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _actor: {fileID: 5148772177827140243}
   _animator: {fileID: 5148772178954213971}
+  _frogSound: {fileID: 7794882868411023194}
   _factory: {fileID: 8396346646584821947}
 --- !u!114 &8396346646584821947
 MonoBehaviour:
@@ -61,6 +62,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _jumpHandler: {fileID: 5148772177827140244}
+  _frogSound: {fileID: 7794882868411023194}
 --- !u!1 &4357068927478415720
 GameObject:
   m_ObjectHideFlags: 0
@@ -106,7 +108,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58354861272440ee872c10b06ae792a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _actor: {fileID: 5148772177827140243}
   _audioSource: {fileID: 6311751767987019570}
   _jumpSound: {fileID: 8300000, guid: 765828436b456fd45843e3e87ff77ce9, type: 3}
   _groundSound: {fileID: 8300000, guid: 6cfa4dff286f2564893cd406f595e0e1, type: 3}
@@ -587,6 +588,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _frogCollider: {fileID: 2554465496884473422}
   _animator: {fileID: 5148772178954213971}
+  _frogSound: {fileID: 7794882868411023194}
 --- !u!50 &5148772177827140245
 Rigidbody2D:
   serializedVersion: 4
