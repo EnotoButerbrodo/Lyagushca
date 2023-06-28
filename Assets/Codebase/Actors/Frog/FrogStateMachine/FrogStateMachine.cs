@@ -9,7 +9,7 @@ namespace Lyaguska.Actors.StateMachine
     {
         [SerializeField] private FrogAnimator _animator;
 
-        [Inject] private IFrogStateFactory _factory;
+        [SerializeField] private FrogStateFactory _factory;
         
         public FrogState IdleState { get; private set; }
         public FrogState JumpChargeState { get; private set; }

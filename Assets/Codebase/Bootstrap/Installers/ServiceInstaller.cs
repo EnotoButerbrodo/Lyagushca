@@ -36,8 +36,6 @@ namespace Lyaguska.Bootstrap.Installers
             BindPlayerControlService(inputService, pauseService);
             BindProgressService();
             BindDieCheckService();
-
-            BindFrogStateFactory();
         }
 
 
@@ -227,17 +225,6 @@ namespace Lyaguska.Bootstrap.Installers
                 .Bind<IActorDieCheckService>()
                 .To<ActorDieCheckService>()
                 .FromNew()
-                .AsSingle();
-        }
-
-        private void BindFrogStateFactory()
-        {
-            FrogStateFactory factory = new FrogStateFactory(Container);
-
-            Container
-                .Bind<IFrogStateFactory>()
-                .To<FrogStateFactory>()
-                .FromInstance(factory)
                 .AsSingle();
         }
     }

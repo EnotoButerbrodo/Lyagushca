@@ -1,17 +1,13 @@
 ﻿using EnotoButebrodo;
 using Lyaguska.Services;
+using UnityEngine;
 using Zenject;
 
 namespace Lyaguska.Actors.StateMachine
 {
-    public class FrogStateFactory : IFrogStateFactory
+    public class FrogStateFactory : MonoBehaviour
     {
-        private readonly DiContainer _container;
-
-        public FrogStateFactory(DiContainer container)
-        {
-            _container = container;
-        }
+        [Inject] private DiContainer _container;
         
         public FrogState GetIdleState(FrogStateMachine context)
             => new IdleState(context

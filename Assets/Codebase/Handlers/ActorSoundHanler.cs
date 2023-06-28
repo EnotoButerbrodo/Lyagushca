@@ -16,7 +16,6 @@ namespace Lyaguska.Handlers
 
         private void OnEnable()
         {
-            
             _actor.Jumped += OnJump;
             _actor.Dead += OnDead;
         }
