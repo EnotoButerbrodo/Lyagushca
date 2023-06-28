@@ -15,9 +15,7 @@ namespace Lyaguska.Actors.StateMachine
 
         public override void Enter()
         {
-            if(!Context.Actor.IsDead)
-                _jumpHandler.HardLand();
-            
+            _jumpHandler.HardLand();
             Context.Animator.SetLand();
             Context.FrogSound.PlayLand();
             Context.ChangeState(Context.IdleState);

@@ -9,7 +9,8 @@ namespace Lyaguska.Actors.StateMachine
     public class FrogStateFactory : MonoBehaviour
     {
         [SerializeField] private JumpHandler _jumpHandler;
-        [SerializeField] private FrogSoundHandler _frogSound;
+        [SerializeField] private Collider2D _frogCollider;
+        
         [Inject] private DiContainer _container;
 
         public FrogState GetIdleState(FrogStateMachine context)
@@ -32,5 +33,10 @@ namespace Lyaguska.Actors.StateMachine
 
         public FrogState GetLandState(FrogStateMachine context)
             => new LandState(context, _jumpHandler);
+
+        public FrogState GetDeadState(FrogStateMachine context)
+            => new DeadState(context
+                , _container.Resolve<IJumpChargeService>()
+                , _frogCollider);
     }
 }

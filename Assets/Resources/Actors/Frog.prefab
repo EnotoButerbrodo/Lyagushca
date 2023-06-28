@@ -62,7 +62,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _jumpHandler: {fileID: 5148772177827140244}
-  _frogSound: {fileID: 7794882868411023194}
+  _frogCollider: {fileID: 2554465496884473422}
 --- !u!1 &4357068927478415720
 GameObject:
   m_ObjectHideFlags: 0
@@ -586,9 +586,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4be0d4fb65c24c0f80f7c04e821bc9d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _frogCollider: {fileID: 2554465496884473422}
-  _animator: {fileID: 5148772178954213971}
-  _frogSound: {fileID: 7794882868411023194}
+  _frogStateMachine: {fileID: 7007589367334615620}
 --- !u!50 &5148772177827140245
 Rigidbody2D:
   serializedVersion: 4
