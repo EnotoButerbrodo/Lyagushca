@@ -27,11 +27,15 @@ namespace EnotoButerbrodo.LevelGeneration
 
         private Vector2 GetRandomOffset(float distance)
         {
-            float scoreModificator = distance / 100f;
-            float xOffset = Mathf.Clamp(Random.Range(_config.MinXOffset + scoreModificator, _config.MaxXOffset), _config.MinXOffset, _config.MaxXOffset);
-            float yOffset = Mathf.Clamp(Random.Range(_config.MinYOffset + scoreModificator, _config.MaxYOffset), _config.MinYOffset, _config.MaxYOffset);
+            float scoreModificator = distance / 1000f;
+            float xOffset = Random.Range(_config.MinXOffset + scoreModificator, _config.MaxXOffset);
+            float xOffsetClamp = Mathf.Clamp(xOffset, _config.MinXOffset, _config.MaxXOffset);
+            
+            float yOffset = Random.Range(_config.MinYOffset, _config.MaxYOffset);
+            float yOffsetClamp = Mathf.Clamp(yOffset, _config.MinChunkY, _config.MaxChunkY);
 
-            return xOffset * Vector2.right + yOffset * Vector2.up;
+            return xOffsetClamp * Vector2.right 
+                   + yOffsetClamp * Vector2.up;
         }
         
         private Vector2 ClampPosition(Vector2 position)

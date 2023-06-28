@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _seed: 0
   _useRandomSeed: 0
-  _minYOffset: -1.5
-  _maxYOffset: -5
-  _minXOffset: 1
+  _minYOffset: -3
+  _maxYOffset: 1
+  _minXOffset: 0.25
   _maxXOffset: 5
-  _minChunkY: -5
-  _maxChunkY: 5
+  _minChunkY: -7
+  _maxChunkY: 3
