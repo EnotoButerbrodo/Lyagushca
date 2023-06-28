@@ -9,10 +9,11 @@ namespace Lyaguska.Actors
     {
         [SerializeField] private JumpHandler _jumpHandler;
         [SerializeField] private GroundCheckHandler _groundChecker;
-        [SerializeField] private FrogDieHandler _frogDie;
         [SerializeField] private FrogAnimator _animation;
         [SerializeField] private FrogStateMachine _stateMachine;
         [SerializeField] private Rigidbody2D _rigidbody2D;
+        
+
 
         public override event Action Jumped
         {
@@ -32,16 +33,13 @@ namespace Lyaguska.Actors
             remove => _jumpHandler.VelocityChanged -= value;
         }
 
-        public override event Action Dead
-        {
-            add => _frogDie.Dead += value;
-            remove => _frogDie.Dead -= value;
-        }
+        public override event Action Dead;
 
-        public override bool IsDead => _frogDie.IsDead;
+        public override bool IsDead => _isDead;
 
         public override bool Grounded => _groundChecker.IsGrounded();
         
+        private bool _isDead;
 
         public override void HandleButtonPress()
         {
@@ -55,13 +53,15 @@ namespace Lyaguska.Actors
 
         public override void Die()
         {
-            _frogDie.Die();
+            _stateMachine.ChangeState(_stateMachine.DeadState);
+            Dead?.Invoke();
+            _isDead = true;
         }
 
         public override void Reset()
         {
             _rigidbody2D.velocity = Vector2.up;
-            _frogDie.Reset();
+            _isDead = false;
             _animation.Reset();
             _stateMachine.Reset();
         }

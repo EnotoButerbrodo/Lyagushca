@@ -444,7 +444,6 @@ GameObject:
   - component: {fileID: 5148772177827140247}
   - component: {fileID: 5148772177827140243}
   - component: {fileID: 5148772177827140244}
-  - component: {fileID: 170767295187182378}
   - component: {fileID: 5148772177827140245}
   - component: {fileID: 2554465496884473422}
   - component: {fileID: 8156579803875001570}
@@ -489,7 +488,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _jumpHandler: {fileID: 5148772177827140244}
   _groundChecker: {fileID: 7746660312402523465}
-  _frogDie: {fileID: 170767295187182378}
   _animation: {fileID: 5148772178954213971}
   _stateMachine: {fileID: 7007589367334615620}
   _rigidbody2D: {fileID: 5148772177827140245}
@@ -574,19 +572,6 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   _rigidbody: {fileID: 5148772177827140245}
---- !u!114 &170767295187182378
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5148772177827140233}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4be0d4fb65c24c0f80f7c04e821bc9d3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _frogStateMachine: {fileID: 7007589367334615620}
 --- !u!50 &5148772177827140245
 Rigidbody2D:
   serializedVersion: 4
