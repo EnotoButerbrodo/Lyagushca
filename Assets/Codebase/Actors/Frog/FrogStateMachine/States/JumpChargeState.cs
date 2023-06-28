@@ -5,7 +5,7 @@ namespace Lyaguska.Actors.StateMachine
     public class JumpChargeState : FrogState
     {
         private IJumpChargeService _charger;
-        public JumpChargeState(FrogStateMachine stateMachine, IJumpChargeService charger) : base(stateMachine)
+        public JumpChargeState(FrogStateMachine context, IJumpChargeService charger) : base(context)
         {
             _charger = charger;
         }
@@ -13,23 +13,23 @@ namespace Lyaguska.Actors.StateMachine
         public override void Enter()
         {
             _charger.StartCharge();
-            _stateMachine.Animator.SetJumpCharging(true);
+            Context.Animator.SetJumpCharging(true);
         }
 
         public override void UpdateState()
         {
-            _stateMachine.Animator.SetJumpChargePercent(_charger.ChargePercent);
+            Context.Animator.SetJumpChargePercent(_charger.ChargePercent);
         }
 
         public override void Exit()
         {
-            _stateMachine.Animator.SetJumpCharging(false);
+            Context.Animator.SetJumpCharging(false);
         }
 
         public override void HandleButtonRelease()
         {
             _charger.StopCharge();
-            _stateMachine.ChangeState(_stateMachine.JumpState);
+            Context.ChangeState(Context.JumpState);
         }
     }
 

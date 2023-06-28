@@ -7,7 +7,7 @@ namespace Lyaguska.Actors.StateMachine
     {
         private IJumpChargeService _charger;
 
-        public IdleState(FrogStateMachine stateMachine, IJumpChargeService charger) : base(stateMachine)
+        public IdleState(FrogStateMachine context, IJumpChargeService charger) : base(context)
         {
             _charger = charger;
         }
@@ -20,7 +20,7 @@ namespace Lyaguska.Actors.StateMachine
         
         public override void HandleButtonPress()
         {
-            _stateMachine.ChangeState(_stateMachine.JumpChargeState);
+            Context.ChangeState(Context.JumpChargeState);
         }
 
         public override void HandleButtonRelease()
@@ -30,9 +30,9 @@ namespace Lyaguska.Actors.StateMachine
 
         private void HandleDelayedJump()
         {
-            if (_charger.ChargePercent > 0 && _stateMachine.Actor.Grounded)
+            if (_charger.ChargePercent > 0 && Context.Actor.Grounded)
             {
-                _stateMachine.ChangeState(_stateMachine.JumpState);
+                Context.ChangeState(Context.JumpState);
             }
         }
         

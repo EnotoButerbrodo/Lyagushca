@@ -5,7 +5,7 @@ namespace Lyaguska.Actors.StateMachine
     public class JumpState : FrogState
     {
         private IJumpChargeService _charger;
-        public JumpState(FrogStateMachine stateMachine, IJumpChargeService charger) : base(stateMachine)
+        public JumpState(FrogStateMachine context, IJumpChargeService charger) : base(context)
         {
             _charger = charger;
         }
@@ -14,17 +14,17 @@ namespace Lyaguska.Actors.StateMachine
         {
             if (_charger.ChargePercent == 0)
             {
-                _stateMachine.ChangeState(_stateMachine.IdleState);
+                Context.ChangeState(Context.IdleState);
                 return;
             }
 
             var percent = _charger.ChargePercent;
             
-            _stateMachine.Actor.Jump(percent);
-            _stateMachine.Animator.SetJump();
+            Context.Actor.Jump(percent);
+            Context.Animator.SetJump();
             _charger.Reset();
             
-            _stateMachine.ChangeState(_stateMachine.AirState);
+            Context.ChangeState(Context.AirState);
         }
         
         

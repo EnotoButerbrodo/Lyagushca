@@ -2,6 +2,7 @@
 using Codebase.Services;
 using EnotoButebrodo;
 using EnotoButerbrodo.LevelGeneration;
+using Lyaguska.Actors.StateMachine;
 using Lyaguska.Services;
 using UnityEngine;
 using Zenject;
@@ -35,9 +36,10 @@ namespace Lyaguska.Bootstrap.Installers
             BindPlayerControlService(inputService, pauseService);
             BindProgressService();
             BindDieCheckService();
+
+            BindFrogStateFactory();
         }
 
-       
 
         private ICoroutineRunner BindCoroutineRunner()
         {
@@ -64,7 +66,7 @@ namespace Lyaguska.Bootstrap.Installers
 
             return resetService;
         }
-        
+
         private IPauseService BindPauseService()
         {
             PauseService pause = new PauseService();
@@ -77,7 +79,7 @@ namespace Lyaguska.Bootstrap.Installers
 
             return pause;
         }
-        
+
         private IActorFactory BindActorFactory()
         {
             ActorFactory actorFactory = new ActorFactory(Container);
@@ -90,7 +92,7 @@ namespace Lyaguska.Bootstrap.Installers
 
             return actorFactory;
         }
-        
+
         private IInputService BindInputService()
         {
             var inputService = new InputService();
@@ -103,7 +105,7 @@ namespace Lyaguska.Bootstrap.Installers
 
             return inputService;
         }
-        
+
         private void BindTimerService()
         {
             Container
@@ -112,7 +114,7 @@ namespace Lyaguska.Bootstrap.Installers
                 .FromNewComponentOnNewGameObject()
                 .AsSingle();
         }
-        
+
         private void BindBackgroundSound()
         {
             var backgroundSound = GameObject.Instantiate(_backgroundSound);
@@ -137,7 +139,7 @@ namespace Lyaguska.Bootstrap.Installers
             
             resetService.Register(cameraFollowFollowService);
         }
-        
+
         private void BindDistanceCountService(IResetService resetService)
         {
             var distanceCount = new DistanceCountService();
@@ -150,7 +152,7 @@ namespace Lyaguska.Bootstrap.Installers
             
             resetService.Register(distanceCount);
         }
-        
+
         private void BindJumpForceCharger(IResetService resetService
             , IPauseService pauseService
             , ICoroutineRunner coroutineRunner)
@@ -167,7 +169,7 @@ namespace Lyaguska.Bootstrap.Installers
             resetService.Register(jumpChargeService);
             pauseService.Register(jumpChargeService);
         }
-        
+
         private void BindLevelGeneration(IResetService resetService)
         {
             Transform chunksRoot = new GameObject(_chunksRootName).transform;
@@ -185,7 +187,7 @@ namespace Lyaguska.Bootstrap.Installers
 
             resetService.Register(generationService);
         }
-        
+
         private void BindActorSelectService(IActorFactory actorFactory, IResetService resetService)
         {
             var actorSelectService = new ActorSelectService(actorFactory);
@@ -209,8 +211,8 @@ namespace Lyaguska.Bootstrap.Installers
             
             pause.Register(controlsService);
         }
-        
-        private void BindProgressService()
+
+        private void BindProgressService() 
         {
             Container
                 .Bind<IProgressService>()
@@ -218,13 +220,24 @@ namespace Lyaguska.Bootstrap.Installers
                 .FromNew()
                 .AsSingle();
         }
-        
+
         private void BindDieCheckService()
         {
             Container
                 .Bind<IActorDieCheckService>()
                 .To<ActorDieCheckService>()
                 .FromNew()
+                .AsSingle();
+        }
+
+        private void BindFrogStateFactory()
+        {
+            FrogStateFactory factory = new FrogStateFactory(Container);
+
+            Container
+                .Bind<IFrogStateFactory>()
+                .To<FrogStateFactory>()
+                .FromInstance(factory)
                 .AsSingle();
         }
     }

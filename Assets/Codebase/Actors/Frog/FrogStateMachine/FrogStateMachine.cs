@@ -7,6 +7,10 @@ namespace Lyaguska.Actors.StateMachine
 {
     public class FrogStateMachine : ActorStateMachine, IResetable
     {
+        [SerializeField] private FrogAnimator _animator;
+
+        [Inject] private IFrogStateFactory _factory;
+        
         public FrogState IdleState { get; private set; }
         public FrogState JumpChargeState { get; private set; }
         public FrogState JumpState { get; private set; }
@@ -14,24 +18,13 @@ namespace Lyaguska.Actors.StateMachine
 
         public FrogAnimator Animator => _animator;
         
-        [SerializeField] private FrogAnimator _animator;
-        
-        private IJumpChargeService _charger;
-        private ITimersService _timerService;
-
-        [Inject]
-        public void Construct(IJumpChargeService charger, ITimersService timer)
-        {
-            _charger = charger;
-            _timerService = timer;
-        }
 
         protected override void InitializeStates()
         {
-            IdleState = new IdleState(this, _charger);
-            JumpChargeState = new JumpChargeState(this, _charger);
-            JumpState = new JumpState(this, _charger);
-            AirState = new AirState(this, _charger, _timerService.GetTimer());
+            IdleState = _factory.GetIdleState(this);
+            JumpChargeState = _factory.GetJumpChargeState(this);
+            JumpState = _factory.GetJumpState(this);
+            AirState = _factory.GetAirState(this);
         }
 
         protected override ActorState GetInitialState() => IdleState;

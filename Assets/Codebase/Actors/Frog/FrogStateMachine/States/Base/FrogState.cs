@@ -4,10 +4,10 @@ namespace Lyaguska.Actors.StateMachine
 {
     public abstract class FrogState : ActorState
     {
-        protected FrogStateMachine _stateMachine;
-        public FrogState(FrogStateMachine stateMachine)
+        protected FrogStateMachine Context;
+        public FrogState(FrogStateMachine context)
         {
-            _stateMachine = stateMachine;
+            Context = context;
         }
     }
 

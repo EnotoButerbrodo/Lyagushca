@@ -6,28 +6,31 @@ namespace Lyaguska.Actors.StateMachine
 {
     public class AirState : FrogState
     {
-        private IJumpChargeService _charger;
-        private Timer _timer;
-        
-        public AirState(FrogStateMachine stateMachine
+        private readonly IJumpChargeService _charger;
+        private readonly ITimersService _timersService;
+        private readonly Timer _timer;
+
+        public AirState(FrogStateMachine context
             , IJumpChargeService charger
-            , Timer timer) : base(stateMachine)
+            , ITimersService timersService) : base(context)
         {
             _charger = charger;
-            _timer = timer;
+            _timersService = timersService;
+            _timer = _timersService.GetTimer();
+
             _timer.Finished += OnTimerFinished;
         }
 
         public override void Enter()
         {
-            _stateMachine.Actor.GroundLand += OnGroundLand;
-            _stateMachine.Actor.VelocityChanged += OnVelocityChanged;
-            _stateMachine.Animator.SetFallVelocity(0f);
+            Context.Actor.GroundLand += OnGroundLand;
+            Context.Actor.VelocityChanged += OnVelocityChanged;
+            Context.Animator.SetFallVelocity(0f);
         }
 
         public override void HandleButtonPress()
         {
-            if(_stateMachine.Actor.Grounded == false)
+            if(Context.Actor.Grounded == false)
             {
                 _charger.StartCharge();
             }
@@ -41,23 +44,23 @@ namespace Lyaguska.Actors.StateMachine
 
         public override void Exit()
         {
-            _stateMachine.Actor.GroundLand -= OnGroundLand;
-            _stateMachine.Actor.VelocityChanged -= OnVelocityChanged;
+            Context.Actor.GroundLand -= OnGroundLand;
+            Context.Actor.VelocityChanged -= OnVelocityChanged;
         }
 
         private void OnVelocityChanged(Vector2 velocity)
         {
-            _stateMachine.Animator.SetFallVelocity(velocity.y);
+            Context.Animator.SetFallVelocity(velocity.y);
         }
 
         private void OnGroundLand()
         {
-            _stateMachine.Actor.GroundLand -= OnGroundLand;
-            _stateMachine.Animator.SetLand();
+            Context.Actor.GroundLand -= OnGroundLand;
+            Context.Animator.SetLand();
 
             _timer.Finished -= OnTimerFinished;
             _timer.Stop();
-            _stateMachine.ChangeState(_stateMachine.IdleState);
+            Context.ChangeState(Context.IdleState);
         }
         
         private void OnTimerFinished(TimerEventArgs obj)
