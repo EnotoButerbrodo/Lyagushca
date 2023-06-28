@@ -446,6 +446,7 @@ GameObject:
   - component: {fileID: 170767295187182378}
   - component: {fileID: 5148772177827140245}
   - component: {fileID: 2554465496884473422}
+  - component: {fileID: 8156579803875001570}
   m_Layer: 0
   m_Name: Frog
   m_TagString: Untagged
@@ -586,8 +587,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _frogCollider: {fileID: 2554465496884473422}
   _animator: {fileID: 5148772178954213971}
-  _rigidbody: {fileID: 5148772177827140245}
-  _deathForce: 10
 --- !u!50 &5148772177827140245
 Rigidbody2D:
   serializedVersion: 4
@@ -635,6 +634,26 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 0.9873165}
   m_EdgeRadius: 0
+--- !u!95 &8156579803875001570
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5148772177827140233}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: d1a2d9d65e4435b45a53a7c6a69bb879, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &5148772178183353047
 GameObject:
   m_ObjectHideFlags: 0
@@ -821,7 +840,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5148772178954213974}
   - component: {fileID: 5148772178954213971}
-  - component: {fileID: 5148772178954213972}
   - component: {fileID: 5148772178954213973}
   m_Layer: 0
   m_Name: Appearance
@@ -857,7 +875,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: add10dee2d0d27040acd0d4398fb85f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _animator: {fileID: 5148772178954213972}
+  _animator: {fileID: 8156579803875001570}
   IsJumpChargingName: IsJumpCharging
   JumpChargePercentName: JumpChargePercent
   JumpName: Jump
@@ -866,26 +884,6 @@ MonoBehaviour:
   FallVelocityName: FallVelocity
   HopName: Hop
   HurtName: Hurt
---- !u!95 &5148772178954213972
-Animator:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5148772178954213975}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: d1a2d9d65e4435b45a53a7c6a69bb879, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!212 &5148772178954213973
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -927,7 +925,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 20
-  m_Sprite: {fileID: -1114875766, guid: bf508363dd955b648a1ba04015afd270, type: 3}
+  m_Sprite: {fileID: -526750715, guid: 97173c1b6a7bc30408ff2ced361ca61e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
