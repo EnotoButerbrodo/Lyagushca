@@ -110,7 +110,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _audioSource: {fileID: 6311751767987019570}
   _jumpSound: {fileID: 8300000, guid: 765828436b456fd45843e3e87ff77ce9, type: 3}
-  _groundSound: {fileID: 8300000, guid: 436bd680a78c0074a99c296632c6e8de, type: 3}
+  _groundSound: {fileID: 8300000, guid: 9d14a18afa0ba3542807c5fc7365579a, type: 3}
   _dieSound: {fileID: 8300000, guid: fe57d5960e5b4ff4e93d430555cf117c, type: 3}
 --- !u!82 &6311751767987019570
 AudioSource:
