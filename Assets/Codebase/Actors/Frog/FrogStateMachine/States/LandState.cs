@@ -19,6 +19,7 @@ namespace Lyaguska.Actors.StateMachine
                 _jumpHandler.HardLand();
             
             Context.Animator.SetLand();
+            Context.FrogSound.PlayLand();
             Context.ChangeState(Context.IdleState);
         }
     }
