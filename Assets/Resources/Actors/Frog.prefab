@@ -504,13 +504,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _jumpHeightKoeff: 7
-  _jumpRangeKoeff: 4.25
+  _jumpRangeKoeff: 4
   _jumpHeightCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0.50613403
+      value: 0.6010042
       inSlope: -0.052118868
       outSlope: -0.052118868
       tangentMode: 0
@@ -519,7 +519,7 @@ MonoBehaviour:
       outWeight: 0.24583334
     - serializedVersion: 3
       time: 0.10962041
-      value: 0.50626767
+      value: 0.6011378
       inSlope: 0.0012190578
       outSlope: 0.10766409
       tangentMode: 5
