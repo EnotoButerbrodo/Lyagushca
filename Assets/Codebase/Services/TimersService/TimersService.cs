@@ -36,13 +36,11 @@ namespace EnotoButebrodo
 
         public void Pause()
         {
-            Debug.Log("PayseTImers");
             _isPaused = true;
         }
 
         public void Resume()
         {
-            Debug.Log("ResumeTimers");
             _isPaused = false;
         }
     }

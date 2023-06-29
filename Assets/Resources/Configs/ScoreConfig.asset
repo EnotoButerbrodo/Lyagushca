@@ -9,11 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 04f2394c7c4bef745bd62066cc0892b7, type: 3}
-  m_Name: JumpsConfig
+  m_Script: {fileID: 11500000, guid: 1387463111374d1a999d3642216323e6, type: 3}
+  m_Name: ScoreConfig
   m_EditorClassIdentifier: 
-  _autoCharge_MaxChargeTimeInSeconds: 0.4
-  _autoCharge_TicksCount: 10
-  _delayJumpTime: 0.35
-  _kayoteJumpDelay: 0.1
-  _comboClearTime: 0.25
+  <MinDistanceForScore>k__BackingField: 2

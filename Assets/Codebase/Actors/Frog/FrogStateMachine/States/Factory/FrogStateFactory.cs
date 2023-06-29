@@ -27,7 +27,7 @@ namespace Lyaguska.Actors.StateMachine
             => new JumpState(context
                 , _container.Resolve<IJumpChargeService>()
                 , _jumpHandler
-                , _container.Resolve<ScoreService>());
+                , _container.Resolve<IScoreService>());
 
         public FrogState GetAirState(FrogStateMachine context)
             => new AirState(context
@@ -38,7 +38,7 @@ namespace Lyaguska.Actors.StateMachine
         public FrogState GetLandState(FrogStateMachine context)
             => new LandState(context
                 , _jumpHandler
-                , _container.Resolve<ScoreService>());
+                , _container.Resolve<IScoreService>());
 
         public FrogState GetDeadState(FrogStateMachine context)
             => new DeadState(context

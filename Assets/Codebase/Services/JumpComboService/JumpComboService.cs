@@ -48,6 +48,14 @@ namespace Codebase.Services.JumpComboService
             Debug.Log("Combo " + Combo);
         }
 
+        public void ClearCombo()
+        {
+            int lastCombo = Combo;
+            Combo = 0;
+            ComboCleared?.Invoke(lastCombo);
+            Debug.Log("Cleared");
+        }
+
         public void Reset()
         {
             ClearCombo();
@@ -56,14 +64,6 @@ namespace Codebase.Services.JumpComboService
         private void OnComboTimerFinished(TimerEventArgs obj)
         {
             ClearCombo();
-        }
-
-        private void ClearCombo()
-        {
-            int lastCombo = Combo;
-            Combo = 0;
-            ComboCleared?.Invoke(lastCombo);
-            Debug.Log("Cleared");
         }
     }
 }

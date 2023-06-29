@@ -8,11 +8,11 @@ namespace Lyaguska.Actors.StateMachine
     public class LandState : FrogState
     {
         private readonly JumpHandler _jumpHandler;
-        private readonly ScoreService _scoreService;
+        private readonly IScoreService _scoreService;
 
         public LandState(FrogStateMachine context
         , JumpHandler jumpHandler
-        , ScoreService scoreService) : base(context)
+        , IScoreService scoreService) : base(context)
         {
             _jumpHandler = jumpHandler;
             _scoreService = scoreService;

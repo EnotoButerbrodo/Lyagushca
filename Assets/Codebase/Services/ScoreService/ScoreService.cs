@@ -5,19 +5,18 @@ using UnityEngine;
 
 namespace Codebase.Services.ScoreService
 {
-    public class ScoreConfig : ScriptableObject
-    {
-        
-    }
-    public class ScoreService
+    public class ScoreService : IScoreService
     {
         public int Score { get; private set; }
         public int ScoreBuffer { get; private set; }
 
-        public ScoreService(IJumpComboService jumpCombo, IDistanceCountService distanceCount)
+        public ScoreService(IJumpComboService jumpCombo
+            , IDistanceCountService distanceCount
+            , ScoreConfig scoreConfig)
         {
             _jumpCombo = jumpCombo;
             _distanceCount = distanceCount;
+            _scoreConfig = scoreConfig;
         }
 
         public event Action<int> ScoreChanged;
@@ -26,14 +25,13 @@ namespace Codebase.Services.ScoreService
         
         private readonly IJumpComboService _jumpCombo;
         private readonly IDistanceCountService _distanceCount;
+        private readonly ScoreConfig _scoreConfig;
 
 
         private float _jumpPosition;
         
         public void SetJump()
         {
-            //Значение очков в первую очередь от длины прыжка
-            //Очков комбо
             _jumpPosition = _distanceCount.Distance;
             _jumpCombo.SetJump();
         }
@@ -41,12 +39,25 @@ namespace Codebase.Services.ScoreService
         public void SetLand()
         {
             var landDistance = _distanceCount.Distance;
-            var jumpDistance = landDistance - _jumpPosition;
-            _jumpCombo.SetLand();
+            var jumpDistance = landDistance - _jumpPosition - _scoreConfig.MinDistanceForScore;
 
+            if (jumpDistance <= 0)
+            {
+                _jumpCombo.ClearCombo();
+                return;
+            }
+                
+
+            _jumpCombo.SetLand();
+            
             Score = Mathf.CeilToInt(jumpDistance) * _jumpCombo.Combo;
             Debug.Log(Score);
 
+        }
+
+        public void Reset()
+        {
+            _jumpPosition = 0;
         }
     }
 }

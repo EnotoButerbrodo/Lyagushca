@@ -9,5 +9,6 @@ namespace Codebase.Services.JumpComboService
         public int Combo { get; }
         public void SetJump();
         public void SetLand();
+        void ClearCombo();
     }
 }

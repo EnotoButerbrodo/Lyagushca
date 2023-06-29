@@ -245,14 +245,20 @@ namespace Lyaguska.Bootstrap.Installers
         {
             var comboService = new JumpComboService(timersService
             , Container.Resolve<JumpsConfig>());
+            
+            resetService.Register(comboService);
 
-
-            var scoreService = new ScoreService(comboService, distanceCount);
+            ScoreService scoreService = new ScoreService(comboService
+                , distanceCount
+                , Container.Resolve<ScoreConfig>());
 
             Container
-                .Bind<ScoreService>()
+                .Bind<IScoreService>()
+                .To<ScoreService>()
                 .FromInstance(scoreService)
                 .AsSingle();
+            
+            resetService.Register(scoreService);
 
         }
     }
