@@ -10,11 +10,10 @@ namespace EnotoButerbrodo.LevelGeneration
     {
         private ChunksCollection _chunksCollection;
         private readonly Transform _parent;
-        private IDistinctRandom _random;
+        
 
         private Dictionary<ChunkType, List<ChunksPool>> _chunks;
-        private Dictionary<ChunkType, IDistinctRandom> _randoms;
- 
+
 
         public ChunkFactory(ChunksCollection chunksCollection, Transform parent)
         {
@@ -25,7 +24,7 @@ namespace EnotoButerbrodo.LevelGeneration
         public Chunk GetChunk(ChunkType type, float distance)
         {
             var chunksPool = _chunks[type];
-            int chunkIndex = _randoms[type].GetDistinctNumber();
+            int chunkIndex = Random.Range(0, chunksPool.Count - 1);
 
             return chunksPool[chunkIndex].Get();
         }
@@ -50,13 +49,6 @@ namespace EnotoButerbrodo.LevelGeneration
                 }
 
                 _chunks[chunk.Type].Add(new ChunksPool(chunk, startCapacity: 1, _parent));
-            }
-
-            _randoms = new Dictionary<ChunkType, IDistinctRandom>(_chunks.Count);
-            
-            foreach (var chunk in _chunks)
-            {
-                _randoms.Add(chunk.Key, new DistinctRandom(0, chunk.Value.Count));
             }
         }
 

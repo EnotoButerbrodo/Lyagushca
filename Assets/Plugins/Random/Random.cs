@@ -5,6 +5,7 @@ namespace EnotoButebrodo
 {
     public static class Random
     {
+        public static int DistinctResolveIterationCount = 1;
         private static float _lastNumber;
 
         public static void SetSeed(int seed)
@@ -16,25 +17,29 @@ namespace EnotoButebrodo
         {
             float number = UnityEngine.Random.Range(from, to);
 
-            return ResolveRepitition(number, from, to);
+            return ResolveRepeat(number, from, to);
         }
 
         public static int Range(int from, int to)
         {
             int number = UnityEngine.Random.Range(from, to + 1);
 
-            return (int)ResolveRepitition(number, from, to);
+            return (int)ResolveRepeat(number, from, to);
         }
 
-        private static float ResolveRepitition(float number, float from, float to)
+        private static float ResolveRepeat(float number, float from, float to)
         {
             if (number == _lastNumber)
             {
-                float fromResolve = (number - from) * -1;
-                float toResolve = to - number;
-                number += UnityEngine.Random.Range(fromResolve, toResolve);
+                for (int i = 0; i < DistinctResolveIterationCount; i++)
+                {
+                    number = UnityEngine.Random.Range(from, to);
+                    
+                    if(number != _lastNumber)
+                        break;
+                }
             }
-
+            
             _lastNumber = number;
             return number;
         }
