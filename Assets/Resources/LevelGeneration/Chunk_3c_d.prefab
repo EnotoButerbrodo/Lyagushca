@@ -124,6 +124,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Chunk_3c_d
       objectReference: {fileID: 0}
+    - target: {fileID: 6679725629398733055, guid: d0ee6291deb1dfe48ab28d6f2d110a95, type: 3}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d0ee6291deb1dfe48ab28d6f2d110a95, type: 3}
 --- !u!4 &3489083076058048149 stripped

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04f2394c7c4bef745bd62066cc0892b7, type: 3}
   m_Name: JumpsConfig
   m_EditorClassIdentifier: 
-  _autoCharge_MaxChargeTimeInSeconds: 0.5
+  _autoCharge_MaxChargeTimeInSeconds: 0.4
   _autoCharge_TicksCount: 10
   _delayJumpTime: 0.3
   _kayoteJumpDelay: 0.1

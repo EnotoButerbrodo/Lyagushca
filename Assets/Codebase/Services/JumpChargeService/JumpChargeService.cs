@@ -83,7 +83,6 @@ namespace Lyaguska.Services
             float waitTime = _gameConfig.AutoCharge_MaxChargeTimeInSeconds / _gameConfig.AutoCharge_TickCount;
             WaitForSeconds waiter = new WaitForSeconds(waitTime);
             WaitForSeconds chargesDelay = new WaitForSeconds(.25f);
-  
 
             for (int currentTime = 1; currentTime < _gameConfig.AutoCharge_TickCount; currentTime++)
             {
@@ -91,7 +90,6 @@ namespace Lyaguska.Services
                     yield return null;
                 
                 ChargePercent = (float)currentTime / _gameConfig.AutoCharge_TickCount;
-
                 yield return waiter;
             }
 

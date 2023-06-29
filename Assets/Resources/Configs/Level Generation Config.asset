@@ -15,8 +15,8 @@ MonoBehaviour:
   _seed: 0
   _useRandomSeed: 0
   _minYOffset: -2.25
-  _maxYOffset: 1
-  _minXOffset: 0.75
+  _maxYOffset: 1.15
+  _minXOffset: 1
   _maxXOffset: 5
   _minChunkY: -7
-  _maxChunkY: 3
+  _maxChunkY: 5
