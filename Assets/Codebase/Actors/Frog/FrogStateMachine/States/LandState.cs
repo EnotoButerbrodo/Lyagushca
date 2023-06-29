@@ -1,4 +1,5 @@
 ﻿using Codebase.Services.JumpComboService;
+using Codebase.Services.ScoreService;
 using Lyaguska.Handlers;
 using UnityEngine;
 
@@ -7,14 +8,14 @@ namespace Lyaguska.Actors.StateMachine
     public class LandState : FrogState
     {
         private readonly JumpHandler _jumpHandler;
-        private readonly IJumpComboService _jumpCombo;
+        private readonly ScoreService _scoreService;
 
         public LandState(FrogStateMachine context
         , JumpHandler jumpHandler
-        , IJumpComboService jumpCombo) : base(context)
+        , ScoreService scoreService) : base(context)
         {
             _jumpHandler = jumpHandler;
-            _jumpCombo = jumpCombo;
+            _scoreService = scoreService;
         }
 
         public override void Enter()
@@ -22,7 +23,7 @@ namespace Lyaguska.Actors.StateMachine
             _jumpHandler.HardLand();
             Context.Animator.SetLand();
             Context.FrogSound.PlayLand();
-            _jumpCombo.SetLand();
+            _scoreService.SetLand();
             
             Context.ChangeState(Context.IdleState);
         }

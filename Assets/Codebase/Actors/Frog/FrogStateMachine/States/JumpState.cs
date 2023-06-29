@@ -1,4 +1,5 @@
 ﻿using Codebase.Services.JumpComboService;
+using Codebase.Services.ScoreService;
 using Lyaguska.Handlers;
 using Lyaguska.Services;
 
@@ -8,16 +9,16 @@ namespace Lyaguska.Actors.StateMachine
     {
         private IJumpChargeService _charger;
         private readonly JumpHandler _jumpHandler;
-        private readonly IJumpComboService _jumpCombo;
+        private readonly ScoreService _scoreService;
 
         public JumpState(FrogStateMachine context
             , IJumpChargeService charger
             , JumpHandler jumpHandler
-            , IJumpComboService jumpCombo) : base(context)
+            , ScoreService scoreService) : base(context)
         {
             _charger = charger;
             _jumpHandler = jumpHandler;
-            _jumpCombo = jumpCombo;
+            _scoreService = scoreService;
         }
 
         public override void Enter()
@@ -33,7 +34,7 @@ namespace Lyaguska.Actors.StateMachine
             _jumpHandler.Jump(percent);
             Context.Animator.SetJump();
             Context.FrogSound.PlayJump();
-            _jumpCombo.SetJump();
+            _scoreService.SetJump();
             _charger.Reset();
             
             Context.ChangeState(Context.AirState);

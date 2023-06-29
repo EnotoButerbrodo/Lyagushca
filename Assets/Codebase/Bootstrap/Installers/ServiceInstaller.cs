@@ -1,13 +1,12 @@
 ﻿using Cinemachine;
 using Codebase.Services;
 using Codebase.Services.JumpComboService;
+using Codebase.Services.ScoreService;
 using EnotoButebrodo;
 using EnotoButerbrodo.LevelGeneration;
-using Lyaguska.Actors.StateMachine;
 using Lyaguska.Services;
 using UnityEngine;
 using Zenject;
-using Timer = EnotoButebrodo.Timer;
 
 namespace Lyaguska.Bootstrap.Installers
 {
@@ -24,16 +23,16 @@ namespace Lyaguska.Bootstrap.Installers
             IActorFactory actorFactory = BindActorFactory();
             IInputService inputService = BindInputService();
             ICoroutineRunner coroutineRunner = BindCoroutineRunner();
-            
+            IDistanceCountService distanceCount = BindDistanceCountService(resetService);
+
             ITimersService timersService = BindTimerService(pauseService);
             BindBackgroundSound();
 
             BindCameraService(resetService);
-            BindDistanceCountService(resetService);
             BindJumpForceCharger(resetService, pauseService, coroutineRunner);
-            BindLevelGeneration(resetService);
+            BindLevelGeneration(resetService, distanceCount);
             BindActorSelectService(actorFactory, resetService);
-            BindComboService(resetService, timersService);
+            BindScoreService(resetService, timersService, distanceCount);
 
             BindPlayerControlService(inputService, pauseService);
             BindProgressService();
@@ -147,7 +146,7 @@ namespace Lyaguska.Bootstrap.Installers
             resetService.Register(cameraFollowFollowService);
         }
 
-        private void BindDistanceCountService(IResetService resetService)
+        private IDistanceCountService BindDistanceCountService(IResetService resetService)
         {
             var distanceCount = new DistanceCountService();
 
@@ -158,6 +157,8 @@ namespace Lyaguska.Bootstrap.Installers
                 .AsSingle();
             
             resetService.Register(distanceCount);
+
+            return distanceCount;
         }
 
         private void BindJumpForceCharger(IResetService resetService
@@ -177,14 +178,15 @@ namespace Lyaguska.Bootstrap.Installers
             pauseService.Register(jumpChargeService);
         }
 
-        private void BindLevelGeneration(IResetService resetService)
+        private void BindLevelGeneration(IResetService resetService
+        , IDistanceCountService distanceCountService)
         {
             Transform chunksRoot = new GameObject(_chunksRootName).transform;
             ChunkFactory factory = new ChunkFactory(Container.Resolve<ChunksCollection>(), chunksRoot);
             
             LevelGenerationService generationService = new LevelGenerationService(Container.Resolve<LevelGenerationConfig>()
                 , factory
-                , Container.Resolve<IDistanceCountService>());
+                , distanceCountService);
 
             Container
                 .Bind<ILevelGenerationService>()
@@ -237,19 +239,21 @@ namespace Lyaguska.Bootstrap.Installers
                 .AsSingle();
         }
 
-        private void BindComboService(IResetService resetService
-            , ITimersService timersService)
+        private void BindScoreService(IResetService resetService
+            , ITimersService timersService
+            , IDistanceCountService distanceCount)
         {
             var comboService = new JumpComboService(timersService
             , Container.Resolve<JumpsConfig>());
 
+
+            var scoreService = new ScoreService(comboService, distanceCount);
+
             Container
-                .Bind<IJumpComboService>()
-                .To<JumpComboService>()
-                .FromInstance(comboService)
+                .Bind<ScoreService>()
+                .FromInstance(scoreService)
                 .AsSingle();
-            
-            resetService.Register(comboService);
+
         }
     }
 }

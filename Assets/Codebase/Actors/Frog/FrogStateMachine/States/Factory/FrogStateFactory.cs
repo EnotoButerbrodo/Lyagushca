@@ -1,4 +1,5 @@
 ﻿using Codebase.Services.JumpComboService;
+using Codebase.Services.ScoreService;
 using EnotoButebrodo;
 using Lyaguska.Handlers;
 using Lyaguska.Services;
@@ -26,7 +27,7 @@ namespace Lyaguska.Actors.StateMachine
             => new JumpState(context
                 , _container.Resolve<IJumpChargeService>()
                 , _jumpHandler
-                , _container.Resolve<IJumpComboService>());
+                , _container.Resolve<ScoreService>());
 
         public FrogState GetAirState(FrogStateMachine context)
             => new AirState(context
@@ -37,7 +38,7 @@ namespace Lyaguska.Actors.StateMachine
         public FrogState GetLandState(FrogStateMachine context)
             => new LandState(context
                 , _jumpHandler
-                , _container.Resolve<IJumpComboService>());
+                , _container.Resolve<ScoreService>());
 
         public FrogState GetDeadState(FrogStateMachine context)
             => new DeadState(context
