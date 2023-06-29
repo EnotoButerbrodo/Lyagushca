@@ -9,13 +9,17 @@ namespace Lyaguska.Actors.StateMachine
         private readonly IJumpChargeService _charger;
         private readonly ITimersService _timersService;
         private readonly Timer _timer;
+        private readonly JumpsConfig _jumpsConfig;
 
         public AirState(FrogStateMachine context
             , IJumpChargeService charger
-            , ITimersService timersService) : base(context)
+            , ITimersService timersService
+            , JumpsConfig jumpsConfig) : base(context)
         {
             _charger = charger;
             _timersService = timersService;
+            _jumpsConfig = jumpsConfig;
+            
             _timer = _timersService.GetTimer();
             _timer.Finished += OnTimerFinished;
         }
@@ -38,7 +42,7 @@ namespace Lyaguska.Actors.StateMachine
         public override void HandleButtonRelease()
         {
             _charger.StopCharge();
-            _timer.Start(0.25f);
+            _timer.Start(_jumpsConfig.DelayJumpTime);
         }
 
         public override void Exit()
@@ -54,9 +58,7 @@ namespace Lyaguska.Actors.StateMachine
 
         private void OnGroundLand()
         {
-            Context.Actor.GroundLand -= OnGroundLand;
-            _timer.Finished -= OnTimerFinished;
-            _timer.Stop(); 
+            _timer.Stop();
             Context.ChangeState(Context.LandState);
         }
         

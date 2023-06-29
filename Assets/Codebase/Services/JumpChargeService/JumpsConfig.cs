@@ -17,10 +17,14 @@ namespace Lyaguska.Services
         [Header("Jump")]
         [SerializeField][Range(0, 1f)] private float _delayJumpTime;
         [SerializeField][Range(0, 1f)] private float _kayoteJumpDelay;
+        [SerializeField][Range(0, 5f)] private float _comboClearTime;
 
         [Tooltip("Задержка перед \"кайот\" прыжком")]
         public float DelayJumpTime => _delayJumpTime;
         [Tooltip("Время кайота для прыжка")]
         public float KayoteJumpDelay => _kayoteJumpDelay;
+
+        public float ComboClearTime => _comboClearTime;
+        
     }
 }

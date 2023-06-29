@@ -1,11 +1,13 @@
 ﻿using System.Collections.Generic;
+using Lyaguska.Services;
 using UnityEngine;
 
 namespace EnotoButebrodo
 {
-    public class TimersService : MonoBehaviour, ITimersService
+    public class TimersService : MonoBehaviour, ITimersService, IPauseable
     {
         private List<Timer> _timers = new List<Timer>(8);
+        private bool _isPaused;
         
         public Timer GetTimer()
         {
@@ -23,10 +25,25 @@ namespace EnotoButebrodo
 
         private void Update()
         {
+            if(_isPaused)
+                return;
+            
             foreach (Timer timer in _timers)
             {
                 timer.UpdateTime(Time.deltaTime);
             }   
+        }
+
+        public void Pause()
+        {
+            Debug.Log("PayseTImers");
+            _isPaused = true;
+        }
+
+        public void Resume()
+        {
+            Debug.Log("ResumeTimers");
+            _isPaused = false;
         }
     }
 }

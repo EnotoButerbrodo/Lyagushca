@@ -34,10 +34,8 @@ namespace Lyaguska.Actors.StateMachine
         public void ChangeState(ActorState state)
         {
             _currentState?.Exit();
-            Debug.Log($"Exit {_currentState}");
             _currentState = state;
             _currentState.Enter();
-            Debug.Log($"Enter {_currentState}");
         }
 
         private void Update()

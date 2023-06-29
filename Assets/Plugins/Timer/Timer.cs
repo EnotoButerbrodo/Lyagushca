@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 using Zenject;
 
 namespace EnotoButebrodo
@@ -9,16 +10,16 @@ namespace EnotoButebrodo
         public event Action<TimerEventArgs> Ticked;
         public event Action<TimerEventArgs> Finished;
 
-        public bool IsStarted => _isStarted;
+        public bool IsActive => _isActive;
 
         private float _currentTime;
         private float _targetTime;
 
-        private bool _isStarted;
+        private bool _isActive;
 
         public void Start(float timeInSeconds)
         {
-            _isStarted = true;
+            _isActive = true;
             _targetTime = timeInSeconds;
             _currentTime = 0;
 
@@ -27,22 +28,24 @@ namespace EnotoButebrodo
 
         public void Stop()
         {
-            _isStarted = false;
-            Finished?.Invoke(GetArgs());
+            _isActive = false;
             _targetTime = 0;
         }
 
         public void UpdateTime(float deltaTime)
         {
-            if (_isStarted == false)
+            if (_isActive == false)
                 return;
             
             _currentTime += deltaTime;
 
             Ticked?.Invoke(GetArgs());
             
-            if (IsTimeout()) 
+            if (IsTimeout())
+            {
+                Finished?.Invoke(GetArgs());
                 Stop();
+            }
         }
 
         private bool IsTimeout()

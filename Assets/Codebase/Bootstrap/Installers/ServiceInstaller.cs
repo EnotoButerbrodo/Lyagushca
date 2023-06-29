@@ -1,5 +1,6 @@
 ﻿using Cinemachine;
 using Codebase.Services;
+using Codebase.Services.JumpComboService;
 using EnotoButebrodo;
 using EnotoButerbrodo.LevelGeneration;
 using Lyaguska.Actors.StateMachine;
@@ -24,7 +25,7 @@ namespace Lyaguska.Bootstrap.Installers
             IInputService inputService = BindInputService();
             ICoroutineRunner coroutineRunner = BindCoroutineRunner();
             
-            BindTimerService();
+            ITimersService timersService = BindTimerService(pauseService);
             BindBackgroundSound();
 
             BindCameraService(resetService);
@@ -32,6 +33,7 @@ namespace Lyaguska.Bootstrap.Installers
             BindJumpForceCharger(resetService, pauseService, coroutineRunner);
             BindLevelGeneration(resetService);
             BindActorSelectService(actorFactory, resetService);
+            BindComboService(resetService, timersService);
 
             BindPlayerControlService(inputService, pauseService);
             BindProgressService();
@@ -104,13 +106,20 @@ namespace Lyaguska.Bootstrap.Installers
             return inputService;
         }
 
-        private void BindTimerService()
+        private ITimersService BindTimerService(IPauseService pause)
         {
+            var timers = Container
+                .InstantiateComponentOnNewGameObject<TimersService>();
+            
             Container
                 .Bind<ITimersService>()
                 .To<TimersService>()
-                .FromNewComponentOnNewGameObject()
+                .FromInstance(timers)
                 .AsSingle();
+            
+            pause.Register(timers);
+
+            return timers;
         }
 
         private void BindBackgroundSound()
@@ -226,6 +235,21 @@ namespace Lyaguska.Bootstrap.Installers
                 .To<ActorDieCheckService>()
                 .FromNew()
                 .AsSingle();
+        }
+
+        private void BindComboService(IResetService resetService
+            , ITimersService timersService)
+        {
+            var comboService = new JumpComboService(timersService
+            , Container.Resolve<JumpsConfig>());
+
+            Container
+                .Bind<IJumpComboService>()
+                .To<JumpComboService>()
+                .FromInstance(comboService)
+                .AsSingle();
+            
+            resetService.Register(comboService);
         }
     }
 }
