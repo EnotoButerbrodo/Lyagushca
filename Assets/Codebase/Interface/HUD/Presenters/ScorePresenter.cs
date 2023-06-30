@@ -17,11 +17,11 @@ namespace Lyaguska.HUD
         [Inject] private IScoreService _scoreService;
         [Inject] private IPauseService _pauseService;
         [Inject] private IProgressService _progress;
-
+        [Inject] private IJumpCombo _jumpCombo;
 
         private void OnScoreChanged(int score)
         {
-            int combo = _scoreService.JumpCombo.Combo;
+            int combo = _jumpCombo.Combo;
             _scoreText.enabled = score > 0;
             _scoreText.SetText($"{score} X{combo}");
         }

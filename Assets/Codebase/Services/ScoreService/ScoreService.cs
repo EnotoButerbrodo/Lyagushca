@@ -26,8 +26,7 @@ namespace Codebase.Services.ScoreService
                 
             }
         }
-
-        public IJumpCombo JumpCombo => _jumpCombo;
+        
         private int _score;
         private int _scoreBuffer;
         
@@ -80,7 +79,6 @@ namespace Codebase.Services.ScoreService
         {
             _jumpPosition = 0;
             Score = 0;
-            _jumpCombo.Reset();
         }
     }
 }

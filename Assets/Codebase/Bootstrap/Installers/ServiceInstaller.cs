@@ -26,8 +26,9 @@ namespace Lyaguska.Bootstrap.Installers
             IDistanceCountService distanceCount = BindDistanceCountService(resetService);
             
             ITimersService timersService = BindTimerService(pauseService);
-
-            BindScoreService(resetService, distanceCount, timersService);
+            IJumpCombo jumpCombo = BindJumpCombo(timersService, resetService);
+            
+            BindScoreService(resetService, distanceCount, timersService, jumpCombo);
             BindBackgroundSound();
 
             BindCameraService(resetService);
@@ -241,15 +242,30 @@ namespace Lyaguska.Bootstrap.Installers
                 .AsSingle();
         }
 
-        private void BindScoreService(IResetService resetService
-            , IDistanceCountService distanceCount
-            , ITimersService timersService)
+        private IJumpCombo BindJumpCombo(ITimersService timersService
+            , IResetService resetService)
         {
-            
-            var comboService = new JumpCombo(timersService
+            JumpCombo jumpCombo = new JumpCombo(timersService
                 , Container.Resolve<JumpsConfig>());
             
-            ScoreService scoreService = new ScoreService(comboService
+            Container
+                .Bind<IJumpCombo>()
+                .To<JumpCombo>()
+                .FromInstance(jumpCombo)
+                .AsSingle();
+            
+            resetService.Register(jumpCombo);
+
+            return jumpCombo;
+        }
+        
+        private void BindScoreService(IResetService resetService
+            , IDistanceCountService distanceCount
+            , ITimersService timersService
+            , IJumpCombo jumpCombo)
+        {
+            
+            ScoreService scoreService = new ScoreService(jumpCombo
                 , distanceCount
                 , Container.Resolve<ScoreConfig>());
 
