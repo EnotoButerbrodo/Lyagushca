@@ -24,20 +24,22 @@ namespace Lyaguska.Bootstrap.Installers
             IInputService inputService = BindInputService();
             ICoroutineRunner coroutineRunner = BindCoroutineRunner();
             IDistanceCountService distanceCount = BindDistanceCountService(resetService);
-
+            
             ITimersService timersService = BindTimerService(pauseService);
+
+            BindScoreService(resetService, distanceCount, timersService);
             BindBackgroundSound();
 
             BindCameraService(resetService);
             BindJumpForceCharger(resetService, pauseService, coroutineRunner);
             BindLevelGeneration(resetService, distanceCount);
             BindActorSelectService(actorFactory, resetService);
-            BindScoreService(resetService, timersService, distanceCount);
 
             BindPlayerControlService(inputService, pauseService);
             BindProgressService();
             BindDieCheckService();
         }
+        
 
 
         private ICoroutineRunner BindCoroutineRunner()
@@ -240,14 +242,13 @@ namespace Lyaguska.Bootstrap.Installers
         }
 
         private void BindScoreService(IResetService resetService
-            , ITimersService timersService
-            , IDistanceCountService distanceCount)
+            , IDistanceCountService distanceCount
+            , ITimersService timersService)
         {
-            var comboService = new JumpComboService(timersService
-            , Container.Resolve<JumpsConfig>());
             
-            resetService.Register(comboService);
-
+            var comboService = new JumpCombo(timersService
+                , Container.Resolve<JumpsConfig>());
+            
             ScoreService scoreService = new ScoreService(comboService
                 , distanceCount
                 , Container.Resolve<ScoreConfig>());
@@ -258,7 +259,7 @@ namespace Lyaguska.Bootstrap.Installers
                 .FromInstance(scoreService)
                 .AsSingle();
             
-            resetService.Register(scoreService);
+            resetService.Register(scoreService); 
 
         }
     }

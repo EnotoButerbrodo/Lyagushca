@@ -20,7 +20,7 @@ namespace Lyaguska.Services
         private GameOverScreen _gameOverScreen;
         private TittleScreen _tittleScreen;
         private PauseButton _pauseButton;
-        private DistancePresenter _distancePresenter;
+        private ScorePresenter _scorePresenter;
 
         public void Load()
         {
@@ -38,8 +38,8 @@ namespace Lyaguska.Services
             _pauseButton = _container
                 .InstantiatePrefabForComponent<PauseButton>(_elements.PauseButton
                 , uiRoot);
-            _distancePresenter = _container
-                .InstantiatePrefabForComponent<DistancePresenter>(_elements.DistancePresenter
+            _scorePresenter = _container
+                .InstantiatePrefabForComponent<ScorePresenter>(_elements.ScorePresenter
                 ,uiRoot);
         }
 
@@ -55,8 +55,8 @@ namespace Lyaguska.Services
         public GameOverScreen GetGameOverScreen()
             => _gameOverScreen;
 
-        public DistancePresenter GetDistancePresenter()
-            => _distancePresenter;
+        public ScorePresenter GetScorePresenter()
+            => _scorePresenter;
 
     }
 }

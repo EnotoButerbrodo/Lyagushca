@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Codebase.Services.JumpComboService
 {
-    public class JumpComboService : IJumpComboService
+    public class JumpCombo : IJumpCombo
     {
         public event Action<int> ComboChanged;
         public event Action<int> ComboCleared; 
@@ -25,7 +25,7 @@ namespace Codebase.Services.JumpComboService
         private readonly JumpsConfig _jumpsConfig;
         private Timer _timer;
 
-        public JumpComboService(ITimersService timersService
+        public JumpCombo(ITimersService timersService
             , JumpsConfig jumpsConfig)
         {
             _timersService = timersService;

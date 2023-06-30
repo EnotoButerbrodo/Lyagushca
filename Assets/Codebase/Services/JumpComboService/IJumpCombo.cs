@@ -3,7 +3,7 @@ using Lyaguska.Services;
 
 namespace Codebase.Services.JumpComboService
 {
-    public interface IJumpComboService : IResetable
+    public interface IJumpCombo : IResetable
     {
         public event Action<int> ComboChanged;
         public int Combo { get; }

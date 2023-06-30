@@ -7,10 +7,31 @@ namespace Codebase.Services.ScoreService
 {
     public class ScoreService : IScoreService
     {
-        public int Score { get; private set; }
-        public int ScoreBuffer { get; private set; }
+        public int Score
+        {
+            get => _score;
+            set
+            {
+                _score = value;
+                ScoreChanged?.Invoke(_score);
+            }
+        }
+        public int ScoreBuffer
+        {
+            get => _scoreBuffer;
+            set
+            {
+                _scoreBuffer = value;
+                ScoreBufferChanged?.Invoke(_scoreBuffer);
+                
+            }
+        }
 
-        public ScoreService(IJumpComboService jumpCombo
+        public IJumpCombo JumpCombo => _jumpCombo;
+        private int _score;
+        private int _scoreBuffer;
+        
+        public ScoreService(IJumpCombo jumpCombo
             , IDistanceCountService distanceCount
             , ScoreConfig scoreConfig)
         {
@@ -23,7 +44,7 @@ namespace Codebase.Services.ScoreService
         public event Action<int> ScoreBufferChanged;
         
         
-        private readonly IJumpComboService _jumpCombo;
+        private readonly IJumpCombo _jumpCombo;
         private readonly IDistanceCountService _distanceCount;
         private readonly ScoreConfig _scoreConfig;
 
@@ -50,7 +71,7 @@ namespace Codebase.Services.ScoreService
 
             _jumpCombo.SetLand();
             
-            Score = Mathf.CeilToInt(jumpDistance) * _jumpCombo.Combo;
+            Score += Mathf.CeilToInt(jumpDistance) * _jumpCombo.Combo;
             Debug.Log(Score);
 
         }
@@ -58,6 +79,8 @@ namespace Codebase.Services.ScoreService
         public void Reset()
         {
             _jumpPosition = 0;
+            Score = 0;
+            _jumpCombo.Reset();
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Lyaguska.HUD;
 using Lyaguska.UI;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Lyaguska.Services
 {
@@ -11,14 +12,15 @@ namespace Lyaguska.Services
         [SerializeField] private GameOverScreen _gameOverScreenPrefab;
         [SerializeField] private TittleScreen _tittleScreenPrefab;
         [SerializeField] private PauseButton _pauseButtonPrefab;
-        [SerializeField] private DistancePresenter _distancePresenterPrefab;
+        [FormerlySerializedAs("_distancePresenterPrefab")] 
+        [SerializeField] private ScorePresenter scorePresenterPrefab;
         [SerializeField] private Transform _uiRoot;
         
         public PauseScreen PauseScreen => _pauseScreenPrefab;
         public GameOverScreen GameOverScreen => _gameOverScreenPrefab;
         public TittleScreen TittleScreen => _tittleScreenPrefab;
         public PauseButton PauseButton => _pauseButtonPrefab;
-        public DistancePresenter DistancePresenter => _distancePresenterPrefab;
+        public ScorePresenter ScorePresenter => scorePresenterPrefab;
         public Transform UIRoot => _uiRoot;
     }
 }

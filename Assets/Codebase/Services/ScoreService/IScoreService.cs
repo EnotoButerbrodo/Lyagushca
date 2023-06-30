@@ -1,4 +1,5 @@
 ﻿using System;
+using Codebase.Services.JumpComboService;
 using Lyaguska.Services;
 
 namespace Codebase.Services.ScoreService
@@ -7,6 +8,7 @@ namespace Codebase.Services.ScoreService
     {
         int Score { get; }
         int ScoreBuffer { get; }
+        IJumpCombo JumpCombo { get; }
         event Action<int> ScoreChanged;
         event Action<int> ScoreBufferChanged;
         void SetJump();

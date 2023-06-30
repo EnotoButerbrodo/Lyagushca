@@ -11,6 +11,6 @@ namespace Lyaguska.Services
 
         PauseButton GetPauseButton();
         GameOverScreen GetGameOverScreen();
-        DistancePresenter GetDistancePresenter();
+        ScorePresenter GetScorePresenter();
     }
 }

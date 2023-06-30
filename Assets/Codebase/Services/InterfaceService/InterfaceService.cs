@@ -17,7 +17,7 @@
         public void HideUI()
         {
             _uiFactory.GetPauseButton().gameObject.SetActive(false);
-            _uiFactory.GetDistancePresenter().Hide();
+            _uiFactory.GetScorePresenter().Hide();
         }
         public void ShowPauseScreen() 
             => _uiFactory.GetPauseScreen().Show();
